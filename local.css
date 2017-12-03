@@ -94,15 +94,26 @@ samp, kbd {
 
 
 
-div.requirement { 
-    counter-increment: requirement;
+.requirement { 
+/*    counter-increment: requirement; */
     background-color:#FFC;
+    font-style: italic;
+    font-weight: bold;
 }
 
-div.requirement p:before {
-	content: "C" counter(requirement) " \00A0";
+.requirement p:before {
+/*	content: "C" counter(requirement) " \00A0";  */
 	font-family:Tahoma, Geneva, NoToFu, sans-serif;
 	font-weight: bold;
+	font-size: smaller;
+	text-transform: capitalize;
+	color: #63F;
+}
+
+span.qrec {
+	font-family:Tahoma, Geneva, NoToFu, sans-serif;
+	font-weight: bold;
+	font-style: normal;
 	font-size: smaller;
 	text-transform: capitalize;
 	color: #63F;
@@ -112,18 +123,16 @@ SPAN.h\e9llo {
       text-decoration: underline; 
 }
 
-span.tableSub {
-	font-size: 12px;
-}
-    
+  
 span.dropExample {
     float: left;
     width: 6em;
+    clear: both;
     margin-left: -6em;
     text-align: center;
-    font-size: 200%;
-    font-family: sans-serif;
-    line-height: 80%;
+    font-size: 30pt;
+    font-family: serif;
+    line-height: 100%;
 }
     
 ul.dropExampleList {
@@ -131,25 +140,60 @@ ul.dropExampleList {
 }
     
 li.dropExampleItem {
-   padding-left: 6em;
+   padding-left: 12em;
    margin-bottom: 1em;
 }
     
+table {
+    border-collapse: collapse;
+}
 
 td.b1 {
-	background-color:#FF9;
+	background-color:#d7f9cf;
+	border: 2px solid black;
+	width: 20%;
+	text-align: center;
 }
 
 td.b2 {
-	background-color:#6FC;
+	background-color:#a1fcf9;
+	border: 2px solid black;
+	width: 20%;
+	text-align: center;
 }
 
 td.b3 {
-	background-color: #F99;
+	background-color: #fca1f7;
+	border: 2px solid black;
+	width: 20%;
+	text-align: center;
 }
 
 td.b-clear {
-	background-color: white;
+
+	border: 1px solid black;
+	width: 20%;
+	text-align: center;
+	font-size: 36pt;
+    font-family: serif;
+}
+
+.tableSub {
+    font-family: monospace;
+	font-size: 11px;
+	text-align: center;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.tableHead {
+	text-align: center;
+}
+
+td.bigtext {
+    font-size: 36pt;
+    text-align: center;
+    width: 20%;
 }
 
 div.exampleBox {
@@ -160,13 +204,19 @@ div.exampleBox {
 	width: 80%;
 }
 
+.exampleChar {
+    font-size: 36pt;
+    font-family: "Palatino", "Times", "Times New Roman", "Verdana", "NoToFu", serif;
+}
+
 .markup {
-	font-family: Lucida Console,NoToFu, monospaced;
+	font-family: Lucida Console,NoToFu, monospace;
 }
 
 .shakespeare {
   color: #03F;
   font-weight: bold;
+  font-family: serif;
   background-color: #EfEfEf;
 }
 
@@ -182,4 +232,49 @@ div.exampleBox {
 .sampleCharacter {
 	font-family: "NoToFu", "Code2000", "Lucida Console", sans-serif;
 }
+
+p.quote {
+    background-color:#CCC;
+    margin-left: 2em;
+    padding-left: 2em;
+    border-left: 6px solid #888888;
+}
+
+.uname {
+     font-size: 75%;
+     margin: 0 2px;
+     letter-spacing: 0.05em;
+}
+
+.codepoint [lang="en"] {
+     font-size: 120%;
+}
+
+div.terminologyExample {
+     background-color:white;
+     text-align: left; 
+     border-style: solid; 
+     border-width:3px; 
+     padding-left: 20px; 
+     padding-right: 20px; 
+     padding-top: 10px; 
+     padding-bottom: 10px; 
+     width: 90%;
+}
+
+.lnum {
+    float: left;
+    margin-left: -15px;
+    font-size: 75%;
+    color: gray;
+    font-family: Lucida Console,NoToFu,monospace;
+}
+
+p.syntaxExample {
+    padding: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    hyphens: none;
+}
+
 
