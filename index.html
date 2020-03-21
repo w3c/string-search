@@ -12,7 +12,7 @@
           useExperimentalStyles: true,
           // specification status (e.g. WD, LCWD, NOTE, etc.). If in doubt use ED.
           specStatus:				"ED",
-          publishDate:  			"2017-12-03",
+          publishDate:  			"2020-03-20",
           //previousMaturity:  		"ED",
 
           noRecTrack:           true,
@@ -26,7 +26,7 @@
           // only "name" is required
           editors:  [
               { name: "Addison Phillips", 
-                company: "Invited Expert",
+                company: "Amazon.com",
 				w3cid: 33573 },
           ],
 
@@ -135,8 +135,8 @@
 	  to allow greater interoperability. String searching refers to natural 
 	  language string matching such as the "find" command in a Web browser. This 
 	  document builds upon the concepts found in <cite>Character Model for the 
-	  World Wide Web 1.0: Fundamentals </cite>[[!CHARMOD]] and <cite>Character 
-	  Model for the World Wide Web 1.0: String Matching</cite> [[!CHARMOD-NORM]] 
+	  World Wide Web 1.0: Fundamentals </cite>[[CHARMOD]] and <cite>Character 
+	  Model for the World Wide Web 1.0: String Matching</cite> [[CHARMOD-NORM]] 
 	  to provide authors of specifications, software developers, and content 
 	  developers the information they need to describe and implement search 
 	  features suitable for global audiences. </p>
@@ -167,8 +167,8 @@
 		there are many other forms of searching that a specification might wish 
 		to define. </p>
         <p class="note">This document builds on <cite>Character Model for the 
-		World Wide Web: Fundamentals</cite> [[!CHARMOD]] and <cite>Character 
-		Model for the Word Wide Web: String Matching</cite> [[!CHARMOD-NORM]]. 
+		World Wide Web: Fundamentals</cite> [[CHARMOD]] and <cite>Character 
+		Model for the Word Wide Web: String Matching</cite> [[CHARMOD-NORM]]. 
 		Understanding the concepts in those documents are important to being 
 		able to understand and apply this document successfully.</p>
         <p>The main target audience of this specification is W3C specification 
@@ -200,169 +200,7 @@
         <h3>Terminology and Notation</h3>
         <p>This section contains terminology and notation specific to this
           document.</p>
-        <p>The Web is built on text-based formats and protocols. In order to
-          describe string matching or searching effectively, it is necessary to
-          establish terminology that allows us to talk about the different kinds
-          of text within a given format or protocol, as the requirements and
-          details vary significantly. </p>
-        <p>Unicode code points are denoted as <code class="kw" translate="no">U+<em>hhhh</em></code>,
-          where <code class="kw" translate="no"><em>hhhh</em></code> is a sequence of at
-          least four, and at most six hexadecimal digits. For example, the
-          character <span class="codepoint"><span lang="en">&#x20AC;</span> [<span class="uname">U+20AC EURO SIGN</span>]</span> has the code point <span class="uname" translate="no">U+20AC</span>.</p>
-        <p>Some characters that are used in the various examples might not
-          appear as intended unless you have the appropriate font. Care has been
-          taken to ensure that the examples nevertheless remain understandable.</p>
-        <p>A <dfn data-lt="legacy character encoding|legacy character encodings">legacy
-            character encoding</dfn> is a character encoding not based on the
-          Unicode character set.</p>
-          
-                   
-        <p>A <dfn data-lt="transcoder|transcoders">transcoder</dfn> is a process that converts 
-		text between two character encodings. Most commonly in this document it 
-		refers to a process that converts from a <a>legacy character encoding</a> 
-        to a <a href="http://www.w3.org/TR/2005/REC-charmod-20050215/#Unicode_Encoding_Form">Unicode encoding form</a>, 
-		such as UTF-8.</p>
-        <p><dfn id="def_syntactic_content">Syntactic content</dfn> is any text in a document format or protocol that belongs to the structure of the format or protocol. This definition includes values that are typically thought of as "markup" but can also include other values, such as the name of a field in an HTTP header. Syntactic content consists of all of the characters that form the <em>structure</em> of a format or protocol. For example, <span class="qchar">&lt;</span> and <span class="qchar">&gt;</span> (as well as the element name and various attributes they surround) are part of the syntactic content in an HTML document.</p>
-        <p>Syntactic content usually is defined by a specification or specifications and
-          includes both the defined, reserved keywords for the given protocol or
-          format as well as string tokens and identifiers that are defined by
-          document authors to form the structure of the document (rather than
-        the "content" of the document).</p>
-        <aside class="example">
-          <p><cite>XML</cite> [[XML10]] defines specific elements, attributes,
-            and values that are reserved across all XML documents. Thus, the
-            word <code class="kw" translate="no">encoding</code> has a defined
-            meaning inside the XML document declaration: it is a reserved name.
-            XML also allows a user to define elements and attributes for a given
-            document, for example, by using a DTD. In a document that uses a DTD that defines an
-            element called <code class="kw">&lt;muffin&gt;</code>, <span class="qterm">muffin</span>
-          is a part of the syntactic content.</p>
-        </aside>
-        <p><dfn>Natural language content</dfn> refers to the language-bearing
-          content in a document and <b>not</b> to any of the surrounding or embedded 
-          syntactic content that form part of the document structure. You can think
-          of it as the actual "content" of the document or the "message" in a
-          given protocol. Note that syntactic content can contain natural
-          language content, such as when an [[HTML]] <code class="kw">img</code> element
-          has an <code class="kw">alt</code> attribute containing a description of
-          the image.</p>
-          
-        <p>A <dfn data-lt="resource|resources">resource</dfn>, in the context of this document,  is a given
-          document, file, or protocol "message" which includes both the <a>natural
-            language content</a> as well as the <a href="#def_syntactic_content" class="termref">syntactic content</a>
-          such as identifiers surrounding or containing it. For example, in an
-          HTML document that also has some CSS and a few <code class="kw" translate="no">script</code>
-          tags with embedded JavaScript, the entire HTML document, considered as
-          a file, is a resource. This term is intentionally similar to the term 
-		'resource' as used in [[RFC3986]], although here the term is applied 
-		loosely. </p>
-          
-        <p>A <dfn data-lt="user-supplied value|user-supplied values">user-supplied value</dfn> is unreserved syntactic 
-        content in a <a>vocabulary</a> that is assigned by users, as distinct 
-        from reserved keywords in a given format
-        or protocol. For example, CSS class names are part of the syntax of a CSS
-        style sheet. They are not reserved keywords, predefined by any CSS specification.
-        They are subject to the syntactic rules of CSS. And they may (or may not)
-        consist of natural language tokens.</p>
-          
-        <p>A <dfn id="def_vocabulary">vocabulary</dfn> provides the list of
-          reserved names as well as the set of rules and specifications
-          controlling how <a>user-supplied values</a> (such as identifiers) can be assigned in a
-          format or protocol. This can include restrictions on range, order, or
-          type of characters that can appear in different places. For example,
-          HTML defines the names of its elements and attributes, as well as
-          enumerated attribute values, which defines the "vocabulary" of HTML
-          <a href="#def_syntactic_content" class="termref">syntactic content</a>. 
-		Another example would be ECMAScript, which restricts the range of 
-		characters that can appear at the start or in the body of an identifier 
-		or variable name. It applies different rules for other cases, such as to 
-		the values of string literals.</p>
-		
-        <p>A <dfn data-lt="grapheme|graphemes">grapheme</dfn> is a sequence of
-          one or more characters in a visual representation of some text
-          that a typical user would perceive as being a single unit (<q>character</q>).
-          Graphemes are important for a number of text operations such as
-          sorting or text selection, so it is necessary to be able to compute
-          the boundaries between each user-perceived character. Unicode defines
-          the default mechanism for computing graphemes in <cite>Unicode
-            Standard Annex #29: Text Segmentation</cite> [[!UAX29]] and calls
-          this approximation a <dfn>grapheme cluster</dfn>. There are two types
-          of default grapheme cluster defined. Unless otherwise noted, grapheme
-          cluster in this document refers to an extended default grapheme
-          cluster. (A discussion of grapheme clusters is also given in Section 2
-           of the <cite>Unicode Standard</cite>, [[!Unicode]]. Cf. near the end of
-           <a href="http://www.unicode.org/versions/Unicode8.0.0/ch02.pdf">Section 2.11</a>
-           in version 8.0 of The Unicode Standard)</p>
-        <p>Because different natural languages have different needs, grapheme clusters
-          can also sometimes require tailoring. For example, a Slovak user might
-          wish to treat the default pair of grapheme clusters "ch" as a single
-          grapheme cluster. Note that the interaction between the language of
-          string content and the end-user's preferences might be complex.</p>
-        <aside class="example">
-			<p>The Hindi word for Unicode <q>&#x92f;&#x942;&#x928;&#x93f;&#x915;&#x94b;&#x921;</q> is composed of seven Unicode characters from the Devanagari script.
-			</p>
-          <p>Most users would identify this word as containing four units of text. Each of the first three graphemes consists of two characters: a syllable and a
-            modifying vowel character. So the word contains seven Unicode characters, but only four graphemes:
-            
-            <table>
-				<tr>
-					<td>Word</td>
-					<td colspan=7 class="bigtext">&#x92f;&#x942;&#x928;&#x93f;&#x915;&#x94b;&#x921;</td>
-				</tr>
-				<tr>
-					<td>Graphemes</td>
-					<td class="bigtext" colspan=2>&#x92f;&#x942;</td>
-					<td class="bigtext" colspan=2>&#x928;&#x93f;</td>
-					<td class="bigtext" colspan=2>&#x915;&#x94b;</td>
-					<td class="bigtext">&#x921;</td>
-				</tr>
-				<tr>
-					<td>Code Points</td>
-					<td class="bigtext">&#x92f;</td>
-					<td class="bigtext">&#x942;</td>
-					<td class="bigtext">&#x928;</td>
-					<td class="bigtext">&#x93f;</td>
-					<td class="bigtext">&#x915;</td>
-					<td class="bigtext">&#x94b;</td>
-					<td class="bigtext">&#x921;</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td>U+092F</td>
-					<td>U+0942</td>
-					<td>U+0928</td>
-					<td>U+093f</td>
-					<td>U+0915</td>
-					<td>U+094b</td>
-					<td>U+0921</td>
-				</tr>
-            </table>
-            
-            </p>
-        </aside>
-        <section>
-        <h5>Terminology Examples</h5>
-        <p>This section illustrates some of the terminology defined above. For illustration purposes we'll use the following small HTML file as an example (line numbers added for reference):</p>
-          <div class=terminologyExample>
-            <p class=syntaxExample><span class=lnum>1 </span> <span class="markup">&lt;<span class="vocabulary">html</span> <span class="vocabulary">lang</span>="<span class=userValue>en</span>" <span class="vocabulary">dir</span>="<span class="vocabulary">ltr</span>"&gt;</p>
-            <p class=syntaxExample><span class=lnum>2 </span>&lt;<span class="vocabulary">head</span>&gt;</span></p>
-            <p class=syntaxExample><span class=lnum>3 </span><span class="markup">&nbsp;&nbsp;&lt;<span class="vocabulary">meta</span> <span class="vocabulary">charset</span>="<span class=userValue>UTF-8</span>"&gt;</p>
-            <p class=syntaxExample><span class=lnum>4 </span><span class=markup>&nbsp;&nbsp;&lt;<span class="vocabulary">title</span>&gt;</span><span class="shakespeare">Shakespeare</span><span class="markup">&lt;/<span class="vocabulary">title</span>&gt;</p>
-            <p class=syntaxExample><span class=lnum>5 </span>&lt;/<span class="vocabulary">head</span>&gt;</p>
-            <p class=syntaxExample><span class=lnum>6 </span>&lt;<span class="vocabulary">body</span>&gt;</p>
-            <p class=syntaxExample><span class=lnum>7 </span><span class=markup>&nbsp;&nbsp;&lt;<span class="vocabulary">img</span> <span class="vocabulary">src</span>="<span class="userValue">shakespeare.jpg</span>" <span class="vocabulary">alt</span>="<span class="userValue"><span class="shakespeare">William Shakespeare</span></span>" <span class="vocabulary">id</span>="<span class="userValue">shakespeare_image</span>"&gt;</p>
-            <p class=syntaxExample><span class=lnum>8 </span><span class=markup>&nbsp;&nbsp;&lt;<span class="vocabulary">p</span>&gt;</span><span class="shakespeare">What<span class="markup">&amp;#x2019;</span>s in a name? That which we call a rose by any other name would smell as sweet.</span><span class="markup">&lt;/<span class="vocabulary">p</span>&gt;</p>
-            <p class=syntaxExample><span class=lnum>9 </span>&lt;/<span class="vocabulary">body</span>&gt;</p>
-            <p class=syntaxExample><span class=lnum>10 </span>&lt;/<span class="vocabulary">html</span>&gt;</span> </p>
-          </div>
-          <ul style="text-align:left">
-          <li>Everything inside the black rectangle (that is, in this HTML file) is part of the <a>resource</a>.</li>
-          <li><a>Syntactic content</a> in this case includes all of the HTML markup. There are only two strings that are <strong>not</strong> part of the syntactic content: the word <em>"Shakespeare"</em> on line 4 and the sentence <em>"What&#x2019;s in a name? That which we call a rose by any other name would smell as sweet."</em> on line 8. (The HTML entity <q><kbd>&amp;#x2019;</kbd></q> embedded in the sentence on line 8 <em>is</em> part of the syntactic content.)</li>
-          <li><a>Natural language content</a> is shown in a <span class="shakespeare">bold blue font with a gray background</span>. In addition to the non-syntactic content, the <kbd>alt</kbd> value on line 7 (<em><q>William Shakespeare</q></em>) contains natural language text.</li>
-          <li>User-supplied values are shown in <span class="userValue">italics</span>. In this case there are three user-supplied values on line 7: the values of the <kbd>src</kbd>, <kbd>alt</kbd>, and <kbd>id</kbd> attributes of the <kbd>img</kbd> tag. In addition, the value of the <kbd>lang</kbd> attribute on line 1 and the <kbd>charset</kbd> attribute on line 3 are user-supplied values.</li>
-          <li><a>Vocabulary</a> is shown with <span class="vocabulary">red underlining</span>. The vocabulary of an HTML document are the elements and attributes (as well as some of the attribute values, such as the value <kbd>ltr</kbd> for the attribute <kbd>dir</kbd> in the example above) defined in [[HTML5]].</li>
-          </ul>
-          <p class=note>All of the text above (all text in a text file) makes up the resource. It's possible that a given resource will contain no natural language content at all (consider an HTML document consisting of four empty <code>div</code> elements styled to be orange rectangles). It's also possible that a resource will contain <em>no</em> syntactic content and consist solely of natural language content: for example, a plain text file with a soliloquy from <cite>Hamlet</cite> in it. Notice too that the HTML entity <code>&amp;#x2019;</code> appears in the natural language content and belongs to both the natural language content and the syntactic content in this resource.</p>
+        <p>Much of the special terminology needed to understand this document is provided by [[!CHARMOD-NORM]] and can be found in the <a href="https://www.w3.org/TR/charmod-norm/#terminology">Terminology and Notation</a> section of that document.
         </section>
       </section>
       <section id="conformance">
@@ -378,11 +216,7 @@
         </ol>
 
         <p class=note>Requirements placed on specifications might indirectly cause requirements to be placed on implementations or content that claim to conform to those specifications.</p>
-        <p>Where this specification contains a procedural description, it is to be understood as a way to specify the desired external behavior. Implementations MAY use other means of achieving the same results, as long as observable behavior is not affected.</p>
-      </section>
 
-      <section id="conformance">
-      <h3>Conformance</h3>
         <p>Where this specification contains a procedural description, it is to 
 		be understood as a way to specify the desired external behavior. 
 		Implementations can use other means of achieving the same results, as 
@@ -391,6 +225,22 @@
     </section>
     <section id="searching">
       <h2>String Searching in Natural Language Content</h2>
+      
+      <div class="issue">
+		  <p>String searching is widely implemented in browsers and other user agents, but has not historically been well documented. Various W3C working groups have attempted to provide such documentation in the past. The most recent effort produced the following issues:</p>
+		  <dl>
+			  <li><a href="https://github.com/w3c/i18n-activity/issues/111">111</a></li>
+			  <li><a href="https://github.com/w3c/i18n-activity/issues/110">110</a></li>
+			  <li><a href="https://github.com/w3c/i18n-activity/issues/109">109</a></li>
+			  <li><a href="https://github.com/w3c/i18n-activity/issues/108">108</a></li>
+			  <li><a href="https://github.com/w3c/i18n-activity/issues/107">107</a></li>
+			  <li><a href="https://github.com/w3c/i18n-activity/issues/106">106</a></li>
+			  <li><a href="https://github.com/w3c/i18n-activity/issues/105">105</a></li>
+			  <li><a href="https://github.com/w3c/i18n-activity/issues/104">104</a></li>
+			  <li><a href="https://github.com/w3c/i18n-activity/issues/103">103</a></li>
+		  </dl>
+      </div>
+      
       <p>Many Web implementations and applications have a need for users or 
 	  programs to search documents for particular words or phrases of natural 
 	  language text. This is different from the sorts of programmatic matching 
@@ -654,7 +504,8 @@
       <h2 id="Acknowledgements" class="informative">Acknowledgements</h2>
       <p>The W3C Internationalization Working Group and Interest Group, as well 
 	  as others, provided many comments and suggestions. The Working Group would 
-	  like to thank: all of the [[!CHARMOD]] contributors.. </p>
+	  like to thank: all of the contributors to the Character Model series of documents
+	  over the many years of their development. </p>
     </section>
   </body>
 </html>
