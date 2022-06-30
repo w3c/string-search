@@ -3,10 +3,11 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <title>String Searching</title>
-    <!--<link rel="canonical" href="http://www.w3.org/TR/2015/WD-string-search-20151119/"/> -->
+
     <!-- local styles. Includes the styles from http://www.w3.org/International/docs/styleguide -->
     <link rel="stylesheet" href="local.css" type="text/css">
-	<script src="https://www.w3.org/Tools/respec/respec-w3c-common" async class="remove"></script>
+    
+	<script src="https://www.w3.org/Tools/respec/respec-w3c" async class="remove"></script>
     <script class="remove">
       var respecConfig = {
           useExperimentalStyles: true,
@@ -19,6 +20,8 @@
           shortName:            "string-search",
           copyrightStart: 		"2016",
           edDraftURI:   		"https://w3c.github.io/string-search/",
+          group:                "i18n",
+          github:               "w3c/string-search",
 
           // lcEnd: "2009-08-05",
 
@@ -26,7 +29,6 @@
           // only "name" is required
           editors:  [
               { name: "Addison Phillips", 
-                company: "Amazon.com",
 				w3cid: 33573 },
           ],
 
@@ -131,97 +133,54 @@
 </script> </head>
   <body>
     <section id="abstract">
-      <p>This document describes string searching operations on the Web in order 
-	  to allow greater interoperability. String searching refers to natural 
-	  language string matching such as the "find" command in a Web browser. This 
-	  document builds upon the concepts found in <cite>Character Model for the 
-	  World Wide Web 1.0: Fundamentals </cite>[[CHARMOD]] and <cite>Character 
-	  Model for the World Wide Web 1.0: String Matching</cite> [[CHARMOD-NORM]] 
-	  to provide authors of specifications, software developers, and content 
-	  developers the information they need to describe and implement search 
-	  features suitable for global audiences. </p>
+      <p>This document describes string searching operations on the Web in order to allow greater interoperability. String searching refers to natural language string matching such as the "find" command in a Web browser. This document builds upon the concepts found in <cite>Character Model for the World Wide Web 1.0: Fundamentals </cite>[[CHARMOD]] and <cite>Character 
+	  Model for the World Wide Web 1.0: String Matching</cite> [[CHARMOD-NORM]] to provide authors of specifications, software developers, and content developers the information they need to describe and implement search features suitable for global audiences. </p>
     </section>
     <section id="sotd">
       <div class="note">
-        <p data-lang="en" style="font-weight: bold; font-size: 120%">Sending 
-		comments on this document</p>
-        <p data-lang="en">If you wish to make comments regarding this document, 
-		please raise them as <a href="https://github.com/w3c/string-search/issues"
-
-            style="font-size: 120%;">github issues</a> against the lasted <a href="https://w3c.github.io/string-search">
-		editor's copy</a>. Only send comments by email if you are unable to 
-		raise issues on github (see links below). All comments are welcome.</p>
-        <p data-lang="en">To make it easier to track comments, please raise 
-		separate issues or emails for each comment, and point to the section you 
-		are commenting on using a URL.</p>
+        <p data-lang="en" style="font-weight: bold; font-size: 120%">Sending comments on this document</p>
+        <p data-lang="en">If you wish to make comments regarding this document, please raise them as <a href="https://github.com/w3c/string-search/issues" style="font-size: 120%;">github issues</a> against the latest <a href="https://w3c.github.io/string-search"> editor's copy</a>. Only send comments by email if you are unable to raise issues on github (see links below). All comments are welcome.</p>
+        
+        <p data-lang="en">To make it easier to track comments, please raise separate issues or emails for each comment, and point to the section you are commenting on using a URL.</p>
       </div>
     </section>
     <section id="intro">
       <h2>Introduction</h2>
       <section id="goals">
         <h3>Goals and Scope</h3>
-        <p>This document describes string searching—the process by which a 
-		specification or implementation matches a natural language string 
-		fragment against a specific document or series of documents. A common 
-		example of string searching is the "find" command in a Web browser, but 
-		there are many other forms of searching that a specification might wish 
-		to define. </p>
-        <p class="note">This document builds on <cite>Character Model for the 
-		World Wide Web: Fundamentals</cite> [[CHARMOD]] and <cite>Character 
-		Model for the Word Wide Web: String Matching</cite> [[CHARMOD-NORM]]. 
-		Understanding the concepts in those documents are important to being 
-		able to understand and apply this document successfully.</p>
-        <p>The main target audience of this specification is W3C specification 
-		developers who need to define some form of search or find algorithm: the 
-		goal is to provide a stable reference to the concepts, terms, and 
-		requirements needed.</p>
-        <p>The concepts described in this document provide authors of 
-		specifications, software developers, and content developers with a 
-		common reference for consistent, interoperable text searching on the 
-		World Wide Web. Working together, these three groups can build a 
-		globally accessible Web.</p>
+        <p>This document describes the problems, requirements, and considerations for specification or implementations of string searching operations. A common example of string searching is the "find" command in a Web browser, but there are many other forms of searching that a specification might wish to define. </p>
+        
+        <p class="note">This document builds on <cite>Character Model for the World Wide Web: Fundamentals</cite> [[CHARMOD]] and <cite>Character Model for the Word Wide Web: String Matching</cite> [[CHARMOD-NORM]]. Understanding the concepts in those documents are important to being able to understand and apply this document successfully.</p>
+        
+        <p>The main target audience of this specification is W3C specification developers who need to define some form of search or find algorithm: the goal is to provide a stable reference to the concepts, terms, and requirements needed.</p>
+        
+        <p>The concepts described in this document provide authors of specifications, software developers, and content developers with a common reference for consistent, interoperable text searching on the World Wide Web. Working together, these three groups can build a globally accessible Web.</p>
+        
+        <p>This document contains best practices and requirements for other specifications, as well as recommendations for implementations and content authors. These best practices for specifications (and others) can also be found in the Internationalization Working Group's document <cite>[[INTERNATIONAL-SPECS]]</cite>, which is intended to serve as a general reference for all Internationalization best practices in W3C specifications.</p>
+        
+        <aside class="note">
+            <p>In this document [[RFC2119]] keywords have their usual meaning. Best practices and definitions are set off from the remainder of the text with special formatting.</p>
+            <p class="advisement">Best practices appear with a different background color and decoration like this.</p>
+            <p class="definition">Definitions appear with a different background color and decoration like this.</p>
+            <p class="issue-example">Gaps or recommendations for future work appear with a different background color and decoration like this.</p>
+       </aside>
       </section>
+      
       <section id="background">
         <h3>Background</h3>
-        <p>At the core of the character model is the Universal Character Set 
-		(UCS), defined jointly by the <cite>Unicode Standard</cite>
-          [[!Unicode]] and ISO/IEC 10646 [[!ISO10646]]. In this document, <dfn>
-		Unicode</dfn>
-          is used as a synonym for the Universal Character Set. A successful 
-		character model allows Web documents authored in the world's writing 
-		systems, scripts, and languages (and on different platforms) to be 
-		exchanged, read, and searched by the Web's users around the world.</p>
-        <p>The first few chapters of the <cite>Unicode Standard</cite>
-          [[!Unicode]] provide useful background reading. In particular, the 
-		<cite>Unicode Collation Algorithm</cite> [[!UTS10]] contains a chapter 
-		on searching.</p>
+        <p>At the core of the character model is the Universal Character Set (UCS), defined jointly by the <cite>Unicode Standard</cite> [[Unicode]] and ISO/IEC 10646 [[ISO10646]]. In this document, <dfn>Unicode</dfn> is used as a synonym for the Universal Character Set. A successful character model allows Web documents authored in the world's writing systems, scripts, and languages (and on different platforms) to be exchanged, read, and searched by the Web's users around the world.</p>
+        
+        <p>The first few chapters of the <cite>Unicode Standard</cite> [[Unicode]] provide useful background reading. In addition, the <cite>Unicode Collation Algorithm</cite> [[UTS10]] contains a chapter on searching.</p>
       </section>
+      
       <section id="terminology">
         <h3>Terminology and Notation</h3>
         <p>This section contains terminology and notation specific to this
           document.</p>
-        <p>Much of the special terminology needed to understand this document is provided by [[!CHARMOD-NORM]] and can be found in the <a href="https://www.w3.org/TR/charmod-norm/#terminology">Terminology and Notation</a> section of that document.
+        <p>Much of the special terminology needed to understand this document is provided by [[CHARMOD-NORM]] and can be found in the <a href="https://www.w3.org/TR/charmod-norm/#terminology">Terminology and Notation</a> section of that document.
         </section>
       </section>
-      <section id="conformance">
-        <p>This document describes best practices and requirements for other specifications, as well as recommendations for implementations and content authors. These best practices for specifications (and others) can also be found in the Internationalization Working Group's document <cite>[[!INTERNATIONAL-SPECS]]</cite>, which is intended to serve as a general reference for all Internationalization best practices in W3C specifications.</p>
-        
-        <p class=requirement>When a best practice or requirement appears in this document, it has been styled to like this paragraph. Recommendations for specifications and spec authors are preceded by <span class=qrec>[S]</span>. Recommendations for implementations and software developers are preceeded by <span class=qrec>[I]</span>. Recommendations for content and content authors are preceeded by <span class=qrec>[C]</span>.</p>
-        <p>Specifications can claim conformance to this document if they:</p>
-        <ol type="1">
-          <li>do not violate any conformance criteria preceded by <span class=qrec>[S]</span> where the imperative is MUST or MUST NOT</li>
-          <li>document the reason for any deviation from criteria where the imperative is SHOULD, SHOULD NOT, or RECOMMENDED</li>
-          <li>make it a conformance requirement for implementations to conform to this document</li>
-          <li>make it a conformance requirement for content to conform to this document</li>
-        </ol>
-
-        <p class=note>Requirements placed on specifications might indirectly cause requirements to be placed on implementations or content that claim to conform to those specifications.</p>
-
-        <p>Where this specification contains a procedural description, it is to 
-		be understood as a way to specify the desired external behavior. 
-		Implementations can use other means of achieving the same results, as 
-		long as observable behavior is not affected.</p>
-      </section>
+ 
     </section>
     <section id="searching">
       <h2>String Searching in Natural Language Content</h2>
@@ -269,7 +228,7 @@
 	  <section id="otherEquivalences">
          <h3>Other Types of Equivalence</h3>
          
-         <p>In addition to the forms of character equivalence described in [[!CHARMOD-NORM]], there are other types of equivalence that are interesting when performing string searching. The forms of equivalence found in the String Matching document are all based on character properties assigned by Unicode or due to the mapping of  legacy character encodings to the Unicode character set. The "interesting equivalences" in this section that are outside of those defined by Unicode.</p>
+         <p>In addition to the forms of character equivalence described in [[CHARMOD-NORM]], there are other types of equivalence that are interesting when performing string searching. The forms of equivalence found in the String Matching document are all based on character properties assigned by Unicode or due to the mapping of  legacy character encodings to the Unicode character set. The "interesting equivalences" in this section that are outside of those defined by Unicode.</p>
 
 		 
 		 <p>For example, Japanese uses two syllabic scripts,
@@ -483,7 +442,7 @@
 		encoded in the text). </p>
         <p>When searching text, the concept of "grapheme boundaries" and 
 		"user-perceived characters" can be important. See Section 3 of <cite>
-		Character Model for the World Wide Web: Fundamentals</cite> [[!CHARMOD]] 
+		Character Model for the World Wide Web: Fundamentals</cite> [[CHARMOD]] 
 		for a description. For example, if the user has entered a capital "A" 
 		into a search box, should the software find the character &#xc0; 
 		(<span class="uname" translate="no">U+00C0 LATIN CAPITAL LETTER A WITH ACCENT GRAVE</span>)? 
