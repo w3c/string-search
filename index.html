@@ -1,12 +1,13 @@
 ﻿<!DOCTYPE html>
 <html dir="ltr" lang="en">
   <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta charset="UTF-8">
     <title>String Searching</title>
-    <!--<link rel="canonical" href="http://www.w3.org/TR/2015/WD-string-search-20151119/"/> -->
+
     <!-- local styles. Includes the styles from http://www.w3.org/International/docs/styleguide -->
     <link rel="stylesheet" href="local.css" type="text/css">
-	<script src="https://www.w3.org/Tools/respec/respec-w3c-common" async class="remove"></script>
+    
+	<script src="https://www.w3.org/Tools/respec/respec-w3c" async class="remove"></script>
     <script class="remove">
       var respecConfig = {
           useExperimentalStyles: true,
@@ -19,6 +20,8 @@
           shortName:            "string-search",
           copyrightStart: 		"2016",
           edDraftURI:   		"https://w3c.github.io/string-search/",
+          group:                "i18n",
+          github:               "w3c/string-search",
 
           // lcEnd: "2009-08-05",
 
@@ -26,7 +29,6 @@
           // only "name" is required
           editors:  [
               { name: "Addison Phillips", 
-                company: "Amazon.com",
 				w3cid: 33573 },
           ],
 
@@ -131,97 +133,53 @@
 </script> </head>
   <body>
     <section id="abstract">
-      <p>This document describes string searching operations on the Web in order 
-	  to allow greater interoperability. String searching refers to natural 
-	  language string matching such as the "find" command in a Web browser. This 
-	  document builds upon the concepts found in <cite>Character Model for the 
-	  World Wide Web 1.0: Fundamentals </cite>[[CHARMOD]] and <cite>Character 
-	  Model for the World Wide Web 1.0: String Matching</cite> [[CHARMOD-NORM]] 
-	  to provide authors of specifications, software developers, and content 
-	  developers the information they need to describe and implement search 
-	  features suitable for global audiences. </p>
+      <p>This document describes string searching operations on the Web in order to allow greater interoperability. String searching refers to natural language string matching such as the "find" command in a Web browser. This document builds upon the concepts found in <cite>Character Model for the World Wide Web 1.0: Fundamentals </cite>[[CHARMOD]] and <cite>Character Model for the World Wide Web 1.0: String Matching</cite> [[CHARMOD-NORM]] to provide authors of specifications, software developers, and content developers the information they need to describe and implement search features suitable for global audiences. </p>
     </section>
     <section id="sotd">
       <div class="note">
-        <p data-lang="en" style="font-weight: bold; font-size: 120%">Sending 
-		comments on this document</p>
-        <p data-lang="en">If you wish to make comments regarding this document, 
-		please raise them as <a href="https://github.com/w3c/string-search/issues"
-
-            style="font-size: 120%;">github issues</a> against the lasted <a href="https://w3c.github.io/string-search">
-		editor's copy</a>. Only send comments by email if you are unable to 
-		raise issues on github (see links below). All comments are welcome.</p>
-        <p data-lang="en">To make it easier to track comments, please raise 
-		separate issues or emails for each comment, and point to the section you 
-		are commenting on using a URL.</p>
+        <p data-lang="en" style="font-weight: bold; font-size: 120%">Sending comments on this document</p>
+        <p data-lang="en">If you wish to make comments regarding this document, please raise them as <a href="https://github.com/w3c/string-search/issues" style="font-size: 120%;">github issues</a> against the latest <a href="https://w3c.github.io/string-search"> editor's copy</a>. Only send comments by email if you are unable to raise issues on github (see links below). All comments are welcome.</p>
+        
+        <p data-lang="en">To make it easier to track comments, please raise separate issues or emails for each comment, and point to the section you are commenting on using a URL.</p>
       </div>
     </section>
     <section id="intro">
       <h2>Introduction</h2>
       <section id="goals">
         <h3>Goals and Scope</h3>
-        <p>This document describes string searching—the process by which a 
-		specification or implementation matches a natural language string 
-		fragment against a specific document or series of documents. A common 
-		example of string searching is the "find" command in a Web browser, but 
-		there are many other forms of searching that a specification might wish 
-		to define. </p>
-        <p class="note">This document builds on <cite>Character Model for the 
-		World Wide Web: Fundamentals</cite> [[CHARMOD]] and <cite>Character 
-		Model for the Word Wide Web: String Matching</cite> [[CHARMOD-NORM]]. 
-		Understanding the concepts in those documents are important to being 
-		able to understand and apply this document successfully.</p>
-        <p>The main target audience of this specification is W3C specification 
-		developers who need to define some form of search or find algorithm: the 
-		goal is to provide a stable reference to the concepts, terms, and 
-		requirements needed.</p>
-        <p>The concepts described in this document provide authors of 
-		specifications, software developers, and content developers with a 
-		common reference for consistent, interoperable text searching on the 
-		World Wide Web. Working together, these three groups can build a 
-		globally accessible Web.</p>
+        <p>This document describes the problems, requirements, and considerations for specification or implementations of string searching operations. A common example of string searching is the "find" command in a Web browser, but there are many other forms of searching that a specification might wish to define. </p>
+        
+        <p class="note">This document builds on <cite>Character Model for the World Wide Web: Fundamentals</cite> [[CHARMOD]] and <cite>Character Model for the Word Wide Web: String Matching</cite> [[CHARMOD-NORM]]. Understanding the concepts in those documents are important to being able to understand and apply this document successfully.</p>
+        
+        <p>The main target audience of this specification is W3C specification developers who need to define some form of search or find algorithm: the goal is to provide a stable reference to the concepts, terms, and requirements needed.</p>
+        
+        <p>The concepts described in this document provide authors of specifications, software developers, and content developers with a common reference for consistent, interoperable text searching on the World Wide Web. Working together, these three groups can build a globally accessible Web.</p>
+        
+        <p>This document contains best practices and requirements for other specifications, as well as recommendations for implementations and content authors. These best practices for specifications (and others) can also be found in the Internationalization Working Group's document <cite>[[INTERNATIONAL-SPECS]]</cite>, which is intended to serve as a general reference for all Internationalization best practices in W3C specifications.</p>
+        
+        <aside class="note">
+            <p>In this document [[RFC2119]] keywords have their usual meaning. Best practices and definitions are set off from the remainder of the text with special formatting.</p>
+            <p class="advisement">Best practices appear with a different background color and decoration like this.</p>
+            <p class="definition">Definitions appear with a different background color and decoration like this.</p>
+            <p class="issue-example">Gaps or recommendations for future work appear with a different background color and decoration like this.</p>
+       </aside>
       </section>
+      
       <section id="background">
         <h3>Background</h3>
-        <p>At the core of the character model is the Universal Character Set 
-		(UCS), defined jointly by the <cite>Unicode Standard</cite>
-          [[!Unicode]] and ISO/IEC 10646 [[!ISO10646]]. In this document, <dfn>
-		Unicode</dfn>
-          is used as a synonym for the Universal Character Set. A successful 
-		character model allows Web documents authored in the world's writing 
-		systems, scripts, and languages (and on different platforms) to be 
-		exchanged, read, and searched by the Web's users around the world.</p>
-        <p>The first few chapters of the <cite>Unicode Standard</cite>
-          [[!Unicode]] provide useful background reading. In particular, the 
-		<cite>Unicode Collation Algorithm</cite> [[!UTS10]] contains a chapter 
-		on searching.</p>
+        <p>At the core of the character model is the Universal Character Set (UCS), defined jointly by the <cite>Unicode Standard</cite> [[Unicode]] and ISO/IEC 10646 [[ISO10646]]. In this document, <dfn>Unicode</dfn> is used as a synonym for the Universal Character Set. A successful character model allows Web documents authored in the world's writing systems, scripts, and languages (and on different platforms) to be exchanged, read, and searched by the Web's users around the world.</p>
+        
+        <p>The first few chapters of the <cite>Unicode Standard</cite> [[Unicode]] provide useful background reading. In addition, the <cite>Unicode Collation Algorithm</cite> [[UTS10]] contains a chapter on searching.</p>
       </section>
+      
       <section id="terminology">
         <h3>Terminology and Notation</h3>
         <p>This section contains terminology and notation specific to this
           document.</p>
-        <p>Much of the special terminology needed to understand this document is provided by [[!CHARMOD-NORM]] and can be found in the <a href="https://www.w3.org/TR/charmod-norm/#terminology">Terminology and Notation</a> section of that document.
+        <p>Much of the special terminology needed to understand this document is provided by [[CHARMOD-NORM]] and can be found in the <a href="https://www.w3.org/TR/charmod-norm/#terminology">Terminology and Notation</a> section of that document.
         </section>
       </section>
-      <section id="conformance">
-        <p>This document describes best practices and requirements for other specifications, as well as recommendations for implementations and content authors. These best practices for specifications (and others) can also be found in the Internationalization Working Group's document <cite>[[!INTERNATIONAL-SPECS]]</cite>, which is intended to serve as a general reference for all Internationalization best practices in W3C specifications.</p>
-        
-        <p class=requirement>When a best practice or requirement appears in this document, it has been styled to like this paragraph. Recommendations for specifications and spec authors are preceded by <span class=qrec>[S]</span>. Recommendations for implementations and software developers are preceeded by <span class=qrec>[I]</span>. Recommendations for content and content authors are preceeded by <span class=qrec>[C]</span>.</p>
-        <p>Specifications can claim conformance to this document if they:</p>
-        <ol type="1">
-          <li>do not violate any conformance criteria preceded by <span class=qrec>[S]</span> where the imperative is MUST or MUST NOT</li>
-          <li>document the reason for any deviation from criteria where the imperative is SHOULD, SHOULD NOT, or RECOMMENDED</li>
-          <li>make it a conformance requirement for implementations to conform to this document</li>
-          <li>make it a conformance requirement for content to conform to this document</li>
-        </ol>
-
-        <p class=note>Requirements placed on specifications might indirectly cause requirements to be placed on implementations or content that claim to conform to those specifications.</p>
-
-        <p>Where this specification contains a procedural description, it is to 
-		be understood as a way to specify the desired external behavior. 
-		Implementations can use other means of achieving the same results, as 
-		long as observable behavior is not affected.</p>
-      </section>
+ 
     </section>
     <section id="searching">
       <h2>String Searching in Natural Language Content</h2>
@@ -244,50 +202,24 @@
 		  -->
       </div>
       
-      <p>Many Web implementations and applications have a need for users or 
-	  programs to search documents for particular words or phrases of natural 
-	  language text. This is different from the sorts of programmatic matching 
-	  needed by formal languages (such as markup languages such as [[HTML]]; 
-	  style sheets [[CSS21]]; or data formats such as [[TURTLE]] or [[JSON-LD]]). </p>
-      <p>There are many types of string searching. The form of string searching 
-	  which we'll concern ourselves with here is sub-string matching or "find" 
-	  operations. This is the direct searching of the body or "corpus" of a 
-	  document with the user's input. Find operations can have different options 
-	  or implementation details, such as the addition or removal of case 
-	  sensitivity, or whether the feature supports different aspects of a 
-	  regular expression language or "wildcards".</p>
-      <p>A different type of string searching, <strong>which is outside the 
-	  scope of this document</strong>, is <dfn>Full Text Search</dfn>. When you 
-	  are using a search engine, you are generally using a form of full text 
-	  search. Full text search generally breaks natural language text into word 
-	  segments and may apply complex processing to get at the semantic "root" 
-	  values of words. For example, if the user searches for "run", you might 
-	  want to find words like "running", "ran", or "runs" in addition to the 
-	  actual search term "run". This process, naturally, is sensitive to 
-	  language, context, and many other aspects of textual variation. </p>
+      <p>Many Web implementations and applications have a need for users or programs to search documents for particular words or phrases of natural language text. This is different from the sorts of programmatic matching needed by formal languages (such as markup languages such as [[HTML]]; style sheets [[CSS21]]; or data formats such as [[TURTLE]] or [[JSON-LD]]). </p>
+      
+      <p>There are many types of string searching. The form of string searching which we'll concern ourselves with here is sub-string matching or "find" operations. This is the direct searching of the body or "corpus" of a document with the user's input. Find operations can have different options or implementation details, such as the addition or removal of case 
+	  sensitivity, or whether the feature supports different aspects of a regular expression language or "wildcards".</p>
+	  
+      <p>A different type of string searching, <strong>which is outside the scope of this document</strong>, is <dfn>Full Text Search</dfn>. When you are using a search engine, you are generally using a form of full text search. Full text search generally breaks natural language text into word segments and may apply complex processing to get at the semantic "root" values of words. For example, if the user searches for "run", you might want to find words like "running", "ran", or "runs" in addition to the actual search term "run". This process, naturally, is sensitive to language, context, and many other aspects of textual variation. </p>
 	  
 	  <section id="otherEquivalences">
          <h3>Other Types of Equivalence</h3>
          
-         <p>In addition to the forms of character equivalence described in [[!CHARMOD-NORM]], there are other types of equivalence that are interesting when performing string searching. The forms of equivalence found in the String Matching document are all based on character properties assigned by Unicode or due to the mapping of  legacy character encodings to the Unicode character set. The "interesting equivalences" in this section that are outside of those defined by Unicode.</p>
-
+         <p>In addition to the forms of character equivalence described in [[CHARMOD-NORM]], there are other types of equivalence that are interesting when performing string searching. The forms of equivalence found in the String Matching document are all based on character properties assigned by Unicode or due to the mapping of  legacy character encodings to the Unicode character set. The "interesting equivalences" in this section that are outside of those defined by Unicode.</p>
 		 
-		 <p>For example, Japanese uses two syllabic scripts,
-		 <code>hiragana</code> and <code>katakana</code>. A 
-		 user searching a document might type in text in one script, but wish to find 
-		 equivalent text in both scripts. These additional "text 
-		 normalizations" are sometimes application, natural language, or domain 
-		 specific and shouldn't be overlooked by specifications or 
-		 implementations as an additional consideration.</p>
-		 <p>Another similar example is called <dfn>digit shaping</dfn>. Some scripts,
-		 such as Arabic or Thai, have their own digit characters for the numbers from 0 to 9.
-		 In some Web applications, the familiar ASCII digits are replaced for display
-		 purposes with the local digit shapes. In other cases, the text actually might
-		 contain the Unicode characters for the local digits. Users attempting to search
-		 a document might expect that typing one form of digit will find the eqivalent
-		 digits.</p>
+		 <p>For example, Japanese uses two syllabic scripts, <code>hiragana</code> and <code>katakana</code>. A user searching a document might type in text in one script, but wish to find equivalent text in both scripts. These additional "text normalizations" are sometimes application, natural language, or domain specific and shouldn't be overlooked by specifications or implementations as an additional consideration.</p>
+		 
+		 <p>Another similar example is called <dfn>digit shaping</dfn>. Some scripts, such as Arabic or Thai, have their own digit characters for the numbers from 0 to 9. In some Web applications, the familiar ASCII digits are replaced for display purposes with the local digit shapes. In other cases, the text actually might contain the Unicode characters for the local digits. Users attempting to search a document might expect that typing one form of digit will find the eqivalent digits.</p>
+		 
 		 <aside class="example" title="Examples of digit shapes in four scripts">
-		 <p>Here are some selected examples of different digit shapes, from zero to nine, in four scripts. Many scripts have equivalent sets of digits with distinct shapes.</p>
+		   <p>Here are some selected examples of different digit shapes, from zero to nine, in four scripts. Many scripts have equivalent sets of digits with distinct shapes.</p>
 		 
            <table style="position:center">
             <thead>
@@ -374,57 +306,29 @@
 	  
       <section id="searchingConsiderations">
         <h2>Considerations for Searching</h2>
-        <p class="issue">This section was identified as a new area needing 
-		document as part of the overall rearchitecting of the document. The text 
-		here is incomplete and needs further development. Contributions from the 
-		community are invited.</p>
-		  <p>Implementers often need to provide simple "find text" algorithms 
-		  and specifications often try to define APIs to support these needs. 
-		  Find operations on text generate different user expectations and thus 
-		  have different requirements from the need for absolute identity 
-		  matching needed by document formats and protocols. It is important to 
-		  note that domain-specific requirements may impose additional 
-		  restrictions or alter the considerations presented here.</p>
-		  <section id="UserInput">
-		  <h3>Variations in User Input</h3>
-        <p>One of the primary considerations for string searching is that, quite 
-		often, the user's input is not identical to the way that the text being 
-		searched is 
-		encoded. </p>
-			  <p>One primary reason this happens is because the text 
-		can vary in ways the user cannot predict. In other cases it is because the user's keyboard 
-		or input method does not provide ready access to the textual variations 
-		needed&mdash;or because the user cannot be bothered to input the text accurately. For example,
-		users often omit accents when entering Latin-script languages, particularly on mobile keyboards, even though the text they
-		are searching includes the accents. In these cases, users generally expect the search operation to be more 
-		"promiscuous" to make up for the failure to add additional effort to 
-		their input. </p>
-		  <p>For example, a user might expect a term entered in lowercase to 
-		  match uppercase equivalents. Conversely, when the user expends more 
-		  effort on the input&mdash;by using the shift key to produce uppercase or 
-		  by entering a letter with diacritics instead of just the base 
-		  letter&mdash;they might expect their search results to match (only) their 
-		  more-specific input.</p>
-		  <p>A different case is where the text can vary in multiple ways, but 
-		  the user can only type a single search term in. For example, the 
-		  Japanese language uses two different phonetic scripts, <em>hiragana</em> 
-		  and <em>katakana</em>. These scripts encode the same phonemes; thus 
-		  the user might expect that typing in a search term in <em>hiragana</em> 
-		  would find the exact same word spelled out in <em>katakana</em>. </p>
-			  <p>A 
-		  different example might be the presence or absence of short vowels in 
-		  the Arabic and Hebrew scripts. For most languages in these scripts, 
-		  the inclusion of the short vowels is entirely optional, but the 
-		  presence of vowels in text being searched might impede a match if the 
-		  user doesn't enter or know to enter them.</p>
-        <p>This effect might vary depending on context as well. For example, a 
-		person using a physical keyboard may have direct access to accented 
-		letters, while a virtual or on-screen keyboard may require extra effort 
-		to access and select the same letters.</p>
-        <p>Consider a document containing these strings: "re-resume", 
-		"RE-RESUME", "re-r&#xe9;sum&#xe9;", and "RE-R&#xc9;SUM&#xc9;".</p>
-        <p>In the table below, the user's input (on the left) might be 
-		considered a match for the above items as follows:</p>
+        
+        <p class="issue">This section was identified as a new area needing document as part of the overall rearchitecting of the document. The text here is incomplete and needs further development. Contributions from the community are invited.</p>
+        
+		<p>Implementers often need to provide simple "find text" algorithms and specifications often try to define APIs to support these needs. Find operations on text generate different user expectations and thus have different requirements from the need for absolute identity matching needed by document formats and protocols. It is important to note that domain-specific requirements may impose additional restrictions or alter the considerations presented here.</p>
+		
+		<section id="UserInput">
+		<h3>Variations in User Input</h3>
+		
+        <p>One of the primary considerations for string searching is that, quite often, the user's input is not identical to the way that the text being searched is encoded.</p>
+        
+		<p>One primary reason this happens is because the text can vary in ways the user cannot predict. In other cases it is because the user's keyboard or input method does not provide ready access to the textual variations needed&mdash;or because the user cannot be bothered to input the text accurately. For example, users often omit accents when entering Latin-script languages, particularly on mobile keyboards, even though the text they are searching includes the accents. In these cases, users generally expect the search operation to be more "promiscuous" to make up for the failure to add additional effort to their input. </p>
+		
+		<p>For example, a user might expect a term entered in lowercase to match uppercase equivalents. Conversely, when the user expends more effort on the input&mdash;by using the shift key to produce uppercase or by entering a letter with diacritics instead of just the base letter&mdash;they might expect their search results to match (only) their more-specific input.</p>
+		
+		<p>A different case is where the text can vary in multiple ways, but the user can only type a single search term in. For example, the Japanese language uses two different phonetic scripts, <em>hiragana</em> and <em>katakana</em>. These scripts encode the same phonemes; thus the user might expect that typing in a search term in <em>hiragana</em> would find the exact same word spelled out in <em>katakana</em>.</p>
+		
+		<p>A different example might be the presence or absence of short vowels in the Arabic and Hebrew scripts. For most languages in these scripts, the inclusion of the short vowels is entirely optional, but the presence of vowels in text being searched might impede a match if the user doesn't enter or know to enter them.</p>
+		
+        <p>This effect might vary depending on context as well. For example, a person using a physical keyboard may have direct access to accented letters, while a virtual or on-screen keyboard may require extra effort to access and select the same letters.</p>
+        
+        <p>Consider a document containing these strings: "re-resume", "RE-RESUME", "re-r&#xe9;sum&#xe9;", and "RE-R&#xc9;SUM&#xc9;".</p>
+        
+        <p>In the table below, the user's input (on the left) might be considered a match for the above items as follows:</p>
         <table class="data">
           <tbody>
             <tr>
@@ -449,11 +353,9 @@
             </tr>
           </tbody>
         </table>
-        <p>In addition to variations of case or the use of accents, Unicode also 
-		has an array of canonical equivalents or compatibility characters (as 
-		described in the sections above) that might impact string searching.</p>
-        <p>For example, consider the letter "K". Characters with a compatibility 
-		mapping to <code>U+004B LATIN CAPITAL LETTER K</code> include:</p>
+        <p>In addition to variations of case or the use of accents, Unicode also has an array of canonical equivalents or compatibility characters (as described in the sections above) that might impact string searching.</p>
+        
+        <p>For example, consider the letter "K". Characters with a compatibility mapping to <code>U+004B LATIN CAPITAL LETTER K</code> include:</p>
         <ol>
           <li>&#x136; U+0136</li>
           <li>&#x1e8; U+01E8</li>
@@ -472,25 +374,13 @@
           <li>&#x1f11a; U+1F11A</li>
           <li>&#x1f13a; U+1F13A.</li>
         </ol>
-        <p>Other differences include Unicode Normalization forms (or lack 
-		thereof). There are also ignorable characters (such as the variation 
-		selectors), whitespace differences, bidirectional controls, and other 
-		code points that can interfere with a match. </p>
-        <p>Users might also expect certain kinds of equivalence to be applied to 
-		matching. For example, a Japanese user might expect that hiragana, 
-		katakana, and half-width compatibility katakana equivalents all match 
-		each other (regardless of which is used to perform the selection or 
-		encoded in the text). </p>
-        <p>When searching text, the concept of "grapheme boundaries" and 
-		"user-perceived characters" can be important. See Section 3 of <cite>
-		Character Model for the World Wide Web: Fundamentals</cite> [[!CHARMOD]] 
-		for a description. For example, if the user has entered a capital "A" 
-		into a search box, should the software find the character &#xc0; 
-		(<span class="uname" translate="no">U+00C0 LATIN CAPITAL LETTER A WITH ACCENT GRAVE</span>)? 
-		What about the character "A" followed by U+0300 (a combining accent 
-		grave)? What about writing systems, such as Devanagari, which use 
-		combining marks to suppress or express certain vowels?</p>
+        <p>Other differences include Unicode Normalization forms (or lack thereof). There are also ignorable characters (such as the variation selectors), whitespace differences, bidirectional controls, and other code points that can interfere with a match.</p>
+        
+        <p>Users might also expect certain kinds of equivalence to be applied to matching. For example, a Japanese user might expect that hiragana, katakana, and half-width compatibility katakana equivalents all match each other (regardless of which is used to perform the selection or encoded in the text).</p>
+        
+        <p>When searching text, the concept of "grapheme boundaries" and "user-perceived characters" can be important. See Section 3 of <cite>Character Model for the World Wide Web: Fundamentals</cite> [[CHARMOD]] for a description. For example, if the user has entered a capital "A" into a search box, should the software find the character &#xc0; (<span class="uname" translate="no">U+00C0 LATIN CAPITAL LETTER A WITH ACCENT GRAVE</span>)? What about the character "A" followed by U+0300 (a combining accent grave)? What about writing systems, such as Devanagari, which use combining marks to suppress or express certain vowels?</p>
       </section>
+      
       <section id="SearchOptions">
       <h3>Types of Search Option</h3>
       <p>When creating a string search API or algorithm, the following textual options might be useful to users:</p>
@@ -505,10 +395,7 @@
     </section>
     <section>
       <h2 id="Acknowledgements" class="informative">Acknowledgements</h2>
-      <p>The W3C Internationalization Working Group and Interest Group, as well 
-	  as others, provided many comments and suggestions. The Working Group would 
-	  like to thank: all of the contributors to the Character Model series of documents
-	  over the many years of their development. </p>
+      <p>The W3C Internationalization Working Group and Interest Group, as well as others, provided many comments and suggestions. The Working Group would like to thank: all of the contributors to the Character Model series of documents over the many years of their development. </p>
     </section>
   </body>
 </html>

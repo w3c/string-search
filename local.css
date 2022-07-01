@@ -1,280 +1,138 @@
-@font-face {
-  font-family: NoToFu;
-  font-style: normal;
-  font-weight: 400;
-  src: url('font.woff2') format('woff2');
+@charset "utf-8";
+
+.unicode {
+	font-style: normal
 }
 
-body {
-	counter-reset: requirement;
+.unicode:link {
+	color: #FF0000;
+	background-color: #FFFFFF;
 }
 
-h2 {
-	margin-top: 3em;
-	margin-bottom: 0em;
-	}
-.head h2, #abstract h2, #sotd h2 {
-	margin-top: 0;
-	}
-h3 {
-	margin-top: 3em;
-	}
-h4  { 
-	font-size: 100%; 
-    font-weight: normal; 
-    color: #005a9c; 
-    margin-top: 2em;  
-    }
-.leadin {
-	font-weight: bold;
-	}
-
-ins { 
-	background-color: #99FF99; 
-	text-decoration: none; 
-	}
-del { 
-	display: inline; 
-	color: silver; 
-	}
-
-figure { 
-	margin-bottom: 2em; 
-}
-figcaption {
-	text-align: center;
-	margin: 0.5em 2em;
-	font-style: italic;
-	font-size: 90%;
-	}
-.figno:after {
-	content: ':\00A0  ';
+.unicode:visited {
+	color: #808080;
+	background-color: #FFFFFF;
 }
 
-a.termref:link {
-	color:#C60;
-	text-decoration:none;
-	border-bottom: 1px dotted #FC0; 
-	}
-a.termref:hover {
-	color:#C60;
-	text-decoration:none;
-	border-bottom: 1px dotted #FC0; 
-	}
-a.termref:visited {
-	color:#C60;
-	text-decoration:none;
-	border-bottom: 1px dotted #FC0; 
-	}
-a.termref:active {
-	color:#C60;
-	text-decoration:none;
-	border-bottom: 1px dotted #FC0; 
-	}
-
-.qterm:before, .qchar:before { content: "'"; }
-.qterm:after, .qchar:after { content: "'"; }
-.quote:before { content: '"'; }
-.quote:after { content: '"'; }
-code { 
-	color: #A52A2A; 
-    font-family: Consolas, "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", Monaco, "Courier New", NoToFu, monospace; 
-    font-size: 100%; 
-    }
-samp, kbd { 
-	font-family: Consolas, "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", Monaco, "Courier New", NoToFu, monospace; 
-    font-size: 100%; 
-    }
-.uname {
-	text-transform: uppercase;
-	font-size: 85%;
-	letter-spacing:0.03em;
-	}
-
-
-
-
-.requirement { 
-/*    counter-increment: requirement; */
-    background-color:#FFC;
-    font-style: italic;
-    font-weight: bold;
+.unicode:active {
+	color: #0000FF;
+	background-color: #FFFFFF;
 }
 
-.requirement p:before {
-/*	content: "C" counter(requirement) " \00A0";  */
-	font-family:Tahoma, Geneva, NoToFu, sans-serif;
-	font-weight: bold;
-	font-size: smaller;
-	text-transform: capitalize;
-	color: #63F;
-}
-
-span.qrec {
-	font-family:Tahoma, Geneva, NoToFu, sans-serif;
-	font-weight: bold;
+em.unicode {
 	font-style: normal;
-	font-size: smaller;
-	text-transform: capitalize;
-	color: #63F;
 }
 
-SPAN.h\e9llo { 
-      text-decoration: underline; 
+ins {
+	background-color: #FF6;
 }
 
-  
-span.dropExample {
-    float: left;
-    width: 6em;
-    clear: both;
-    margin-left: -6em;
-    text-align: center;
-    font-size: 30pt;
-    font-family: serif;
-    line-height: 100%;
+p.cjk-demo {
+	font-size: 200%; 
+	text-align: center;
+	font-family: serif;
+}
+
+.req {
+    background-color: #FFC;
+    font-style: italic;
+}
+
+.req::before {
+    content: "\1f44d \00A0 ";
+    font-style: normal;
+    color: #63F;;
+}
+
+.reqex {
+    background-color: #FFC;
+    font-style: italic;
+}
+
+.reqex::before {
+    content: "\1f44d \00A0 Req. #: ";
+    font-style: normal;
+    color: #63F;;
+}
+
+.gap {
+    background-color: #FCF;
+    font-style: italic;
+}
+
+.gap::before {
+    content: "\1f631 \00A0 ";
+    font-style: normal;
+    color: #63F;;
+}
+
+kbd {
+   font-family: Menlo, Consolas, "DejaVu Sans Mono", Monaco, monospace;
+   font-size: .95em;
+   color: blue;
+   page-break-inside: avoid;
+   hyphens: none;
+   text-transform: none;
+   text-align: left;
+   text-align: start;
+}
+
+
+.summary {
+    padding: 1em;
+    background-color: antiquewhite;
+}
+
+a.self {
+    position: absolute;
+    top: -20px;
+    border: medium none;
+    transition: opacity 0.2s ease 0s;
+    opacity: 0.5;
+	color: #999;
+	text-decoration: none;
+	display: inline;
+}
+
+a.self:visited {
+	color: #999;
+}
+
+a.self:hover {
+	color: red;
+}
+
+.self::after {
+	content:  attr(href); 	
+	font-weight: normal;
+	font-style: italic;
+	font-size: 80%;
+}
+
+.advisement {
+    position: relative;
+}
+
+.definition {
+    position: relative;
+    background-color: #efefef;
+    padding: 0.5em;
+    border: 0.5em;
+    border-left: 6pt solid green;
+    border-right: 6pt solid green;
+    margin: 1em auto;
 }
     
-ul.dropExampleList {
-   list-style-type: none;
-}
-    
-li.dropExampleItem {
-   padding-left: 12em;
-   margin-bottom: 1em;
-}
-    
-table {
-    border-collapse: collapse;
-}
-
-td.b1 {
-	background-color:#d7f9cf;
-	border: 2px solid black;
-	width: 20%;
-	text-align: center;
-}
-
-td.b2 {
-	background-color:#a1fcf9;
-	border: 2px solid black;
-	width: 20%;
-	text-align: center;
-}
-
-td.b3 {
-	background-color: #fca1f7;
-	border: 2px solid black;
-	width: 20%;
-	text-align: center;
-}
-
-td.b-clear {
-
-	border: 1px solid black;
-	width: 20%;
-	text-align: center;
-	font-size: 36pt;
-    font-family: serif;
-}
-
-.tableSub {
-    font-family: monospace;
-	font-size: 11px;
-	text-align: center;
-	padding-left: 15px;
-	padding-right: 15px;
-}
-
-.tableHead {
-	text-align: center;
-}
-
-td.bigtext {
-    font-size: 36pt;
-    text-align: center;
-    width: 20%;
-}
-
-div.exampleBox {
-	padding: 25px;
-	border-style: solid;
-	border-width: 1px;
-	margin-left: 12pt;
-	width: 80%;
+.issue-example {
+    position: relative;
+    background: #FBE9E9;
+    padding: 0.5em;
+    border: 0.5em;
+    border-left: 6pt solid #E05252;
+    border-right: 6pt solid #E05252;
+    margin: 1em auto;
 }
 
 .exampleChar {
     font-size: 36pt;
-    font-family: "Palatino", "Times", "Times New Roman", "Verdana", "NoToFu", serif;
 }
-
-.markup {
-	font-family: Lucida Console,NoToFu, monospace;
-}
-
-.shakespeare {
-  color: #03F;
-  font-weight: bold;
-  font-family: serif;
-  background-color: #EfEfEf;
-}
-
-.userValue {
-	font-style: italic;
-}
-
-.vocabulary {
-   color: red;
-   text-decoration: underline;
-}
-
-.sampleCharacter {
-	font-family: "NoToFu", "Code2000", "Lucida Console", sans-serif;
-}
-
-p.quote {
-    background-color:#CCC;
-    margin-left: 2em;
-    padding-left: 2em;
-    border-left: 6px solid #888888;
-}
-
-.uname {
-     font-size: 75%;
-     margin: 0 2px;
-     letter-spacing: 0.05em;
-}
-
-.codepoint [lang="en"] {
-     font-size: 120%;
-}
-
-div.terminologyExample {
-     background-color:white;
-     text-align: left; 
-     border-style: solid; 
-     border-width:3px; 
-     padding-left: 20px; 
-     padding-right: 20px; 
-     padding-top: 10px; 
-     padding-bottom: 10px; 
-     width: 90%;
-}
-
-.lnum {
-    float: left;
-    margin-left: -15px;
-    font-size: 75%;
-    color: gray;
-    font-family: Lucida Console,NoToFu,monospace;
-}
-
-p.syntaxExample {
-    padding: 0px;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    hyphens: none;
-}
-
-
