@@ -22,15 +22,15 @@
           edDraftURI:   		"https://w3c.github.io/string-search/",
           group:                "i18n",
           github:               "w3c/string-search",
+          xref:                 ["i18n-glossary"],
 
           // lcEnd: "2009-08-05",
 
           // editors, add as many as you like
           // only "name" is required
           editors:  [
-              { name: "Addison Phillips", 
-				w3cid: 33573 },
-          ],
+                { name: "Addison Phillips", mailto: "addisonI18N@gmail.com", company: "Invited Expert", w3cid: 33573 }
+                ],
 
           // authors, add as many as you like. 
           //authors:  [
@@ -167,16 +167,20 @@
       
       <section id="background">
         <h3>Background</h3>
-        <p>At the core of the character model is the Universal Character Set (UCS), defined jointly by the <cite>Unicode Standard</cite> [[Unicode]] and ISO/IEC 10646 [[ISO10646]]. In this document, <dfn>Unicode</dfn> is used as a synonym for the Universal Character Set. A successful character model allows Web documents authored in the world's writing systems, scripts, and languages (and on different platforms) to be exchanged, read, and searched by the Web's users around the world.</p>
+        <p><a>Unicode</a>, also known as the <a>Universal Character Set</a>, allows Web documents to be authored in any of the world's writing systems, scripts, or languages, on any computing platforms and then to be exchanged, read, and searched by the Web's users around the world.</p>
         
-        <p>The first few chapters of the <cite>Unicode Standard</cite> [[Unicode]] provide useful background reading. In addition, the <cite>Unicode Collation Algorithm</cite> [[UTS10]] contains a chapter on searching.</p>
+        <p>The first few chapters of the <cite>Unicode Standard</cite> [[Unicode]] provide useful background reading. Also see the <cite>Unicode Collation Algorithm</cite> [[UTS10]], which contains a chapter on searching.</p>
       </section>
       
       <section id="terminology">
         <h3>Terminology and Notation</h3>
-        <p>This section contains terminology and notation specific to this
-          document.</p>
-        <p>Much of the special terminology needed to understand this document is provided by [[CHARMOD-NORM]] and can be found in the <a href="https://www.w3.org/TR/charmod-norm/#terminology">Terminology and Notation</a> section of that document.
+        <p>This section contains terminology and notation specific to this document.</p>
+        
+        <p>Much of the special terminology needed to understand this document is provided by [[CHARMOD-NORM]] and can be found in the <a href="https://www.w3.org/TR/charmod-norm/#terminology">Terminology and Notation</a> section of that document.</p>
+        
+        <p class="definition"><dfn>Corpus</dfn> The natural language text contained by a document or set of documents which the user would like to search.</p>
+        <p class="definition"><dfn>Segmentation</dfn> The process of breaking natural language text up into distinct words and phrases. This often includes operations such as "named entity recognition" (such as recognizing that the three word sequence <kbd>Dr. Jonas Salk</kbd> is a person's name).</p>
+        <p class="definition"><dfn>Stemming</dfn> A process or operation that reduces words to their "stem" or root. For example, the words <kbd>runs</kbd>, <kbd>ran</kbd>, and <kbd>running</kbd> all share the stem <kbd>run</kbd>.</p>
         </section>
       </section>
  
@@ -202,21 +206,45 @@
 		  -->
       </div>
       
-      <p>Many Web implementations and applications have a need for users or programs to search documents for particular words or phrases of natural language text. This is different from the sorts of programmatic matching needed by formal languages (such as markup languages such as [[HTML]]; style sheets [[CSS21]]; or data formats such as [[TURTLE]] or [[JSON-LD]]). </p>
+      <p>Users of the Web often want to search documents for particular words or phrases within the natural language text of a given document. This is different from the sorts of programmatic matching needed by formal languages (such as markup languages such as [[HTML]]; style sheets [[CSS21]]; or data formats such as [[TURTLE]] or [[JSON-LD]]), and which are described by our document [[CHARMOD-NORM]]. </p>
       
-      <p>There are many types of string searching. The form of string searching which we'll concern ourselves with here is sub-string matching or "find" operations. This is the direct searching of the body or "corpus" of a document with the user's input. Find operations can have different options or implementation details, such as the addition or removal of case 
-	  sensitivity, or whether the feature supports different aspects of a regular expression language or "wildcards".</p>
-	  
-      <p>A different type of string searching, <strong>which is outside the scope of this document</strong>, is <dfn>Full Text Search</dfn>. When you are using a search engine, you are generally using a form of full text search. Full text search generally breaks natural language text into word segments and may apply complex processing to get at the semantic "root" values of words. For example, if the user searches for "run", you might want to find words like "running", "ran", or "runs" in addition to the actual search term "run". This process, naturally, is sensitive to language, context, and many other aspects of textual variation. </p>
+      <p>There are different types of string searching.</p>
+      
+      <p class="definition"><dfn data-lt="full text search|full-text search|full text searching">Full-Text Search</dfn> refers to searches that process the entire contents of the textual document or set of documents. Full-text queries perform linguistic searches against text data in full-text indexes by operating on words and phrases based on the rules of a particular language such as English or Japanese. Full-text queries can include simple words and phrases or multiple forms of a word or phrase.</p>
+      
+      <p>Frequently this means that a <a>full-text search</a> employs indexes and natural language processing. When you are using a search engine, you are using a form of full text search. Full text search often breaks natural language text into words or phrases (this is called <a>segmentation</a>) and may apply complex processing to get at the semantic "root" values of words (this is called <a>stemming</a>). These processes are sensitive to language, context, and many other aspects of textual variation.</p>
+      
+      <p>One limited form of full-text search&mdash;and the topic of this document&mdash;is sub-string matching. One familiar form of sub-string matching is the "find" feature of your browser. A sub-string match searches the body or <a>corpus</a> of a document with the user's input, seeking a match. Find operations can have different options or implementation details, such as the addition or removal of case sensitivity, or whether the feature supports different aspects of a regular expression language or "wildcards".</p>
+      
+      <p>One way that sub-string matching usually differs from other types of <a>full-text search</a> is that, while it may use algorithms in an attempt to suppress or ignore textual variations, it does not produce matches that contain additional or unspecified character sequences, words, or phrases.</p>
+      
+      <aside class="example" title="Differences between sub-string matching and other types of search">
+		  <p></p>
+      </aside>
+
 	  
 	  <section id="otherEquivalences">
-         <h3>Other Types of Equivalence</h3>
+         <h3>Additional Types of Equivalence</h3>
          
-         <p>In addition to the forms of character equivalence described in [[CHARMOD-NORM]], there are other types of equivalence that are interesting when performing string searching. The forms of equivalence found in the String Matching document are all based on character properties assigned by Unicode or due to the mapping of  legacy character encodings to the Unicode character set. The "interesting equivalences" in this section that are outside of those defined by Unicode.</p>
+         <p>The note <cite>Character Model for the World-Wide Web: String Matching</cite> [[CHARMOD-NORM]] describes a number of textual equivalences found in [[Unicode]]. There are other types of equivalence that are interesting when performing string searching. The forms of equivalence found in [[CHARMOD-NORM]] are all based on character properties assigned by Unicode or due to the mapping of  legacy character encodings to the Unicode character set. Most of the "interesting equivalences" in this section go outside of those defined by Unicode. These additional "text normalizations" are sometimes application, natural language, or domain specific and shouldn't be overlooked by specifications or implementations as an additional consideration.</p>
 		 
-		 <p>For example, Japanese uses two syllabic scripts, <code>hiragana</code> and <code>katakana</code>. A user searching a document might type in text in one script, but wish to find equivalent text in both scripts. These additional "text normalizations" are sometimes application, natural language, or domain specific and shouldn't be overlooked by specifications or implementations as an additional consideration.</p>
+		 <section id="scriptEquiv">
+			<h4>Script Equivalence</h4>
+		    <p>Some languages are written in more than one script. For example, Japanese uses two syllabic scripts, <code>hiragana</code> and <code>katakana</code>. A user searching a document might type in text in one script, but wish to find equivalent text in both scripts.</p>
+		 </section>
 		 
-		 <p>Another similar example is called <dfn>digit shaping</dfn>. Some scripts, such as Arabic or Thai, have their own digit characters for the numbers from 0 to 9. In some Web applications, the familiar ASCII digits are replaced for display purposes with the local digit shapes. In other cases, the text actually might contain the Unicode characters for the local digits. Users attempting to search a document might expect that typing one form of digit will find the eqivalent digits.</p>
+		 <section id="eastAsianWidthEquiv">
+			 <h4>East Asian Width</h4>
+			 
+			 <p class=issue>Needs more work. This is not intended to be more than a placeholder.</p>
+			 
+			 <p>Some compatibility characters were encoded into Unicode to account for single- or multibyte representation in <a>legacy character encodings</a> or for compatibility with certain layout behaviors in East Asian languages. For example, the full-width characters between <code>U+FF01</code> and <code>U+FF5E</code> or the half-width katakana characters</p>
+		 </section>
+
+         <section id="digitShaping">
+			 <h4>Digit Shaping</h4>
+		 
+		 <p>Many scripts have their own digit characters for the numbers from 0 to 9. In some Web applications, the familiar ASCII digits are replaced for display purposes with the local digit shapes. In other cases, the text actually might contain the Unicode characters for the local digits. Users attempting to search a document might expect that typing one form of digit will find the eqivalent digits.</p>
 		 
 		 <aside class="example" title="Examples of digit shapes in four scripts">
 		   <p>Here are some selected examples of different digit shapes, from zero to nine, in four scripts. Many scripts have equivalent sets of digits with distinct shapes.</p>
@@ -296,10 +324,22 @@
 	           </tbody>
 
 	         </table>
-
-
-
 		 </aside>
+		 </section>
+		 
+		 <section id="encodingVariation">
+			 <h4>Encoding Variation</h4>
+			 
+			 <p class=issue>See Indic doc and #10 for details</p>
+			 <p>Some graphemes can be encoded or "spelled differently".</p>
+		 </section>
+
+         <section id="orthoVariation">
+			 <h4>Orthographic Variation</h4>
+			 
+			 <p>Some languages have different orthographic traditions that vary by region or dialect or allow different spellings of the same word. Searches and spell-checking may need to know about these variations.</p>
+         </section>
+
       </section>
 	  
 	  
