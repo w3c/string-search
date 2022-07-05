@@ -165,22 +165,18 @@
        </aside>
       </section>
       
-      <section id="background">
-        <h3>Background</h3>
-        <p><a>Unicode</a>, also known as the <a>Universal Character Set</a>, allows Web documents to be authored in any of the world's writing systems, scripts, or languages, on any computing platforms and then to be exchanged, read, and searched by the Web's users around the world.</p>
-        
-        <p>The first few chapters of the <cite>Unicode Standard</cite> [[Unicode]] provide useful background reading. Also see the <cite>Unicode Collation Algorithm</cite> [[UTS10]], which contains a chapter on searching.</p>
-      </section>
-      
       <section id="terminology">
-        <h3>Terminology and Notation</h3>
-        <p>This section contains terminology and notation specific to this document.</p>
+        <h3>Terminology</h3>
+        <p>This section contains terminology specific to this document.</p>
         
-        <p>Much of the special terminology needed to understand this document is provided by [[CHARMOD-NORM]] and can be found in the <a href="https://www.w3.org/TR/charmod-norm/#terminology">Terminology and Notation</a> section of that document.</p>
+        <p>Much of the terminology needed to understand this document is provided by the <cite>Internationalization Glossary</cite> [[I18N-GLOSSARY]]. Some terms are also defined by [[CHARMOD-NORM]] and can be found in the <a href="https://www.w3.org/TR/charmod-norm/#terminology">Terminology and Notation</a> section of that document.</p>
         
         <p class="definition"><dfn>Corpus</dfn> The natural language text contained by a document or set of documents which the user would like to search.</p>
         <p class="definition"><dfn>Segmentation</dfn> The process of breaking natural language text up into distinct words and phrases. This often includes operations such as "named entity recognition" (such as recognizing that the three word sequence <kbd>Dr. Jonas Salk</kbd> is a person's name).</p>
-        <p class="definition"><dfn>Stemming</dfn> A process or operation that reduces words to their "stem" or root. For example, the words <kbd>runs</kbd>, <kbd>ran</kbd>, and <kbd>running</kbd> all share the stem <kbd>run</kbd>.</p>
+        <p class="definition"><dfn data-lt="stemming|lemmatization">Stemming</dfn> A process or operation that reduces words to their "stem" or root. For example, the words <kbd>runs</kbd>, <kbd>ran</kbd>, and <kbd>running</kbd> all share the stem <kbd>run</kbd>. This some sometimes called (more formally) <em>lemmatization</em> and the stem is sometimes called the <em>lemma</em>.</p>
+        
+        
+        <p><a>Unicode</a>, also known as the <a>Universal Character Set</a>, allows Web documents to be authored in any of the world's writing systems, scripts, or languages, on any computing platforms and then to be exchanged, read, and searched by the Web's users around the world. The first few chapters of the <cite>Unicode Standard</cite> [[Unicode]] provide useful background reading. Also see the <cite>Unicode Collation Algorithm</cite> [[UTS10]], which contains a chapter on searching.</p>
         </section>
       </section>
  
@@ -218,7 +214,8 @@
       
       <p>One way that sub-string matching usually differs from other types of <a>full-text search</a> is that, while it may use algorithms in an attempt to suppress or ignore textual variations, it does not produce matches that contain additional or unspecified character sequences, words, or phrases.</p>
       
-      <aside class="example" title="Differences between sub-string matching and other types of search">
+      <aside class="example">
+		  <h4>Comparison of some differences between sub-string matching and other types of full-text search</h4>
 		  <p></p>
       </aside>
 
@@ -339,20 +336,15 @@
 			 
 			 <p>Some languages have different orthographic traditions that vary by region or dialect or allow different spellings of the same word. Searches and spell-checking may need to know about these variations.</p>
          </section>
-
-      </section>
-	  
-	  
-	  
-      <section id="searchingConsiderations">
-        <h2>Considerations for Searching</h2>
-        
-        <p class="issue">This section was identified as a new area needing document as part of the overall rearchitecting of the document. The text here is incomplete and needs further development. Contributions from the community are invited.</p>
-        
-		<p>Implementers often need to provide simple "find text" algorithms and specifications often try to define APIs to support these needs. Find operations on text generate different user expectations and thus have different requirements from the need for absolute identity matching needed by document formats and protocols. It is important to note that domain-specific requirements may impose additional restrictions or alter the considerations presented here.</p>
-		
-		<section id="UserInput">
-		<h3>Variations in User Input</h3>
+         
+         <section id="whitespaceNormalization">
+			 <h4>Whitespace Normalization</h4>
+			 
+			 <p>Some languages use whitespace to separate words, sentences, or paragraphs while others do not. When performing sub-string matching, different forms of whitespace found in [[Unicode]] must be normalized so that the match succeeds.</p>
+	     </section>
+	     
+	    <section id="UserInput">
+		<h4>Variations in User Input</h4>
 		
         <p>One of the primary considerations for string searching is that, quite often, the user's input is not identical to the way that the text being searched is encoded.</p>
         
@@ -420,6 +412,19 @@
         
         <p>When searching text, the concept of "grapheme boundaries" and "user-perceived characters" can be important. See Section 3 of <cite>Character Model for the World Wide Web: Fundamentals</cite> [[CHARMOD]] for a description. For example, if the user has entered a capital "A" into a search box, should the software find the character &#xc0; (<span class="uname" translate="no">U+00C0 LATIN CAPITAL LETTER A WITH ACCENT GRAVE</span>)? What about the character "A" followed by U+0300 (a combining accent grave)? What about writing systems, such as Devanagari, which use combining marks to suppress or express certain vowels?</p>
       </section>
+
+      </section>
+	  
+	  
+	  
+      <section id="searchingConsiderations">
+        <h2>Considerations for Searching</h2>
+        
+        <p class="issue">This section was identified as a new area needing document as part of the overall rearchitecting of the document. The text here is incomplete and needs further development. Contributions from the community are invited.</p>
+        
+		<p>Implementers often need to provide simple "find text" algorithms and specifications often try to define APIs to support these needs. Find operations on text generate different user expectations and thus have different requirements from the need for absolute identity matching needed by document formats and protocols. It is important to note that domain-specific requirements may impose additional restrictions or alter the considerations presented here.</p>
+		
+
       
       <section id="SearchOptions">
       <h3>Types of Search Option</h3>
