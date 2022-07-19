@@ -172,8 +172,8 @@
         <p>Much of the terminology needed to understand this document is provided by the <cite>Internationalization Glossary</cite> [[I18N-GLOSSARY]]. Some terms are also defined by [[CHARMOD-NORM]] and can be found in the <a href="https://www.w3.org/TR/charmod-norm/#terminology">Terminology and Notation</a> section of that document.</p>
         
         <p class="definition"><dfn>Corpus</dfn> The natural language text contained by a document or set of documents which the user would like to search.</p>
-        <p class="definition"><dfn>Segmentation</dfn> The process of breaking natural language text up into distinct words and phrases. This often includes operations such as "named entity recognition" (such as recognizing that the three word sequence <kbd>Dr. Jonas Salk</kbd> is a person's name).</p>
-        <p class="definition"><dfn data-lt="stemming|lemmatization">Stemming</dfn> A process or operation that reduces words to their "stem" or root. For example, the words <kbd>runs</kbd>, <kbd>ran</kbd>, and <kbd>running</kbd> all share the stem <kbd>run</kbd>. This some sometimes called (more formally) <em>lemmatization</em> and the stem is sometimes called the <em>lemma</em>.</p>
+        <p class="definition"><dfn>Segmentation</dfn> The process of breaking natural language text up into distinct words and phrases. This often includes operations such as "named entity recognition" (such as recognizing that the three word sequence <strong>Dr. Jonas Salk</strong> is a person's name).</p>
+        <p class="definition"><dfn data-lt="stemming|lemmatization">Stemming</dfn> A process or operation that reduces words to their "stem" or root. For example, the words <strong>runs</strong>, <strong>ran</strong>, and <strong>running</strong> all share the stem <strong>run</strong>. This some sometimes called (more formally) <em>lemmatization</em> and the stem is sometimes called the <em>lemma</em>.</p>
         
         
         <p><a>Unicode</a>, also known as the <a>Universal Character Set</a>, allows Web documents to be authored in any of the world's writing systems, scripts, or languages, on any computing platforms and then to be exchanged, read, and searched by the Web's users around the world. The first few chapters of the <cite>Unicode Standard</cite> [[Unicode]] provide useful background reading. Also see the <cite>Unicode Collation Algorithm</cite> [[UTS10]], which contains a chapter on searching.</p>
@@ -235,7 +235,7 @@
 			 
 			 <p class=issue>Needs more work. This is not intended to be more than a placeholder.</p>
 			 
-			 <p>Some compatibility characters were encoded into Unicode to account for single- or multibyte representation in <a>legacy character encodings</a> or for compatibility with certain layout behaviors in East Asian languages. For example, the full-width characters between <code>U+FF01</code> and <code>U+FF5E</code> or the half-width katakana characters</p>
+			 <p>Some compatibility characters were encoded into Unicode to account for single- or multibyte representation in <a>legacy character encodings</a> or for compatibility with certain layout behaviors in East Asian languages. For example, the full-width characters in the range <code>U+FF01</code> through <code>U+FF5E</code> or the half-width katakana characters.</p>
 		 </section>
 
          <section id="digitShaping">
@@ -328,7 +328,16 @@
 			 <h4>Encoding Variation</h4>
 			 
 			 <p class=issue>See Indic doc and #10 for details</p>
-			 <p>Some graphemes can be encoded or "spelled differently".</p>
+			 <p>Some words or graphemes can be encoded or "spelled differently".</p>
+			 
+			 <p>Arabic users generally do not enter short vowels and most Arabic texts do not include these vowels&mdash;but some texts do include them. Searching is affected by this, but meaning generally is not. A generalized description of this might be "optional to encode" sequences.</p>
+
+             <p>German users sometimes enter accents directly and sometimes by replacing umlauts with the letter <code>e</code>, e.g. <code>Dürst</code> vs. <code>Duerst</code>. Either spelling is potentially correct and has the same meaning. The umlauts are probably "better" than the <code>e</code> spelling, but Germans are not confused by the difference. (Note well that other languages do not always share this use of the umlaut). This might be viewed as an "alternately encoded spelling".</p>
+             
+             <p>French users sometimes omit entering accents when (for example) searching because it is more work to enter the correct character, even though this affects the meaning. For example, they might type <code>cote</code> and might expect to find the variations (which have different meanings) like <code>côte</code> or <code>côtè</code>, etc. This is "misspelling".</p>
+             
+             <p class=issue>(Ed.: This is the current discussion in <a href="https://github.com/w3c/string-search/issues/10#issuecomment-1189267468">#10</a>)</p>
+             <p>Some languages like Bengali have minor variations in how to "spell" a word which affects the pronunciation slightly but which are considered the same. For example: <span lang=bn>রাণি</span> (rɑn̈i) vs. <span lang=bn>রাণী</span> (rɑn̈ī) vs. <span lang=bn>রানি</span> (rɑni) vs. <span lang=bn>রানী</span> (rɑnī).</p>
 		 </section>
 
          <section id="orthoVariation">
