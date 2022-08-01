@@ -182,7 +182,6 @@
         <p class="definition"><dfn>Segmentation</dfn> The process of breaking natural language text up into distinct words and phrases. This often includes operations such as "named entity recognition" (such as recognizing that the three word sequence <strong>Dr. Jonas Salk</strong> is a person's name).</p>
         <p class="definition"><dfn data-lt="stemming|lemmatization">Stemming</dfn> A process or operation that reduces words to their "stem" or root. For example, the words <strong>runs</strong>, <strong>ran</strong>, and <strong>running</strong> all share the stem <strong>run</strong>. This some sometimes called (more formally) <em>lemmatization</em> and the stem is sometimes called the <em>lemma</em>.</p>
         
-        
         <p class="definition"><dfn data-lt="full text search|full-text search|full text searching">Full-Text Search</dfn> refers to searches that process the entire contents of the textual document or set of documents. Full-text queries perform linguistic searches against text data in full-text indexes by operating on words and phrases based on the rules of a particular language such as English or Japanese. Full-text queries can include simple words and phrases or multiple forms of a word or phrase.</p>
         <p>Frequently this means that a <a>full-text search</a> employs indexes and natural language processing. When you are using a search engine, you are using a form of full text search. Full text search often breaks natural language text into words or phrases (this is called <a>segmentation</a>) and may apply complex processing to get at the semantic "root" values of words (this is called <a>stemming</a>). These processes are sensitive to language, context, and many other aspects of textual variation.</p>
         
@@ -215,54 +214,24 @@
       
       <p>There are different types of string searching. 
     
-      <p>One limited form of full-text search&mdash;and the topic of this document&mdash;is sub-string matching. One familiar form of sub-string matching is the "find" feature of your browser. A sub-string match searches the body or <a>corpus</a> of a document with the user's input, seeking a match. Find operations can have different options or implementation details, such as the addition or removal of case sensitivity, or whether the feature supports different aspects of a regular expression language or "wildcards".</p>
+      <p>One limited form of full-text search&mdash;and the topic of this document&mdash;is sub-string matching. One familiar form of sub-string matching is the "find" feature of your browser. A sub-string match searches the body ("<a>corpus</a>") of a document with the user's input, seeking a match.</p>
       
-      <p>One way that sub-string matching usually differs from other types of <a>full-text search</a> is that, while it may use algorithms in an attempt to suppress or ignore textual variations, it does not produce matches that contain additional or unspecified character sequences, words, or phrases.</p>
+      <p>Find operations can have different options or implementation details, such as the addition or removal of case sensitivity, or whether the feature supports different aspects of a regular expression language or "wildcards".</p>
       
-      <aside class="example">
-		  <h4>Comparison of some differences between sub-string matching and other types of full-text search</h4>
-		  <p></p>
-      </aside>
-
+      <p>One way that sub-string matching usually differs from other types of <a>full-text search</a> is that, while it may use algorithms in an attempt to suppress or ignore textual variations, it usually does not produce matches that contain additional or unspecified character sequences, words, or phrases.</p>
+      
 	  <section id="otherEquivalences">
          <h3>Additional Types of Equivalence</h3>
          
-         <p>The <cite>Character Model for the World-Wide Web: String Matching</cite> [[CHARMOD-NORM]] describes textual equivalences such as <a href="https://www.w3.org/TR/charmod-norm/#definitionCaseFolding">case folding</a> and <a href="https://www.w3.org/TR/charmod-norm/#unicodeNormalization">different Unicode normalization forms</a> which can affect sub-string matching.
-
-         <p>There are other types of equivalence that are interesting when performing sub-string searching. The forms of equivalence mentioned above are all based on character properties assigned by Unicode or due to the mapping of legacy character encodings to the Unicode character set. Many of the "interesting equivalences" in this section go outside of those defined by Unicode. These additional "text normalizations" are sometimes application, natural language, or domain specific and should not be overlooked by specifications or implementations as an additional consideration.</p>
+         <p>When searching text, the concept of "grapheme boundaries" and "user-perceived characters" can be important. See Section 3 of <cite>Character Model for the World Wide Web: Fundamentals</cite> [[CHARMOD]] for a description. For example, if the user has entered a capital "A" into a search box, should the software find the character &#xc0; (<code class="uname" translate="no">U+00C0 LATIN CAPITAL LETTER A WITH ACCENT GRAVE</code>)? What about the character "A" followed by <code class="uname" translate="no">U+0300 COMBINING ACCENT GRAVE</code>? What about writing systems, such as Devanagari, which use combining marks to suppress or express certain vowels?</p>
          
-        <section id="UserInput">
-		<h4>Variations in Content and User Input</h4>
-		
-	    <p>Quite often, the user's input does not use a sequence of <a>code points</a> identical to that in the text being searched. This can happen for a variety of reasons. Sometimes it is because the text varies in ways the user cannot predict. In other cases it is because the user's keyboard or input method does not provide ready access to the textual variations needed&mdash;or because the user cannot be bothered to input the text accurately.</p>
-	    
-	    <p>Users might omit accents when entering search terms in scripts (such as the Latin script) that use various diacritics, particularly on mobile keyboards, even though the text they are searching includes the additional marks. In these cases, users generally expect the search operation to be more "promiscuous" to make up for their failure to make the additional effort needed.</p>
-	    
-	    <aside class="example">
-	       <p>German includes several letters that use an <em>umlaut</em> accent, such as <code>ü</code> or <code>ö</code>. Users sometimes will enter accents when searching, but sometimes they replace the umlauts with the letter <code>e</code>. For example, instead of entering <code>Dürst</code> they might enter <code>Duerst</code>. Either spelling is recognizable and has the same meaning. The umlauts are probably "better" than the <code>e</code> spelling, but German speakers are not confused by the difference.</p>
-        
-           <p class="note">Note well that other languages use these same characters for a different purpose than German does. The formal name of the "umlaut" diacritic in Unicode is <em>diaeresis</em>, which means approximately "break" or "pause". Languages such as French, Spanish, and English occasionally use the diaeresis to indicate the need to pronounce a specific letter, such as the word "<span lang="es">ambigüedad</span>" in Spanish or a name like "Zoë" in English.</p>
-        </aside>
-        
-        <aside class="example">
-		   <p>Users in languages such as French sometimes omit entering accents when inputting search terms because it is more work to enter the correct character, even though this affects the meaning. For example, they might type <code>cote</code> and might expect to find the variations (which have different meanings) like <code>côte</code> or <code>côtè</code>, etc. This is "misspelling".</p>
-        </aside>
-		
-		<p>A different example might be the presence or absence of short vowels in the Arabic and Hebrew scripts. For many languages in these scripts, the inclusion of the short vowels is entirely optional, but the presence of vowels in text being searched might impede a match if the user doesn't enter or know to enter them.</p>
-			
-		<aside class="example">
-		   <p>Arabic users generally do not enter short vowels and most Arabic texts do not include these vowels&mdash;but some texts do include them. Searching is affected by this, but meaning generally is not. A generalized description of this might be "optional to encode" sequences.</p>
-		</aside>
+         <p>In order to describe or implement sub-string matching, it is necessary to understand the types of textual variation that users expect the search feature to pay attention to (or ignore) and the types of features that the implementation will need to consider when building the searching algorithm.</p>
+         
+         <p>The <cite>Character Model for the World-Wide Web: String Matching</cite> [[CHARMOD-NORM]] describes several textual equivalences which also apply to sub-string matching. These include <a href="https://www.w3.org/TR/charmod-norm/#definitionCaseFolding">case folding</a> and <a href="https://www.w3.org/TR/charmod-norm/#unicodeNormalization">different Unicode normalization forms</a>.
 
-             
-            <p class=issue>(Ed.: This is the current discussion in <a href="https://github.com/w3c/string-search/issues/10#issuecomment-1189267468">#10</a>)</p>
-        
-        <p>Some languages like Bengali have minor variations in how to "spell" a word which affects the pronunciation slightly but which are considered the same. For example: <span lang=bn>রাণি</span> (rɑn̈i) vs. <span lang=bn>রাণী</span> (rɑn̈ī) vs. <span lang=bn>রানি</span> (rɑni) vs. <span lang=bn>রানী</span> (rɑnī).</p>
-		
-        <p>This effect might vary depending on context as well. For example, a person using a physical keyboard may have direct access to accented letters, while a virtual or on-screen keyboard may require extra effort to access and select the same letters.</p>
-        
-        </section>
-        
+         <p>There are other types of equivalence that are interesting when performing sub-string matching. Some forms of equivalence, such as those mentioned above, are based on character properties assigned by Unicode or due to the mapping of legacy character encodings to the Unicode character set. Other "interesting equivalences" go outside of those defined by Unicode. Some of these potential "text normalizations" are application, natural language, or domain specific and should not be overlooked by specifications or implementations.</p>
+
+         
         <section id="caseVariation">
 			<h4>Case Folding</h4>
 			
@@ -272,18 +241,58 @@
 		
         </section>
 		 
-		 <section id="scriptEquiv">
+     <section id="unicodeNormalization">
+		 <h4>Unicode Normalization and character equivalence</h4>
+
+        <p>Unicode defines canonical and compatibility relationship between characters that might impact string searching. For a detailed discussion of Unicode Normalization forms see Section 2.2 of [[CHARMOD-NORM]] as well as the definitions found in <cite>Unicode Normalization Forms</cite> [[UAX15]].</p>
+        
+        <aside class="example">
+        <p>For example, consider the letter "K". The characters with a normalization including <code>U+004B LATIN CAPITAL LETTER K</code> include the following, many of which might be expected to match a letter "K" in a search request by a user because they appear to contain a logical "letter K":</p>
+        <ul>
+          <li>&#x0136; <code>U+0136 LATIN CAPITAL LETTER K WITH CEDILLA</code>
+          <li>&#x01E8; <code>U+01E8 LATIN CAPITAL LETTER K WITH CARON</code>
+          <li>&#x1D37; <code>U+1D37 MODIFIER LETTER CAPITAL K</code>
+          <li>&#x1E30; <code>U+1E30 LATIN CAPITAL LETTER K WITH ACUTE</code>
+          <li>&#x1E32; <code>U+1E32 LATIN CAPITAL LETTER K WITH DOT BELOW</code>
+          <li>&#x1E34; <code>U+1E34 LATIN CAPITAL LETTER K WITH LINE BELOW</code>
+          <li>&#x212A; <code>U+212A KELVIN SIGN</code>
+          <li>&#x24C0; <code>U+24C0 CIRCLED LATIN CAPITAL LETTER K</code>
+          <li>&#x3385; <code>U+3385 SQUARE KB</code>
+          <li>&#x33CD; <code>U+33CD SQUARE KK</code>
+          <li>&#x33CE; <code>U+33CE SQUARE KM CAPITAL</code>
+          <li>&#xFF2B; <code>U+FF2B FULLWIDTH LATIN CAPITAL LETTER K</code>
+          <li>&#x1D40A; <code>U+1D40A MATHEMATICAL BOLD CAPITAL K</code>
+          <li>&#x1D43E; <code>U+1D43E MATHEMATICAL ITALIC CAPITAL K</code>
+          <li>&#x1D472; <code>U+1D472 MATHEMATICAL BOLD ITALIC CAPITAL K</code>
+          <li>&#x1D4A6; <code>U+1D4A6 MATHEMATICAL SCRIPT CAPITAL K</code>
+          <li>&#x1D4DA; <code>U+1D4DA MATHEMATICAL BOLD SCRIPT CAPITAL K</code>
+          <li>&#x1D50E; <code>U+1D50E MATHEMATICAL FRAKTUR CAPITAL K</code>
+          <li>&#x1D542; <code>U+1D542 MATHEMATICAL DOUBLE-STRUCK CAPITAL K</code>
+          <li>&#x1D576; <code>U+1D576 MATHEMATICAL BOLD FRAKTUR CAPITAL K</code>
+          <li>&#x1D5AA; <code>U+1D5AA MATHEMATICAL SANS-SERIF CAPITAL K</code>
+          <li>&#x1D5DE; <code>U+1D5DE MATHEMATICAL SANS-SERIF BOLD CAPITAL K</code>
+          <li>&#x1D612; <code>U+1D612 MATHEMATICAL SANS-SERIF ITALIC CAPITAL K</code>
+          <li>&#x1D646; <code>U+1D646 MATHEMATICAL SANS-SERIF BOLD ITALIC CAPITAL K</code>
+          <li>&#x1D67A; <code>U+1D67A MATHEMATICAL MONOSPACE CAPITAL K</code>
+          <li>&#x1F11A; <code>U+1F11A PARENTHESIZED LATIN CAPITAL LETTER K</code>
+          <li>&#x1F13A; <code>U+1F13A SQUARED LATIN CAPITAL LETTER K</code>
+        </ul>
+        </aside>      
+      </section>  
+
+	  <section id="scriptEquiv">
 			<h4>Script Equivalence</h4>
 			
-		    <p>Some languages are written in more than one script. For example, Japanese uses two syllabic scripts, <code>hiragana</code> and <code>katakana</code>. These scripts encode the same phonemes; thus the user might expect that typing in a search term in <em>hiragana</em> would find the exact same word spelled out in <em>katakana</em>. A user searching a document might type in text in one script, but wish to find equivalent text in both scripts.</p>
+		    <p>Some languages are written in more than one script. A user searching a document might type in text in one script, but wish to find equivalent text in both scripts.</p>
 		    
 		    <aside class="example">
-				<p>Here are some examples of script equivalence:</p>
+				<p>Japanese uses two syllabic scripts, <code>hiragana</code> and <code>katakana</code>. These scripts encode the same phonemes; thus the user might expect that typing in a search term in <em>hiragana</em> would find the exact same word spelled out in <em>katakana</em>.</p>
 				<pre>&#x306B;&#x307B;&#x3093;&#x3054; // hiragana
 &#x30CB;&#x30DB;&#x30F3;&#x30B4; // katakana
 				</pre>
 		    </aside>
 		 </section>
+		 
 		 
 		 <section id="eastAsianWidthEquiv">
 			 <h4>East Asian Width</h4>
@@ -383,8 +392,40 @@
 	         </table>
 		 </aside>
 		 </section>
-		 
-         <section id="orthoVariation">
+         
+        <section id="UserInput">
+		<h4>Variations in Content and User Input</h4>
+		
+	    <p>Quite often, the user's input does not use a sequence of <a>code points</a> identical to that in the text being searched. This can happen for a variety of reasons. Sometimes it is because the text varies in ways the user cannot predict. In other cases it is because the user's keyboard or input method does not provide ready access to the textual variations needed&mdash;or because the user cannot be bothered to input the text accurately.</p>
+	    
+	    <p>Users might omit accents when entering search terms in scripts (such as the Latin script) that use various diacritics, particularly on mobile keyboards, even though the text they are searching includes the additional marks. In these cases, users generally expect the search operation to be more "promiscuous" to make up for their failure to make the additional effort needed.</p>
+	    
+	    <aside class="example">
+	       <p>German includes several letters that use an <em>umlaut</em> accent, such as <code>ü</code> or <code>ö</code>. Users sometimes will enter accents when searching, but sometimes they replace the umlauts with the letter <code>e</code>. For example, instead of entering <code>Dürst</code> they might enter <code>Duerst</code>. Either spelling is recognizable and has the same meaning. The umlauts are probably "better" than the <code>e</code> spelling, but German speakers are not confused by the difference.</p>
+        
+           <p class="note">Note well that other languages use these same characters for a different purpose than German does. The formal name of the "umlaut" diacritic in Unicode is <em>diaeresis</em>, which means approximately "break" or "pause". Languages such as French, Spanish, and English occasionally use the diaeresis to indicate the need to pronounce a specific letter, such as the word "<span lang="es">ambigüedad</span>" in Spanish or a name like "Zoë" in English.</p>
+        </aside>
+        
+        <aside class="example">
+		   <p>Users in languages such as French sometimes omit entering accents when inputting search terms because it is more work to enter the correct character, even though this affects the meaning. For example, they might type <code>cote</code> and might expect to find the variations (which have different meanings) like <code>côte</code> or <code>côtè</code>, etc. This is "misspelling".</p>
+        </aside>
+		
+		<p>A different example might be the presence or absence of short vowels in the Arabic and Hebrew scripts. For many languages in these scripts, the inclusion of the short vowels is entirely optional, but the presence of vowels in text being searched might impede a match if the user doesn't enter or know to enter them.</p>
+			
+		<aside class="example">
+		   <p>Arabic users generally do not enter short vowels and most Arabic texts do not include these vowels&mdash;but some texts do include them. Searching is affected by this, but meaning generally is not. A generalized description of this might be "optional to encode" sequences.</p>
+		</aside>
+
+             
+            <p class=issue>(Ed.: This is the current discussion in <a href="https://github.com/w3c/string-search/issues/10#issuecomment-1189267468">#10</a>)</p>
+        
+        <p>Some languages like Bengali have minor variations in how to "spell" a word which affects the pronunciation slightly but which are considered the same. For example: <span lang=bn>রাণি</span> (rɑn̈i) vs. <span lang=bn>রাণী</span> (rɑn̈ī) vs. <span lang=bn>রানি</span> (rɑni) vs. <span lang=bn>রানী</span> (rɑnī).</p>
+		
+        <p>This effect might vary depending on context as well. For example, a person using a physical keyboard may have direct access to accented letters, while a virtual or on-screen keyboard may require extra effort to access and select the same letters.</p>
+        
+        </section>
+        
+        <section id="orthoVariation">
 			 <h4>Orthographic Variation</h4>
 			 
 			 <p>Some languages have different orthographic traditions that vary by region or dialect or allow different spellings of the same word. Searches and spell-checking may need to know about these variations.</p>
@@ -398,38 +439,6 @@
 			 <p>Some languages use whitespace to separate words, sentences, or paragraphs while others do not. When performing sub-string matching, different forms of whitespace found in [[Unicode]] must be normalized so that the match succeeds.</p>
 	     </section>
 	     
-     <section id="unicodeNormalization">
-		 <h4>Unicode Normalization and character equivalence</h4>
-        
-
-        <p>In addition to variations of case or the use of accents, Unicode also has an array of canonical equivalents or compatibility characters (as described in the sections above) that might impact string searching.</p>
-        
-        <p>For example, consider the letter "K". Characters with a compatibility mapping to <code>U+004B LATIN CAPITAL LETTER K</code> include:</p>
-        <ol>
-          <li>&#x136; U+0136</li>
-          <li>&#x1e8; U+01E8</li>
-          <li>&#x1d37; U+1D37</li>
-          <li>&#x1e30; U+1E30</li>
-          <li>&#x1e32; U+1E32</li>
-          <li>&#x1e34; U+1E34</li>
-          <li>&#x212a; U+212A</li>
-          <li>&#x24c0; U+24C0</li>
-          <li>&#x3385; U+3385</li>
-          <li>&#x33cd; U+33CD</li>
-          <li>&#x33ce; U+33CE</li>
-          <li>&#xff2b; U+FF2B</li>
-          <li>(a variety of mathematical symbols such as 
-		  U+1D40A,U+1D43E,U+1D472,U+1D4A6,U+1D4DA)</li>
-          <li>&#x1f11a; U+1F11A</li>
-          <li>&#x1f13a; U+1F13A.</li>
-        </ol>
-        <p>Other differences include Unicode Normalization forms (or lack thereof). There are also ignorable characters (such as the variation selectors), whitespace differences, bidirectional controls, and other code points that can interfere with a match.</p>
-        
-        <p>Users might also expect certain kinds of equivalence to be applied to matching. For example, a Japanese user might expect that hiragana, katakana, and half-width compatibility katakana equivalents all match each other (regardless of which is used to perform the selection or encoded in the text).</p>
-        
-        <p>When searching text, the concept of "grapheme boundaries" and "user-perceived characters" can be important. See Section 3 of <cite>Character Model for the World Wide Web: Fundamentals</cite> [[CHARMOD]] for a description. For example, if the user has entered a capital "A" into a search box, should the software find the character &#xc0; (<code class="uname" translate="no">U+00C0 LATIN CAPITAL LETTER A WITH ACCENT GRAVE</code>)? What about the character "A" followed by <code class="uname" translate="no">U+0300 COMBINING ACCENT GRAVE</code>? What about writing systems, such as Devanagari, which use combining marks to suppress or express certain vowels?</p>
-      </section>
-
       </section>
 	  
 	  
