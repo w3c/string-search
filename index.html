@@ -429,14 +429,11 @@
 		<aside class="example">
 		   <p>Arabic users generally do not enter short vowels and most Arabic texts do not include these vowels&mdash;but some texts do include them. Searching is affected by this, but meaning generally is not. A generalized description of this might be "optional to encode" sequences.</p>
 		</aside>
-        </section>
-        <section id="encodingVariation">
-		<h4>Encoding Variation</h4>
 		
-		    <p>Some languages have <a>graphemes</a> which can be encoded in more than one way. In some cases, these variations are handled by <a href="#unicodeNormalization">Unicode Normalization</a>, but in other cases they are not considered equivalent by Unicode, even if they appear visually to be identical. Sometimes these variations are considered to be valid spelling variations. In other cases they are the result of user's mistaken perception.</p>
+		<p>Some languages have <a>graphemes</a> which can be encoded in more than one way. In some cases, these variations are handled by <a href="#unicodeNormalization">Unicode Normalization</a>, but in other cases they are not considered equivalent by Unicode, even if they appear visually to be identical. Sometimes these variations are considered to be valid spelling variations. In other cases they are the result of user's mistaken perception.</p>
 		    
-		    <aside class="example">
-				<p>The Kashmiri language (language tag <code>ks</code>) is written in the Arabic script, but is unrelated to the Arabic language. It thus sometimes requires character sequences to represent sounds not present in Arabic. Some of these sequences exemplify input variations that can affect searching:</p>
+		<aside class="example">
+		    <p>The Kashmiri language (language tag <kbd>ks</kbd>) is written in the Arabic script, but is unrelated to the Arabic language. It thus sometimes requires character sequences to represent sounds not present in Arabic. Some of these sequences exemplify input variations that can affect searching:</p>
 				
 				<table>
 					<thead>
@@ -473,17 +470,81 @@
 					</tbody>
 				</table>
 				
-				<p>For more information, see Richard Ishida's doc <a href="https://r12a.github.io/scripts/arabic/ks.html#encoding">here</a>.</p>
-		    </aside>
+			<p>For more information, see Richard Ishida's doc <a href="https://r12a.github.io/scripts/arabic/ks.html#encoding">here</a>.</p>
+		</aside>
 		    
-            <p class=issue>(Ed.: This is the current discussion in <a href="https://github.com/w3c/string-search/issues/10#issuecomment-1189267468">#10</a>)</p>
+        <p class=issue>(Ed.: This is the current discussion in <a href="https://github.com/w3c/string-search/issues/10#issuecomment-1189267468">#10</a>)</p>
         
-        <p>Some languages like Bengali have minor variations in how to spell a word. For example, the word which transliterates to the Latin script as <code>rani</code> can be spelled with different vowel marks. Modern Bengali does not differentiate these vowels in pronunciation. Different users choose different code point sequences for each such word:
-        <pre><span lang=bn>রাণি</span> U+09B0 U+09BE U+09A3 U+09BF
-<span lang=bn>রাণী</span> U+09B0 U+09BE U+09A3 U+09C0
-<span lang=bn>রানি</span> U+09B0 U+09BE U+09A8 U+09BF
-<span lang=bn>রানী</span> U+09B0 U+09BE U+09A8 U+09C0</pre></p>
-		
+        <p>Several languages in South Asia exhibit spelling or input variations which can affect sub-string matching.</p>
+        
+        <aside class="example">
+			<p>The Bengali language (language tag <kbd>bn</kbd>) is notorious for having a wide range of spelling variations permitted by the language: nearly 80% of Bengali words have at least two spellings. Many words have 3, 4, or more variations&mdash;with at least one word having 16 different valid spellings.</p>
+			
+			<p>One example is the word which transliterates to the Latin script as <kbd>rani</kbd>, but which can be spelled with different vowel marks. Modern Bengali does not differentiate these vowels in pronunciation. Different users choose different code point sequences for each such word:
+        <table>
+			<tbody>
+			<tr><td lang=bn class="exampleChar">রাণি</td><td>U+09B0 U+09BE U+09A3 U+09BF</td></tr>
+            <tr><td lang=bn class="exampleChar">রাণী</td><td>U+09B0 U+09BE U+09A3 U+09C0</td></tr>
+            <tr><td lang=bn class="exampleChar">রানি</td><td>U+09B0 U+09BE U+09A8 U+09BF</td></tr>
+            <tr><td lang=bn class="exampleChar">রানী</td><td>U+09B0 U+09BE U+09A8 U+09C0</td></tr>
+            </tbody>
+       </table>
+        </aside>
+        
+        <p>Other South Asian languages have similar variations. Here are some examples:</p>
+        
+        <table>
+			<thead>
+				<tr>
+					<th>Language</th>
+					<th>Description</th>
+					<th>Example</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td rowspan=2>Malayalam (<kbd>ml</kbd>)</td>
+					<td rowspan=2>A small number of words have accepted variations</td>
+					<td class="exampleChar" lang="ml">&#x0D26;&#x0D41;&#x0D03;&#x0D16;&#x0D02;</td>
+				</tr>
+				<tr>
+					<td class="exampleChar" lang="ml">&#x0D26;&#x0D41;&#x0D16;&#x0D02;</td>
+				</tr>
+				<tr>
+					<td rowspan=4>Odia (<kbd>or</kbd>)</td>
+					<td rowspan=2>Nasal consonants such as ‘ଙ, ଞ, ଣ, ନ, ମ’ can be the first letters in a conjunct and can optionally be written with an anuswar (U+0B02) instead</td>
+					<td class="exampleChar">&#x0B28;&#x0B3F;</td>
+				</tr>
+				<tr>
+					<td class="exampleChar">&#x0B33;&#x0B15;&#x0B02;&#x0B20;</td>
+				</tr>
+				<tr>
+					<td rowspan=2>Gemination or doubling may take place in the case of dental and palatal consonants. So ତ or ତ୍ ତ and ଜ or
+ଜ୍ ଜare found</td>
+                    <td class="exampleChar">&#x0B2A;&#x0B30;&#x0B3F;&#x0B2C;&#x0B30;&#x0B4D;&#x0B24;&#x0B4D;&#x0B24;&#x0B28;</td>
+				</tr>
+				<tr>
+					<td class="exampleChar">&#x0B2A;&#x0B30;&#x0B3F;&#x0B2C;&#x0B30;&#x0B4D;&#x0B24;&#x0B28;</td>
+				</tr>
+				<tr>
+					<td rowspan=2>Marathi (<kbd>mr</kbd>)</td>
+					<td rowspan=2>Writing परसवणर is optionally allowed only for words of Vedic origin <em class="issue">the description in ILs-text is unclear</em></td>
+					<td class="exampleChar" lang="mr">&#x0905;&#x0928;&#x0924;&#x0917;&#x0930;&#x0924;</td>
+				</tr>
+				<tr>
+					<td class="exampleChar" lang="mr">&#x0905;&#x0902;&#x0924;&#x0917;&#x0930;&#x0924;</td>
+				</tr>
+				<tr>
+					<td rowspan="2">Gujarati (<kbd>gu</kbd>)</td>
+					<td rowspan="2">Gujarati has some spelling variations <em class="issue">there is no description in ILs-text</em></td>
+					<td class="exampleChar">&#x0A9A;&#x0A82;&#x0AAA;&#x0AB2;</td>
+				</tr>
+				<tr>
+					<td class="exampleChar">&#x0A9A;&#x0AAE;&#x0AAA;&#x0AB2;</td>
+				</tr>
+			</tbody>
+        </table>
+        
         <p>This effect might vary depending on context as well. For example, a person using a physical keyboard may have direct access to accented letters, while a virtual or on-screen keyboard may require extra effort to access and select the same letters.</p>
         
         </section>
