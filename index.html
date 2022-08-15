@@ -244,10 +244,10 @@
      <section id="unicodeNormalization">
 		 <h4>Unicode Normalization and character equivalence</h4>
 
-        <p>Unicode defines canonical and compatibility relationship between characters that might impact string searching. For a detailed discussion of Unicode Normalization forms see Section 2.2 of [[CHARMOD-NORM]] as well as the definitions found in <cite>Unicode Normalization Forms</cite> [[UAX15]].</p>
+        <p>Unicode defines canonical and compatibility relationships between characters which can impact user perceptions of string searching. For a detailed discussion of Unicode Normalization forms see Section 2.2 of [[CHARMOD-NORM]] as well as the definitions found in <cite>Unicode Normalization Forms</cite> [[UAX15]].</p>
         
         <aside class="example">
-        <p>For example, consider the letter "K". The characters with a normalization including <code>U+004B LATIN CAPITAL LETTER K</code> include the following, many of which might be expected to match a letter "K" in a search request by a user because they appear to contain a logical "letter K":</p>
+        <p>For example, consider the letter "K". The characters with a normalization including <code>U+004B LATIN CAPITAL LETTER K</code> include the following, many of which might be expected to match a letter "K" in a sub-string search request by a user because they appear to contain a logical "letter K":</p>
         <ul>
           <li>&#x0136; <code>U+0136 LATIN CAPITAL LETTER K WITH CEDILLA</code>
           <li>&#x01E8; <code>U+01E8 LATIN CAPITAL LETTER K WITH CARON</code>
@@ -393,8 +393,22 @@
 		 </aside>
 		 </section>
          
-        <section id="UserInput">
-		<h4>Variations in Content and User Input</h4>
+        <section id="orthoVariation">
+			 <h4>Orthographic Variation</h4>
+			 
+			 <p>Some languages have different orthographic traditions that vary by region or dialect or allow different spellings of the same word. Searches and spell-checking may need to know about these variations.</p>
+			 
+			 <p class="example">US English and UK English have different spelling traditions, which manifest in different ways. For example, <strong>color</strong> versus <strong>colour</strong> or exchanging the letters <em>s</em> and <em>z</em> as in <em>internationali<span style="font-size:125%">Z</span>ation</em> vs. <em>internationali<span style="font-size:125%">S</span>ation</em>. A few words have even more divergent spellings, such as <strong>jail</strong> vs. <strong>gaol</strong>.</p>
+         </section>
+         
+         <section id="whitespaceNormalization">
+			 <h4>Whitespace Normalization</h4>
+			 
+			 <p>Some languages use whitespace to separate words, sentences, or paragraphs while others do not. When performing sub-string matching, different forms of whitespace found in [[Unicode]] must be normalized so that the match succeeds.</p>
+	     </section>
+	     
+	             <section id="UserInput">
+		<h4>Variations in User Input</h4>
 		
 	    <p>Quite often, the user's input does not use a sequence of <a>code points</a> identical to that in the text being searched. This can happen for a variety of reasons. Sometimes it is because the text varies in ways the user cannot predict. In other cases it is because the user's keyboard or input method does not provide ready access to the textual variations needed&mdash;or because the user cannot be bothered to input the text accurately.</p>
 	    
@@ -415,29 +429,64 @@
 		<aside class="example">
 		   <p>Arabic users generally do not enter short vowels and most Arabic texts do not include these vowels&mdash;but some texts do include them. Searching is affected by this, but meaning generally is not. A generalized description of this might be "optional to encode" sequences.</p>
 		</aside>
+        </section>
+        <section id="encodingVariation">
+		<h4>Encoding Variation</h4>
+		
+		    <p>Some languages have <a>graphemes</a> which can be encoded in more than one way. In some cases, these variations are handled by <a href="#unicodeNormalization">Unicode Normalization</a>, but in other cases they are not considered equivalent by Unicode, even if they appear visually to be identical. Sometimes these variations are considered to be valid spelling variations. In other cases they are the result of user's mistaken perception.</p>
+		    
+		    <aside class="example">
+				<p>The Kashmiri language (language tag <code>ks</code>) is written in the Arabic script, but is unrelated to the Arabic language. It thus sometimes requires character sequences to represent sounds not present in Arabic. Some of these sequences exemplify input variations that can affect searching:</p>
+				
+				<table>
+					<thead>
+						<tr>
+						   <th colspan=2>Example</th>
 
-             
+						   <th colspan=2>Example</th>
+
+						   <th>Notes</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="exampleChar">&#x625;</td>
+							<td><code class="uname" translate="no">U+0625 ARABIC LETTER ALEF WITH HAMZA BELOW</code></td>
+							<td class="exampleChar">&#x627;&#x655;</td>
+							<td><code class="uname" translate="no">U+0627 ARABIC LETTER ALEF</code> + <code class="uname" translate="no">U+0655 ARABIC HAMZA BELOW</code></td>
+							<td>Canonically equivalent alternatives, i.e. differences resolved by Unicode Normalization</td>
+						</tr>
+						<tr>
+							<td class="exampleChar">&#x6ce;</td>
+							<td><code class="uname" translate="no">U+06CE ARABIC LETTER YEH WITH SMALL V</code></td>
+							<td class="exampleChar">&#x6cc;&#x65a;</td>
+							<td><code class="uname" translate="no">U+06CC ARABIC LETTER FARSI YEH</code> + <code class="uname" translate="no">U+065A ARABIC VOWEL SIGN SMALL V ABOVE</code></td>
+							<td>Not canonically equivalent, i.e. differences that remain after Unicode Normalization. Many of these are linked to user perception of whether the vowel is part of the base letter (<em>ijam</em>) vs. separable (<em>tashkil</em>)</td>
+						</tr>
+						<tr>
+							<td class="exampleChar">&#x626;</td>
+							<td><code class="uname" translate="no">U+0626 ARABIC LETTER YEH WITH HAMZA ABOVE</code></td>
+							<td class="exampleChar">&#x6cc;&#x654;</td>
+							<td><code class="uname" translate="no">U+06CC ARABIC LETTER FARSI YEH</code> + <code class="uname" translate="no">U+0654 ARABIC HAMZA ABOVE</code></td>
+							<td>Confusables or spelling errors; these can be common in certain kinds of text due to gaps in keyboard support or due to a similarity in appearance</td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<p>For more information, see Richard Ishida's doc <a href="https://r12a.github.io/scripts/arabic/ks.html#encoding">here</a>.</p>
+		    </aside>
+		    
             <p class=issue>(Ed.: This is the current discussion in <a href="https://github.com/w3c/string-search/issues/10#issuecomment-1189267468">#10</a>)</p>
         
-        <p>Some languages like Bengali have minor variations in how to "spell" a word which affects the pronunciation slightly but which are considered the same. For example: <span lang=bn>রাণি</span> (rɑn̈i) vs. <span lang=bn>রাণী</span> (rɑn̈ī) vs. <span lang=bn>রানি</span> (rɑni) vs. <span lang=bn>রানী</span> (rɑnī).</p>
+        <p>Some languages like Bengali have minor variations in how to spell a word. For example, the word which transliterates to the Latin script as <code>rani</code> can be spelled with different vowel marks. Modern Bengali does not differentiate these vowels in pronunciation. Different users choose different code point sequences for each such word:
+        <pre><span lang=bn>রাণি</span> U+09B0 U+09BE U+09A3 U+09BF
+<span lang=bn>রাণী</span> U+09B0 U+09BE U+09A3 U+09C0
+<span lang=bn>রানি</span> U+09B0 U+09BE U+09A8 U+09BF
+<span lang=bn>রানী</span> U+09B0 U+09BE U+09A8 U+09C0</pre></p>
 		
         <p>This effect might vary depending on context as well. For example, a person using a physical keyboard may have direct access to accented letters, while a virtual or on-screen keyboard may require extra effort to access and select the same letters.</p>
         
         </section>
-        
-        <section id="orthoVariation">
-			 <h4>Orthographic Variation</h4>
-			 
-			 <p>Some languages have different orthographic traditions that vary by region or dialect or allow different spellings of the same word. Searches and spell-checking may need to know about these variations.</p>
-			 
-			 <p class="example">US English and UK English have different spelling traditions, which manifest in different ways. For example, <strong>color</strong> versus <strong>colour</strong> or exchanging the letters <em>s</em> and <em>z</em> as in <em>internationali<span style="font-size:125%">Z</span>ation</em> vs. <em>internationali<span style="font-size:125%">S</span>ation</em>. A few words have even more divergent spellings, such as <strong>jail</strong> vs. <strong>gaol</strong>.</p>
-         </section>
-         
-         <section id="whitespaceNormalization">
-			 <h4>Whitespace Normalization</h4>
-			 
-			 <p>Some languages use whitespace to separate words, sentences, or paragraphs while others do not. When performing sub-string matching, different forms of whitespace found in [[Unicode]] must be normalized so that the match succeeds.</p>
-	     </section>
 	     
       </section>
 	  
