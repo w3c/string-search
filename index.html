@@ -407,30 +407,37 @@
 			 <p>Some languages use whitespace to separate words, sentences, or paragraphs while others do not. When performing sub-string matching, different forms of whitespace found in [[Unicode]] must be normalized so that the match succeeds.</p>
 	     </section>
 	     
-	             <section id="UserInput">
+	    <section id="UserInput">
 		<h4>Variations in User Input</h4>
 		
-	    <p>Quite often, the user's input does not use a sequence of <a>code points</a> identical to that in the text being searched. This can happen for a variety of reasons. Sometimes it is because the text varies in ways the user cannot predict. In other cases it is because the user's keyboard or input method does not provide ready access to the textual variations needed&mdash;or because the user cannot be bothered to input the text accurately.</p>
+	    <p>Quite often, the user's input does not use a sequence of <a>code points</a> identical to that in the text being searched. This can happen for a variety of reasons. Sometimes it is because the text varies in ways the user cannot predict. In other cases it is because the user's keyboard or input method does not provide ready access to the textual variations needed&mdash;or because the user cannot be bothered to input the text accurately. In this section, we examine various common cases known to us.</p>
 	    
-	    <p>Users might omit accents when entering search terms in scripts (such as the Latin script) that use various diacritics, particularly on mobile keyboards, even though the text they are searching includes the additional marks. In these cases, users generally expect the search operation to be more "promiscuous" to make up for their failure to make the additional effort needed.</p>
+	    <section id="accents">
+			<h5>Accents and diacritic marks</h5>
+	    
+	        <p>Users will sometimes vary their input when dealing with letters that contain accents or diacritic marks when entering search terms in scripts (such as the Latin script) that use various diacritics, even though the text they are searching includes the additional marks. This is particularly true on mobile keyboards, where input of these characters can require additional effort. In these cases, users generally expect the search operation to be more "promiscuous" to make up for their failure to make the additional effort needed.</p>
+	        
+        <aside class="example">
+		   <p>Users in languages such as French sometimes omit entering accents when inputting search terms because it is more work to enter the correct character, even though this affects the meaning. For example, they might type <code>cote</code> and might expect to find the variations (which have different meanings) like <code>côte</code> or <code>côtè</code>, etc. This is "misspelling".</p>
+        </aside>
 	    
 	    <aside class="example">
 	       <p>German includes several letters that use an <em>umlaut</em> accent, such as <code>ü</code> or <code>ö</code>. Users sometimes will enter accents when searching, but sometimes they replace the umlauts with the letter <code>e</code>. For example, instead of entering <code>Dürst</code> they might enter <code>Duerst</code>. Either spelling is recognizable and has the same meaning. The umlauts are probably "better" than the <code>e</code> spelling, but German speakers are not confused by the difference.</p>
         
            <p class="note">Note well that other languages use these same characters for a different purpose than German does. The formal name of the "umlaut" diacritic in Unicode is <em>diaeresis</em>, which means approximately "break" or "pause". Languages such as French, Spanish, and English occasionally use the diaeresis to indicate the need to pronounce a specific letter, such as the word "<span lang="es">ambigüedad</span>" in Spanish or a name like "Zoë" in English.</p>
         </aside>
+        </section>
         
-        <aside class="example">
-		   <p>Users in languages such as French sometimes omit entering accents when inputting search terms because it is more work to enter the correct character, even though this affects the meaning. For example, they might type <code>cote</code> and might expect to find the variations (which have different meanings) like <code>côte</code> or <code>côtè</code>, etc. This is "misspelling".</p>
-        </aside>
-		
-		<p>A different example might be the presence or absence of short vowels in the Arabic and Hebrew scripts. For many languages in these scripts, the inclusion of the short vowels is entirely optional, but the presence of vowels in text being searched might impede a match if the user doesn't enter or know to enter them.</p>
+        <section id="arabic-script-variants">
+			<h5>Arabic script input variations</h5>
+	
+		    <p>A different example might be the presence or absence of short vowels in the Arabic and Hebrew scripts. For many languages in these scripts, the inclusion of the short vowels is entirely optional, but the presence of vowels in text being searched might impede a match if the user doesn't enter or know to enter them.</p>
 			
 		<aside class="example">
 		   <p>Arabic users generally do not enter short vowels and most Arabic texts do not include these vowels&mdash;but some texts do include them. Searching is affected by this, but meaning generally is not. A generalized description of this might be "optional to encode" sequences.</p>
 		</aside>
 		
-		<p>Some languages have <a>graphemes</a> which can be encoded in more than one way. In some cases, these variations are handled by <a href="#unicodeNormalization">Unicode Normalization</a>, but in other cases they are not considered equivalent by Unicode, even if they appear visually to be identical. Sometimes these variations are considered to be valid spelling variations. In other cases they are the result of user's mistaken perception.</p>
+		    <p>Some languages which use the Arabic script have <a>graphemes</a> which can be encoded in more than one way. In some cases, these variations are handled by <a href="#unicodeNormalization">Unicode Normalization</a>, but in other cases they are not considered equivalent by Unicode, even if they appear visually to be identical. Sometimes these variations are considered to be valid spelling variations. In other cases they are the result of user's mistaken perception.</p>
 		    
 		<aside class="example">
 		    <p>The Kashmiri language (language tag <kbd>ks</kbd>) is written in the Arabic script, but is unrelated to the Arabic language. It thus sometimes requires character sequences to represent sounds not present in Arabic. Some of these sequences exemplify input variations that can affect searching:</p>
@@ -438,44 +445,46 @@
 				<table>
 					<thead>
 						<tr>
-						   <th colspan=2>Example</th>
-
-						   <th colspan=2>Example</th>
-
-						   <th>Notes</th>
+						   <th>Description</th>
+						   <th colspan=4 style="text-align:center">Examples</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
+							<td>Canonically equivalent alternatives<br/>(differences resolved by Unicode Normalization)</td>
 							<td class="exampleChar">&#x625;</td>
 							<td><code class="uname" translate="no">U+0625 ARABIC LETTER ALEF WITH HAMZA BELOW</code></td>
 							<td class="exampleChar">&#x627;&#x655;</td>
 							<td><code class="uname" translate="no">U+0627 ARABIC LETTER ALEF</code> + <code class="uname" translate="no">U+0655 ARABIC HAMZA BELOW</code></td>
-							<td>Canonically equivalent alternatives, i.e. differences resolved by Unicode Normalization</td>
+
 						</tr>
 						<tr>
+							<td>Not canonically equivalent<br/>(differences that <em>remain</em> after Unicode Normalization) Many of these are linked to user perception of whether the vowel is part of the base letter (<em lang="ar-Latn" translate="no">ijam</em>) vs. separable (<em lang="ar-Latn" translate="no">tashkil</em>)</td>
 							<td class="exampleChar">&#x6ce;</td>
 							<td><code class="uname" translate="no">U+06CE ARABIC LETTER YEH WITH SMALL V</code></td>
 							<td class="exampleChar">&#x6cc;&#x65a;</td>
 							<td><code class="uname" translate="no">U+06CC ARABIC LETTER FARSI YEH</code> + <code class="uname" translate="no">U+065A ARABIC VOWEL SIGN SMALL V ABOVE</code></td>
-							<td>Not canonically equivalent, i.e. differences that remain after Unicode Normalization. Many of these are linked to user perception of whether the vowel is part of the base letter (<em>ijam</em>) vs. separable (<em>tashkil</em>)</td>
 						</tr>
 						<tr>
+							<td>Confusables or spelling errors; these can be common in certain kinds of text due to gaps in keyboard support or due to a similarity in appearance</td>
 							<td class="exampleChar">&#x626;</td>
 							<td><code class="uname" translate="no">U+0626 ARABIC LETTER YEH WITH HAMZA ABOVE</code></td>
 							<td class="exampleChar">&#x6cc;&#x654;</td>
 							<td><code class="uname" translate="no">U+06CC ARABIC LETTER FARSI YEH</code> + <code class="uname" translate="no">U+0654 ARABIC HAMZA ABOVE</code></td>
-							<td>Confusables or spelling errors; these can be common in certain kinds of text due to gaps in keyboard support or due to a similarity in appearance</td>
 						</tr>
 					</tbody>
 				</table>
 				
 			<p>For more information, see Richard Ishida's doc <a href="https://r12a.github.io/scripts/arabic/ks.html#encoding">here</a>.</p>
 		</aside>
+		</section><!-- Arabic script -->
 		    
+		<section id="south-asian-scripts">
+			<h5>South Asian languages</h5>
+			
         <p class=issue>(Ed.: This is the current discussion in <a href="https://github.com/w3c/string-search/issues/10#issuecomment-1189267468">#10</a>)</p>
         
-        <p>Several languages in South Asia exhibit spelling or input variations which can affect sub-string matching.</p>
+            <p>Several languages in South Asia exhibit spelling or input variations which can affect sub-string matching. Many of these scripts have <a>graphemes</a> which can be encoded in more than one way. In some cases, these variations are handled by <a href="#unicodeNormalization">Unicode Normalization</a>, but in other cases they are not considered equivalent by Unicode, even if they appear visually to be identical. Sometimes these variations are considered to be valid spelling variations. In other cases they are the result of user's mistaken perception.</p>
         
         <aside class="example">
 			<p>The Bengali language (language tag <kbd>bn</kbd>) is notorious for having a wide range of spelling variations permitted by the language: nearly 80% of Bengali words have at least two spellings. Many words have 3, 4, or more variations&mdash;with at least one word having 16 different valid spellings.</p>
@@ -483,10 +492,10 @@
 			<p>One example is the word which transliterates to the Latin script as <kbd>rani</kbd>, but which can be spelled with different vowel marks. Modern Bengali does not differentiate these vowels in pronunciation. Different users choose different code point sequences for each such word:
         <table>
 			<tbody>
-			<tr><td lang=bn class="exampleChar">রাণি</td><td>U+09B0 U+09BE U+09A3 U+09BF</td></tr>
-            <tr><td lang=bn class="exampleChar">রাণী</td><td>U+09B0 U+09BE U+09A3 U+09C0</td></tr>
-            <tr><td lang=bn class="exampleChar">রানি</td><td>U+09B0 U+09BE U+09A8 U+09BF</td></tr>
-            <tr><td lang=bn class="exampleChar">রানী</td><td>U+09B0 U+09BE U+09A8 U+09C0</td></tr>
+			<tr><td lang=bn class="exampleChar">রাণি</td><td>U+09B0 U+09BE U+09A3 U+09BF</td>
+                <td lang=bn class="exampleChar">রাণী</td><td>U+09B0 U+09BE U+09A3 U+09C0</td></tr>
+            <tr><td lang=bn class="exampleChar">রানি</td><td>U+09B0 U+09BE U+09A8 U+09BF</td>
+                <td lang=bn class="exampleChar">রানী</td><td>U+09B0 U+09BE U+09A8 U+09C0</td></tr>
             </tbody>
        </table>
         </aside>
@@ -512,7 +521,7 @@
 				</tr>
 				<tr>
 					<td rowspan=4>Odia (<kbd>or</kbd>)</td>
-					<td rowspan=2>Nasal consonants such as ‘ଙ, ଞ, ଣ, ନ, ମ’ can be the first letters in a conjunct and can optionally be written with an anuswar (U+0B02) instead</td>
+					<td rowspan=2>Nasal consonants such as ଙ, ଞ, ଣ, ନ, ମ can be the first letters in a conjunct and can optionally be written with an anuswar (U+0B02) instead</td>
 					<td class="exampleChar">&#x0B28;&#x0B3F;</td>
 				</tr>
 				<tr>
