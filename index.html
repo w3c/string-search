@@ -220,6 +220,8 @@
       
       <p>One way that sub-string matching usually differs from other types of <a>full-text search</a> is that, while it may use algorithms in an attempt to suppress or ignore textual variations, it usually does not produce matches that contain additional or unspecified character sequences, words, or phrases.</p>
       
+      <p>Quite often, the user's input does not use a sequence of <a>code points</a> identical to that in the text being searched. This can happen for a variety of reasons. Sometimes it is because the text varies in ways the user cannot predict. In other cases it is because the user's keyboard or input method does not provide ready access to the textual variations needed&mdash;or because the user cannot be bothered to input the text accurately. In this section, we examine various common cases known to us.</p>
+      
 	  <section id="otherEquivalences">
          <h3>Additional Types of Equivalence</h3>
          
@@ -394,7 +396,7 @@
 		 </section>
          
         <section id="orthoVariation">
-			 <h4>Orthographic Variation</h4>
+			 <h4>Orthographic or Dialectical Variation</h4>
 			 
 			 <p>Some languages have different orthographic traditions that vary by region or dialect or allow different spellings of the same word. Searches and spell-checking may need to know about these variations.</p>
 			 
@@ -407,13 +409,11 @@
 			 <p>Some languages use whitespace to separate words, sentences, or paragraphs while others do not. When performing sub-string matching, different forms of whitespace found in [[Unicode]] must be normalized so that the match succeeds.</p>
 	     </section>
 	     
-	    <section id="UserInput">
-		<h4>Variations in User Input</h4>
-		
-	    <p>Quite often, the user's input does not use a sequence of <a>code points</a> identical to that in the text being searched. This can happen for a variety of reasons. Sometimes it is because the text varies in ways the user cannot predict. In other cases it is because the user's keyboard or input method does not provide ready access to the textual variations needed&mdash;or because the user cannot be bothered to input the text accurately. In this section, we examine various common cases known to us.</p>
+
+
 	    
 	    <section id="accents">
-			<h5>Accents and diacritic marks</h5>
+			<h4>Accents and diacritic marks</h4>
 	    
 	        <p>Users will sometimes vary their input when dealing with letters that contain accents or diacritic marks when entering search terms in scripts (such as the Latin script) that use various diacritics, even though the text they are searching includes the additional marks. This is particularly true on mobile keyboards, where input of these characters can require additional effort. In these cases, users generally expect the search operation to be more "promiscuous" to make up for their failure to make the additional effort needed.</p>
 	        
@@ -426,12 +426,14 @@
         
            <p class="note">Note well that other languages use these same characters for a different purpose than German does. The formal name of the "umlaut" diacritic in Unicode is <em>diaeresis</em>, which means approximately "break" or "pause". Languages such as French, Spanish, and English occasionally use the diaeresis to indicate the need to pronounce a specific letter, such as the word "<span lang="es">ambigüedad</span>" in Spanish or a name like "Zoë" in English.</p>
         </aside>
+        
+        <p>This effect might vary depending on context as well. For example, a person using a physical keyboard may have direct access to accented letters, while a virtual or on-screen keyboard may require extra effort to access and select the same letters.</p>
         </section>
         
         <section id="arabic-script-variants">
-			<h5>Arabic script input variations</h5>
+			<h4>Arabic script input variations</h4>
 	
-		    <p>A different example might be the presence or absence of short vowels in the Arabic and Hebrew scripts. For many languages in these scripts, the inclusion of the short vowels is entirely optional, but the presence of vowels in text being searched might impede a match if the user doesn't enter or know to enter them.</p>
+		    <p>Some languages that use the Arabic and Hebrew scripts do not require (but optionally allow) the user to input short vowels. For other languages in these scripts, the inclusion of the short vowels is not optional. The presence or absence of vowels in the text being input or searched might impede a match if the user doesn't enter or know to enter them.</p>
 			
 		<aside class="example">
 		   <p>Arabic users generally do not enter short vowels and most Arabic texts do not include these vowels&mdash;but some texts do include them. Searching is affected by this, but meaning generally is not. A generalized description of this might be "optional to encode" sequences.</p>
@@ -439,8 +441,7 @@
 		
 		    <p>Some languages which use the Arabic script have <a>graphemes</a> which can be encoded in more than one way. In some cases, these variations are handled by <a href="#unicodeNormalization">Unicode Normalization</a>, but in other cases they are not considered equivalent by Unicode, even if they appear visually to be identical. Sometimes these variations are considered to be valid spelling variations. In other cases they are the result of user's mistaken perception.</p>
 		    
-		<aside class="example">
-		    <p>The Kashmiri language (language tag <kbd>ks</kbd>) is written in the Arabic script, but is unrelated to the Arabic language. It thus sometimes requires character sequences to represent sounds not present in Arabic. Some of these sequences exemplify input variations that can affect searching:</p>
+		    <p>For example, a number languages, such as the Kashmiri language (language tag <kbd>ks</kbd>), are written in the Arabic script but are unrelated to the Arabic language. These languages thus sometimes require character sequences to represent sounds not present in Arabic. A significant problem for some of these languages is that the specially-encoded character sequences can be visually similar (or identical) to other character sequences and users may experience difficulty entering or knowing how to enter the correct sequence, such as when inputting a term to search for:</p>
 				
 				<table>
 					<thead>
@@ -476,11 +477,11 @@
 				</table>
 				
 			<p>For more information, see Richard Ishida's doc <a href="https://r12a.github.io/scripts/arabic/ks.html#encoding">here</a>.</p>
-		</aside>
+
 		</section><!-- Arabic script -->
 		    
 		<section id="south-asian-scripts">
-			<h5>South Asian languages</h5>
+			<h4>South Asian languages</h4>
 			
         <p class=issue>(Ed.: This is the current discussion in <a href="https://github.com/w3c/string-search/issues/10#issuecomment-1189267468">#10</a>)</p>
         
@@ -500,44 +501,38 @@
        </table>
         </aside>
         
-        <p>Other South Asian languages have similar variations. Here are some examples:</p>
-        
-        <table>
+        </section>
+        <section id="anuswara">
+			<h4>Anuswara</h4>
+			
+			<p>Several South Asian scripts optionally allow users to input vowel nasalization using different character sequences. These scripts include Devanagari (used to write languages such as Hindi (language tag <code>hi</code> or Marathi (language tag <code>mr</code>), Malayalam, Odia, Gujarati, and others. </p>
+			
+			<p class=issue>Work in progress. Some examples are still bad. Description needs work.</p>
+			
+			<table>
 			<thead>
 				<tr>
 					<th>Language</th>
-					<th>Description</th>
 					<th>Example</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td rowspan=2>Malayalam (<kbd>ml</kbd>)</td>
-					<td rowspan=2>A small number of words have accepted variations</td>
 					<td class="exampleChar" lang="ml">&#x0D26;&#x0D41;&#x0D03;&#x0D16;&#x0D02;</td>
 				</tr>
 				<tr>
 					<td class="exampleChar" lang="ml">&#x0D26;&#x0D41;&#x0D16;&#x0D02;</td>
 				</tr>
 				<tr>
-					<td rowspan=4>Odia (<kbd>or</kbd>)</td>
-					<td rowspan=2>Nasal consonants such as ଙ, ଞ, ଣ, ନ, ମ can be the first letters in a conjunct and can optionally be written with an anuswar (U+0B02) instead</td>
+					<td rowspan=2>Odia (<kbd>or</kbd>)</td>
 					<td class="exampleChar">&#x0B28;&#x0B3F;</td>
 				</tr>
 				<tr>
 					<td class="exampleChar">&#x0B33;&#x0B15;&#x0B02;&#x0B20;</td>
 				</tr>
 				<tr>
-					<td rowspan=2>Gemination or doubling may take place in the case of dental and palatal consonants. So ତ or ତ୍ ତ and ଜ or
-ଜ୍ ଜare found</td>
-                    <td class="exampleChar">&#x0B2A;&#x0B30;&#x0B3F;&#x0B2C;&#x0B30;&#x0B4D;&#x0B24;&#x0B4D;&#x0B24;&#x0B28;</td>
-				</tr>
-				<tr>
-					<td class="exampleChar">&#x0B2A;&#x0B30;&#x0B3F;&#x0B2C;&#x0B30;&#x0B4D;&#x0B24;&#x0B28;</td>
-				</tr>
-				<tr>
 					<td rowspan=2>Marathi (<kbd>mr</kbd>)</td>
-					<td rowspan=2>Writing परसवणर is optionally allowed only for words of Vedic origin <em class="issue">the description in ILs-text is unclear</em></td>
 					<td class="exampleChar" lang="mr">&#x0905;&#x0928;&#x0924;&#x0917;&#x0930;&#x0924;</td>
 				</tr>
 				<tr>
@@ -545,7 +540,6 @@
 				</tr>
 				<tr>
 					<td rowspan="2">Gujarati (<kbd>gu</kbd>)</td>
-					<td rowspan="2">Gujarati has some spelling variations <em class="issue">there is no description in ILs-text</em></td>
 					<td class="exampleChar">&#x0A9A;&#x0A82;&#x0AAA;&#x0AB2;</td>
 				</tr>
 				<tr>
@@ -553,15 +547,19 @@
 				</tr>
 			</tbody>
         </table>
+			
+        </section>
+
+        <section id="otherSouthAsian_DO_NOT_LINK_TO_ME">
+			<h4>Other South Asian issues</h4>
+        <p>Other South Asian languages have their own variations. Here are some examples:</p>
         
-        <p>This effect might vary depending on context as well. For example, a person using a physical keyboard may have direct access to accented letters, while a virtual or on-screen keyboard may require extra effort to access and select the same letters.</p>
+        <p class=issue>TBD.</p>
         
+       
         </section>
 	     
-      </section>
-	  
-	  
-	  
+
       <section id="searchingConsiderations">
         <h2>Considerations for Searching</h2>
         
