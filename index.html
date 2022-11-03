@@ -279,7 +279,9 @@
           <li>&#x1F11A; <code>U+1F11A PARENTHESIZED LATIN CAPITAL LETTER K</code>
           <li>&#x1F13A; <code>U+1F13A SQUARED LATIN CAPITAL LETTER K</code>
         </ul>
-        </aside>      
+        </aside>
+        
+        <p>In many complex scripts it is possible to encode letters or vowel-signs in more than one way, but the alternatives are canonically equivalent.</p>    
       </section>  
 
 	  <section id="scriptEquiv">
@@ -401,6 +403,29 @@
 			 <p>Some languages have different orthographic traditions that vary by region or dialect or allow different spellings of the same word. Searches and spell-checking may need to know about these variations.</p>
 			 
 			 <p class="example">US English and UK English have different spelling traditions, which manifest in different ways. For example, <strong>color</strong> versus <strong>colour</strong> or exchanging the letters <em>s</em> and <em>z</em> as in <em>internationali<span style="font-size:125%">Z</span>ation</em> vs. <em>internationali<span style="font-size:125%">S</span>ation</em>. A few words have even more divergent spellings, such as <strong>jail</strong> vs. <strong>gaol</strong>.</p>
+			 
+			 <p>The spelling variants for US vs UK English are mostly standardised, however sometimes the spelling is down to personal preferences (or sometimes lack of knowledge).  For example, the US English word 'through' can be spelled 'thru'.</p>
+
+             <p>Indic script languages also have many instances of this kind of problem.  Sometimes these are spelling errors, but in other cases either spelling is acceptable.</p>
+
+             <p>For example, the Bengali language (language tag <code>bn</code>) is notorious for having a wide range of spelling variations permitted by the language: nearly 80% of Bengali words have at least two spellings. Many words have 3, 4, or more variations&mdash;with at least one word having 16 different <em>valid</em> spellings.</p>
+
+             <aside class="example">
+                 <p>One example is the word which transliterates to the Latin script as <em lang="bn-Latn">rani</em>, but which users may spell with different letters and vowel marks. In modern Bengali <span class="codepoint" translate="no"><bdi lang="bn">&#x09A3;</bdi> [<a href="/scripts/bengali/block#char09A3"><span class="uname">U+09A3 BENGALI LETTER NNA</span></a>]</span> and <span class="codepoint" translate="no"><bdi lang="bn">&#x09A8;</bdi> [<a href="/scripts/bengali/block#char09A8"><span class="uname">U+09A8 BENGALI LETTER NA</span></a>]</span> are pronounced /n/, and <span class="codepoint" translate="no"><bdi lang="bn">&#x09BF;</bdi> [<a href="/scripts/bengali/block#char09BF"><span class="uname">U+09BF BENGALI VOWEL SIGN I </span></a>]</span> and <span class="codepoint" translate="no"><bdi lang="bn">&#x09C0;</bdi> [<a href="/scripts/bengali/block#char09C0"><span class="uname">U+09C0 BENGALI VOWEL SIGN II </span></a>]</span> are both pronounced /i/.  Therefore different users may choose the following alternative code point sequences for the same word.</p>
+                 <p class=issue>insert example</p>
+             </aside>
+
+             <p>Other Indic scripts provide alternative mechanisms for representing particular sounds, and in most cases either representation is considered equally valid. The most common instance of this involves representation of syllable-final nasals.</p>
+
+             <p>For example, the 'n' in the word 'Hindi' in Hindi can be written using either a nasal consonant (a half glyph form when part of a conjunct), or using a diacritic. Both of the following are possible:</p>
+
+<p class=issue>Example here</p>
+<!--show the 'hindi' examples here-->
+
+             <p>In an additional twist to this story, two diacritics with different code points could be used here.  In our previous example we used <span class="codepoint" translate="no"><bdi lang="hi">&#x0902;</bdi> [<a href="/scripts/devanagari/block#char0902"><span class="uname">U+0902 DEVANAGARI SIGN ANUSVARA </span></a>]</span> to represent the nasal sound because the accompanying vowel-sign rises above the hanging baseline.  If the vowel-sign was one that didn't rise above the hanging baseline, we would normally use <span class="codepoint" translate="no"><bdi lang="hi">&#x0901;</bdi> [<a href="/scripts/devanagari/block#char0901"><span class="uname">U+0901 DEVANAGARI SIGN CANDRABINDU </span></a>]</span> instead.  The function of both of these diacritics is the same, but their code points are different.</p>
+
+<p class=issue>fix link</p>
+             <p>The alternative use of letter or diacritic for syllable-final nasals is common to many other Indian languages.  For additional examples, see XXXX.</p>
          </section>
          
          <section id="whitespaceNormalization">
@@ -430,14 +455,21 @@
         <p>This effect might vary depending on context as well. For example, a person using a physical keyboard may have direct access to accented letters, while a virtual or on-screen keyboard may require extra effort to access and select the same letters.</p>
         </section>
         
-        <section id="arabic-script-variants">
-			<h4>Arabic script input variations</h4>
+        <section id="optional-characters">
+			<h4>Optional characters</h4>
 	
-		    <p>Some languages that use the Arabic and Hebrew scripts do not require (but optionally allow) the user to input short vowels. For other languages in these scripts, the inclusion of the short vowels is not optional. The presence or absence of vowels in the text being input or searched might impede a match if the user doesn't enter or know to enter them.</p>
-			
+		    <p>In some orthographies it is necessary to match strings with different numbers of characters.</p>
+
+            <p>A prime example of this involves vowel diacritics in <a>abjads</a>.  For example, some languages that use the Arabic and Hebrew scripts do not require (but optionally allow) the user to input short vowels. (For some other languages in these scripts, the inclusion of the short vowels is not optional.) The presence or absence of vowels in the text being input or searched might impede a match if the user doesn't enter or know to enter them.</p>
+		    
 		<aside class="example">
-		   <p>Arabic users generally do not enter short vowels and most Arabic texts do not include these vowels&mdash;but some texts do include them. Searching is affected by this, but meaning generally is not. A generalized description of this might be "optional to encode" sequences.</p>
+		   <p>Arabic, Persian, and Urdu users generally do not enter short vowels&mdash;but some texts do include them. Searching is affected by this, but meaning generally is not. A generalized description of this might be "optional to encode" sequences.</p>
 		</aside>
+		</section>
+		
+		<section id="visually-identical-non-canonical">
+			
+			<h4>Visually identical text that is not canonically equivalent</h4>
 		
 		    <p>Some languages which use the Arabic script have <a>graphemes</a> which can be encoded in more than one way. In some cases, these variations are handled by <a href="#unicodeNormalization">Unicode Normalization</a>, but in other cases they are not considered equivalent by Unicode, even if they appear visually to be identical. Sometimes these variations are considered to be valid spelling variations. In other cases they are the result of user's mistaken perception.</p>
 		    
@@ -452,7 +484,7 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>Canonically equivalent alternatives<br/>(differences resolved by Unicode Normalization)</td>
+							<td><strong>Canonically equivalent alternatives</strong><br/>(differences resolved by Unicode Normalization)</td>
 							<td class="exampleChar">&#x625;</td>
 							<td><code class="uname" translate="no">U+0625 ARABIC LETTER ALEF WITH HAMZA BELOW</code></td>
 							<td class="exampleChar">&#x627;&#x655;</td>
@@ -460,14 +492,14 @@
 
 						</tr>
 						<tr>
-							<td>Not canonically equivalent<br/>(differences that <em>remain</em> after Unicode Normalization) Many of these are linked to user perception of whether the vowel is part of the base letter (<em lang="ar-Latn" translate="no">ijam</em>) vs. separable (<em lang="ar-Latn" translate="no">tashkil</em>)</td>
+							<td><strong>Not canonically equivalent</strong><br/>(differences that <em>remain</em> after Unicode Normalization) Many of these are linked to user perception of whether the vowel is part of the base letter (<em lang="ar-Latn" translate="no">ijam</em>) vs. separable (<em lang="ar-Latn" translate="no">tashkil</em>)</td>
 							<td class="exampleChar">&#x6ce;</td>
 							<td><code class="uname" translate="no">U+06CE ARABIC LETTER YEH WITH SMALL V</code></td>
 							<td class="exampleChar">&#x6cc;&#x65a;</td>
 							<td><code class="uname" translate="no">U+06CC ARABIC LETTER FARSI YEH</code> + <code class="uname" translate="no">U+065A ARABIC VOWEL SIGN SMALL V ABOVE</code></td>
 						</tr>
 						<tr>
-							<td>Confusables or spelling errors; these can be common in certain kinds of text due to gaps in keyboard support or due to a similarity in appearance</td>
+							<td><strong>Confusables or spelling errors</strong><br/>these can be common in certain kinds of text due to gaps in keyboard support or due to a similarity in appearance</td>
 							<td class="exampleChar">&#x626;</td>
 							<td><code class="uname" translate="no">U+0626 ARABIC LETTER YEH WITH HAMZA ABOVE</code></td>
 							<td class="exampleChar">&#x6cc;&#x654;</td>
@@ -476,9 +508,11 @@
 					</tbody>
 				</table>
 				
+			<p>Users may also create visually identical (or very similar) graphemes from sequences of characters that are deprecated or unexpected by the Unicode Standard. For example, in some fonts it is possible to create something that looks like the independent vowel /au/ using the (normal) <span class="codepoint" translate="no"><bdi lang="ta">&#x0B94;</bdi> [<a href="/scripts/tamil/block#char0B94"><span class="uname">U+0B94 TAMIL LETTER AU</span></a>]</span>, or by typing two inappropriate individual letters, <span class="codepoint" translate="no"><bdi lang="ta">&#x0B92;&#x0BB3;</bdi> [<a href="/scripts/tamil/block#char0B92"><span class="uname">U+0B92 TAMIL LETTER O</span></a> + <a href="/scripts/tamil/block#char0BB3"><span class="uname">U+0BB3 TAMIL LETTER LLA</span></a>]</span>.  The latter should by avoided by users, but applications will need to decide whether or not to match such aberrations if they appear in the text.</p>
+			
 			<p>For more information, see Richard Ishida's doc <a href="https://r12a.github.io/scripts/arabic/ks.html#encoding">here</a>.</p>
 
-		</section><!-- Arabic script -->
+		</section>
 		    
 		<section id="south-asian-scripts">
 			<h4>South Asian languages</h4>
