@@ -421,10 +421,25 @@
 
              <p>Other Indic scripts provide alternative mechanisms for representing particular sounds, and in most cases either representation is considered equally valid. The most common instance of this involves representation of syllable-final nasals.</p>
 
-             <p>For example, the 'n' in the word 'Hindi' in Hindi can be written using either a nasal consonant (a half glyph form when part of a conjunct), or using a diacritic. Both of the following are possible:</p>
+             <p>For example, the 'n' in the word 'Hindi' in Hindi can be written using either a nasal consonant (a half glyph form when part of a conjunct), or using a diacritic. Both of the following are possible valid spellings and are pronounced identically:</p>
 
-<p class=issue>Example here</p>
-<!--show the 'hindi' examples here-->
+             <aside class="example">
+				 <table>
+					 <tbody>
+						 <tr>
+							 <td class="exampleChar">&#x0939;&#x093F;&#x0928;&#x094D;&#x0926;&#x0940;</td>
+							 <td>U+0939 U+093F U+0928 U+094D U+0926 U+0940</td>
+							 <td>With U+094D (virama) to suppress the inherent vowel</td>
+						 </tr>
+						 <tr>
+							 <td class="exampleChar"> &#x0939;&#x093F;&#x0902;&#x0926;&#x0940;</td>
+							 <td>U+0939 U+093F U+0902 U+0926 U+0940</td>
+							 <td>With U+0902 (anuswara) representing the nasal consonent</td>
+						 </tr>
+					 </tbody>
+				 </table>
+             </aside>
+
 
              <p>In an additional twist to this story, two diacritics with different code points could be used here.  In our previous example we used <span class="codepoint" translate="no"><bdi lang="hi">&#x0902;</bdi> [<a href="/scripts/devanagari/block#char0902"><span class="uname">U+0902 DEVANAGARI SIGN ANUSVARA </span></a>]</span> to represent the nasal sound because the accompanying vowel-sign rises above the hanging baseline.  If the vowel-sign was one that didn't rise above the hanging baseline, we would normally use <span class="codepoint" translate="no"><bdi lang="hi">&#x0901;</bdi> [<a href="/scripts/devanagari/block#char0901"><span class="uname">U+0901 DEVANAGARI SIGN CANDRABINDU </span></a>]</span> instead.  The function of both of these diacritics is the same, but their code points are different.</p>
 
