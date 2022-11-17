@@ -405,23 +405,42 @@
 			 <p class="example">US English and UK English have different spelling traditions, which manifest in different ways. For example, <strong>color</strong> versus <strong>colour</strong> or exchanging the letters <em>s</em> and <em>z</em> as in <em>internationali<span style="font-size:125%">Z</span>ation</em> vs. <em>internationali<span style="font-size:125%">S</span>ation</em>. A few words have even more divergent spellings, such as <strong>jail</strong> vs. <strong>gaol</strong>.</p>
 			 
 			 <p>The spelling variants for US vs UK English are mostly standardised, however sometimes the spelling is down to personal preferences (or sometimes lack of knowledge).  For example, the US English word 'through' can be spelled 'thru'.</p>
+			 
+			<section id="south-asian-scripts">
+			<h4>South Asian (Indic script) languages</h4>
 
-             <p>Indic script languages also have many instances of this kind of problem.  Sometimes these are spelling errors, but in other cases either spelling is acceptable.</p>
+             <p>Indic script languages have many instances of this kind of problem.  Sometimes these are spelling errors, but in other cases multiple spellings are acceptable.</p>
 
-             <p>For example, the Bengali language (language tag <code>bn</code>) is notorious for having a wide range of spelling variations permitted by the language: nearly 80% of Bengali words have at least two spellings. Many words have 3, 4, or more variations&mdash;with at least one word having 16 different <em>valid</em> spellings.</p>
+             <p>For example, the Bengali language (language tag <code class="kw" translate="no">bn</code>) is notorious for having a wide range of spelling variations permitted by the language: nearly 80% of Bengali words have at least two spellings. Many words have 3, 4, or more variations&mdash;with at least one word having 16 different <em>valid</em> spellings.</p>
 
              <aside class="example">
-                 <p>One example is the word which transliterates to the Latin script as <em lang="bn-Latn">rani</em>, but which users may spell with different letters and vowel marks. In modern Bengali <span class="codepoint" translate="no"><bdi lang="bn">&#x09A3;</bdi> [<a href="/scripts/bengali/block#char09A3"><span class="uname">U+09A3 BENGALI LETTER NNA</span></a>]</span> and <span class="codepoint" translate="no"><bdi lang="bn">&#x09A8;</bdi> [<a href="/scripts/bengali/block#char09A8"><span class="uname">U+09A8 BENGALI LETTER NA</span></a>]</span> are pronounced /n/, and <span class="codepoint" translate="no"><bdi lang="bn">&#x09BF;</bdi> [<a href="/scripts/bengali/block#char09BF"><span class="uname">U+09BF BENGALI VOWEL SIGN I </span></a>]</span> and <span class="codepoint" translate="no"><bdi lang="bn">&#x09C0;</bdi> [<a href="/scripts/bengali/block#char09C0"><span class="uname">U+09C0 BENGALI VOWEL SIGN II </span></a>]</span> are both pronounced /i/.  Therefore different users may choose the following alternative code point sequences for the same word:</p>
-                 <p><span class="exampleChar" translate="no"><bdi lang="bn">&#x000A;&#x09B0;&#x09BE;&#x09A3;&#x09BF;</bdi></span> [<span class="uname">U+09B0 BENGALI LETTER RA</span> + <span class="uname">U+09BE BENGALI VOWEL SIGN AA</span> + <span class="uname">U+09A3 BENGALI LETTER NNA</span> + <span class="uname">U+09BF BENGALI VOWEL SIGN I</span>]</span><br>
-                 <span class="exampleChar" translate="no"><bdi lang="bn">&#x09B0;&#x09BE;&#x09A8;&#x09BF;</bdi></span> [<span class="uname">U+09B0 BENGALI LETTER RA</span> + <span class="uname">U+09BE BENGALI VOWEL SIGN AA</span> + <span class="uname">U+09A8 BENGALI LETTER NA</span> + <span class="uname">U+09BF BENGALI VOWEL SIGN I</span>]</span></p>
-					 <span class="exampleChar" translate="no"><bdi lang="bn">&#x000A;&#x09B0;&#x09BE;&#x09A3;&#x09C0;</bdi></span> [<span class="uname">U+09B0 BENGALI LETTER RA</span> + <span class="uname">U+09BE BENGALI VOWEL SIGN AA</span> + <span class="uname">U+09A3 BENGALI LETTER NNA</span> + <span class="uname">U+09C0 BENGALI VOWEL SIGN II</span>]</span><br>
-                 <span class="exampleChar" translate="no"><bdi lang="bn">&#x09B0;&#x09BE;&#x09A8;&#x09C0;</bdi></span> [<span class="uname">U+09B0 BENGALI LETTER RA</span> + <span class="uname">U+09BE BENGALI VOWEL SIGN AA</span> + <span class="uname">U+09A8 BENGALI LETTER NA</span> + <span class="uname">U+09C0 BENGALI VOWEL SIGN II</span>]</span></p>
-                 
+                 <p>One example is the word which transliterates to the Latin script as <em lang="bn-Latn">rani</em>, but which users may spell with different letters and vowel marks. In modern Bengali <span class="codepoint" translate="no"><bdi lang="bn">&#x09A3;</bdi> [<a href="/scripts/bengali/block#char09A3"><span class="uname">U+09A3 BENGALI LETTER NNA</span></a>]</span> and <span class="codepoint" translate="no"><bdi lang="bn">&#x09A8;</bdi> [<a href="/scripts/bengali/block#char09A8"><span class="uname">U+09A8 BENGALI LETTER NA</span></a>]</span> are pronounced /n/, and <span class="codepoint" translate="no"><bdi lang="bn">&#x09BF;</bdi> [<a href="/scripts/bengali/block#char09BF"><span class="uname">U+09BF BENGALI VOWEL SIGN I </span></a>]</span> and <span class="codepoint" translate="no"><bdi lang="bn">&#x09C0;</bdi> [<a href="/scripts/bengali/block#char09C0"><span class="uname">U+09C0 BENGALI VOWEL SIGN II </span></a>]</span> are both pronounced /i/.  Therefore different users might choose any of the following alternative <a>code point</a> sequences for the same word:</p>
+                 <table>
+					 <tbody>
+						 <tr>
+							 <td><span class="exampleChar" translate="no"><bdi lang="bn">&#x000A;&#x09B0;&#x09BE;&#x09A3;&#x09BF;</bdi></span></td>
+							 <td><span class="uname">U+09B0 BENGALI LETTER RA</span> + <span class="uname">U+09BE BENGALI VOWEL SIGN AA</span> + <span class="uname">U+09A3 BENGALI LETTER NNA</span> + <span class="uname">U+09BF BENGALI VOWEL SIGN I</span></td>
+						 </tr>
+						 <tr>
+							 <td><span class="exampleChar" translate="no"><bdi lang="bn">&#x09B0;&#x09BE;&#x09A8;&#x09BF;</bdi></span></td>
+							 <td><span class="uname">U+09B0 BENGALI LETTER RA</span> + <span class="uname">U+09BE BENGALI VOWEL SIGN AA</span> + <span class="uname">U+09A8 BENGALI LETTER NA</span> + <span class="uname">U+09BF BENGALI VOWEL SIGN I</span></td>
+						 </tr>
+						 <tr>
+							 <td><span class="exampleChar" translate="no"><bdi lang="bn">&#x000A;&#x09B0;&#x09BE;&#x09A3;&#x09C0;</bdi></span></td>
+							 <td><span class="uname">U+09B0 BENGALI LETTER RA</span> + <span class="uname">U+09BE BENGALI VOWEL SIGN AA</span> + <span class="uname">U+09A3 BENGALI LETTER NNA</span> + <span class="uname">U+09C0 BENGALI VOWEL SIGN II</span></td>
+						 </tr>
+						 <tr>
+							 <td><span class="exampleChar" translate="no"><bdi lang="bn">&#x09B0;&#x09BE;&#x09A8;&#x09C0;</bdi></span></td>
+							 <td><span class="uname">U+09B0 BENGALI LETTER RA</span> + <span class="uname">U+09BE BENGALI VOWEL SIGN AA</span> + <span class="uname">U+09A8 BENGALI LETTER NA</span> + <span class="uname">U+09C0 BENGALI VOWEL SIGN II</span></td>
+						 </tr>
+					 </tbody>
+                 </table>
+                
              </aside>
 
              <p>Other Indic scripts provide alternative mechanisms for representing particular sounds, and in most cases either representation is considered equally valid. The most common instance of this involves representation of syllable-final nasals.</p>
 
-             <p>For example, the 'n' in the word 'Hindi' in Hindi can be written using either a nasal consonant (a half glyph form when part of a conjunct), or using a diacritic. Both of the following are possible valid spellings and are pronounced identically:</p>
+             <p>For example, the <samp translate="no">/n/</samp> sound in the word <em>Hindi</em> in Hindi can be written using either a nasal consonant (a half glyph form when part of a conjunct), or using a diacritic. Both of the following are possible valid spellings and are pronounced identically:</p>
 
              <aside class="example">
 				 <table>
@@ -429,21 +448,63 @@
 						 <tr>
 							 <td class="exampleChar">&#x0939;&#x093F;&#x0928;&#x094D;&#x0926;&#x0940;</td>
 							 <td>U+0939 U+093F U+0928 U+094D U+0926 U+0940</td>
-							 <td>With U+094D (virama) to suppress the inherent vowel</td>
+							 <td>With <span class="" translate="no"><bdi lang="hi">&#x94d;</bdi></span> [<span class="uname">U+094D DEVANAGARI SIGN VIRAMA</span>] to suppress the inherent vowel</td>
 						 </tr>
 						 <tr>
 							 <td class="exampleChar"> &#x0939;&#x093F;&#x0902;&#x0926;&#x0940;</td>
 							 <td>U+0939 U+093F U+0902 U+0926 U+0940</td>
-							 <td>With U+0902 (anuswara) representing the nasal consonent</td>
+							 <td>With <span class="" translate="no"><bdi lang="hi">&#x902;</bdi></span> [<span class="uname">U+0902 DEVANAGARI SIGN ANUSWARA</span>] representing the nasal consonent</td>
 						 </tr>
 					 </tbody>
 				 </table>
              </aside>
 
+             <p>In an additional twist to this story, two diacritics with different code points could be used here.  In our previous example we used <span class="codepoint" translate="no"><bdi lang="hi">&#x0902;</bdi> [<span class="uname">U+0902 DEVANAGARI SIGN ANUSVARA </span>]</span> to represent the nasal sound because the accompanying vowel-sign rises above the hanging baseline.  If the vowel-sign was one that didn't rise above the hanging baseline, we would normally use <span class="codepoint" translate="no"><bdi lang="hi">&#x0901;</bdi> [<span class="uname">U+0901 DEVANAGARI SIGN CANDRABINDU </span>]</span> instead.  The function of both of these diacritics is the same, but their code points are different.</p>
+             
+             <p>The alternative use of letter or diacritic for syllable-final nasals is common to many other Indian languages. In addition to Devanagari (used to write languages such as Hindi (language tag <code translate="no">hi</code> or Marathi (language tag <code translate="no">mr</code>), scripts such as Malayalam, Odia, Gujarati, and others provide similar spelling options. </p>
+			
+			<table>
+			<thead>
+				<tr>
+					<th>Language</th>
+					<th>Example</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td rowspan=2>Malayalam (<kbd>ml</kbd>)</td>
+					<td class="exampleChar" lang="ml">&#x0D26;&#x0D41;&#x0D03;&#x0D16;&#x0D02;</td>
+				</tr>
+				<tr>
+					<td class="exampleChar" lang="ml">&#x0D26;&#x0D41;&#x0D16;&#x0D02;</td>
+				</tr>
+				<tr>
+					<td rowspan=2>Odia (<kbd>or</kbd>)</td>
+					<td class="exampleChar">&#x0B28;&#x0B3F;</td>
+				</tr>
+				<tr>
+					<td class="exampleChar">&#x0B33;&#x0B15;&#x0B02;&#x0B20;</td>
+				</tr>
+				<tr>
+					<td rowspan=2>Marathi (<kbd>mr</kbd>)</td>
+					<td class="exampleChar" lang="mr">&#x0905;&#x0928;&#x0924;&#x0917;&#x0930;&#x0924;</td>
+				</tr>
+				<tr>
+					<td class="exampleChar" lang="mr">&#x0905;&#x0902;&#x0924;&#x0917;&#x0930;&#x0924;</td>
+				</tr>
+				<tr>
+					<td rowspan="2">Gujarati (<kbd>gu</kbd>)</td>
+					<td class="exampleChar">&#x0A9A;&#x0A82;&#x0AAA;&#x0AB2;</td>
+				</tr>
+				<tr>
+					<td class="exampleChar">&#x0A9A;&#x0AAE;&#x0AAA;&#x0AB2;</td>
+				</tr>
+			</tbody>
+        </table>
+        
 
-             <p>In an additional twist to this story, two diacritics with different code points could be used here.  In our previous example we used <span class="codepoint" translate="no"><bdi lang="hi">&#x0902;</bdi> [<a href="/scripts/devanagari/block#char0902"><span class="uname">U+0902 DEVANAGARI SIGN ANUSVARA </span></a>]</span> to represent the nasal sound because the accompanying vowel-sign rises above the hanging baseline.  If the vowel-sign was one that didn't rise above the hanging baseline, we would normally use <span class="codepoint" translate="no"><bdi lang="hi">&#x0901;</bdi> [<a href="/scripts/devanagari/block#char0901"><span class="uname">U+0901 DEVANAGARI SIGN CANDRABINDU </span></a>]</span> instead.  The function of both of these diacritics is the same, but their code points are different.</p>
+        </section>
 
-             <p>The alternative use of letter or diacritic for syllable-final nasals is common to many other Indian languages.  For additional examples, see <a href="#bn-variation-example"></a>.</p>
          </section>
          
          <section id="whitespaceNormalization">
@@ -532,75 +593,7 @@
 
 		</section>
 		    
-		<section id="south-asian-scripts">
-			<h4>South Asian languages</h4>
-			
-        <p class=issue>(Ed.: This is the current discussion in <a href="https://github.com/w3c/string-search/issues/10#issuecomment-1189267468">#10</a>)</p>
-        
-            <p>Several languages in South Asia exhibit spelling or input variations which can affect sub-string matching. Many of these scripts have <a>graphemes</a> which can be encoded in more than one way. In some cases, these variations are handled by <a href="#unicodeNormalization">Unicode Normalization</a>, but in other cases they are not considered equivalent by Unicode, even if they appear visually to be identical. Sometimes these variations are considered to be valid spelling variations. In other cases they are the result of user's mistaken perception.</p>
-        
-        <aside class="example" id="bn-variation-example">
-			<p>The Bengali language (language tag <kbd>bn</kbd>) is notorious for having a wide range of spelling variations permitted by the language: nearly 80% of Bengali words have at least two spellings. Many words have 3, 4, or more variations&mdash;with at least one word having 16 different valid spellings.</p>
-			
-			<p>One example is the word which transliterates to the Latin script as <kbd>rani</kbd>, but which can be spelled with different vowel marks. Modern Bengali does not differentiate these vowels in pronunciation. Different users choose different code point sequences for each such word:
-        <table>
-			<tbody>
-			<tr><td lang=bn class="exampleChar">রাণি</td><td>U+09B0 U+09BE U+09A3 U+09BF</td>
-                <td lang=bn class="exampleChar">রাণী</td><td>U+09B0 U+09BE U+09A3 U+09C0</td></tr>
-            <tr><td lang=bn class="exampleChar">রানি</td><td>U+09B0 U+09BE U+09A8 U+09BF</td>
-                <td lang=bn class="exampleChar">রানী</td><td>U+09B0 U+09BE U+09A8 U+09C0</td></tr>
-            </tbody>
-       </table>
-        </aside>
-        
-        </section>
-        <section id="anuswara">
-			<h4>Anuswara</h4>
-			
-			<p>Several South Asian scripts optionally allow users to input vowel nasalization using different character sequences. These scripts include Devanagari (used to write languages such as Hindi (language tag <code>hi</code> or Marathi (language tag <code>mr</code>), Malayalam, Odia, Gujarati, and others. </p>
-			
-			<p class=issue>Work in progress. Some examples are still bad. Description needs work.</p>
-			
-			<table>
-			<thead>
-				<tr>
-					<th>Language</th>
-					<th>Example</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td rowspan=2>Malayalam (<kbd>ml</kbd>)</td>
-					<td class="exampleChar" lang="ml">&#x0D26;&#x0D41;&#x0D03;&#x0D16;&#x0D02;</td>
-				</tr>
-				<tr>
-					<td class="exampleChar" lang="ml">&#x0D26;&#x0D41;&#x0D16;&#x0D02;</td>
-				</tr>
-				<tr>
-					<td rowspan=2>Odia (<kbd>or</kbd>)</td>
-					<td class="exampleChar">&#x0B28;&#x0B3F;</td>
-				</tr>
-				<tr>
-					<td class="exampleChar">&#x0B33;&#x0B15;&#x0B02;&#x0B20;</td>
-				</tr>
-				<tr>
-					<td rowspan=2>Marathi (<kbd>mr</kbd>)</td>
-					<td class="exampleChar" lang="mr">&#x0905;&#x0928;&#x0924;&#x0917;&#x0930;&#x0924;</td>
-				</tr>
-				<tr>
-					<td class="exampleChar" lang="mr">&#x0905;&#x0902;&#x0924;&#x0917;&#x0930;&#x0924;</td>
-				</tr>
-				<tr>
-					<td rowspan="2">Gujarati (<kbd>gu</kbd>)</td>
-					<td class="exampleChar">&#x0A9A;&#x0A82;&#x0AAA;&#x0AB2;</td>
-				</tr>
-				<tr>
-					<td class="exampleChar">&#x0A9A;&#x0AAE;&#x0AAA;&#x0AB2;</td>
-				</tr>
-			</tbody>
-        </table>
-			
-        </section>
+
 
         <section id="otherSouthAsian_DO_NOT_LINK_TO_ME">
 			<h4>Other South Asian issues</h4>
@@ -609,7 +602,8 @@
         <p class=issue>TBD.</p>
         
        
-        </section>
+      </section>
+      </section><!-- end of "additional types of equivalence" -->
 	     
 
       <section id="searchingConsiderations">
@@ -666,7 +660,7 @@
       </ul>
       </section>
     </section>
-    </section>
+
     <section>
       <h2 id="Acknowledgements" class="informative">Acknowledgements</h2>
       <p>The W3C Internationalization Working Group and Interest Group, as well as others, provided many comments and suggestions. The Working Group would like to thank: all of the contributors to the Character Model series of documents over the many years of their development. </p>
