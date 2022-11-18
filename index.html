@@ -291,9 +291,22 @@
 		    
 		    <aside class="example">
 				<p>Japanese uses two syllabic scripts, <code>hiragana</code> and <code>katakana</code>. These scripts encode the same phonemes; thus the user might expect that typing in a search term in <em>hiragana</em> would find the exact same word spelled out in <em>katakana</em>.</p>
-				<pre>&#x306B;&#x307B;&#x3093;&#x3054; // hiragana
-&#x30CB;&#x30DB;&#x30F3;&#x30B4; // katakana
-				</pre>
+				<p>In the example shown here, the word <em translate="no" lang="ja-Latn">nihongo</em> (Japanese for "Japanese") is shown in both hiragana and katakana. Note that this word is usually represented by <em>kanji</em> (Han ideograph) characters: <span class="kw" lang="ja" translate="no">日本語</span>.</p>
+				
+				<table>
+					<tbody>
+						<tr>
+							<td class="exampleChar" lang="ja">&#x306B;&#x307B;&#x3093;&#x3054;</td>
+							<td><span class="codepoint" translate="no">U+306B U+307B U+3093 U+3054</span></td>
+							<td>Hiragana</td>
+						</tr>
+						<tr>
+							<td class="exampleChar" lang="ja">&#x30CB;&#x30DB;&#x30F3;&#x30B4;</td>
+							<td><span class="codepoint" translate="no">U+30CB U+30DB U+30F3 U+30B4</span></td>
+							<td>Katakana</td>
+						</tr>
+					</tbody>
+				</table>
 		    </aside>
 		 </section>
 		 
@@ -301,13 +314,48 @@
 		 <section id="eastAsianWidthEquiv">
 			 <h4>East Asian Width</h4>
 			 
-			 <p>Some compatibility characters were encoded into Unicode to account for single- or multibyte representation in <a>legacy character encodings</a> or for compatibility with certain layout behaviors in East Asian languages. For example, the full-width characters in the range <code>U+FF01</code> through <code>U+FF5E</code> or the half-width katakana characters.</p>
+			 <p>Some compatibility characters were encoded into Unicode to account for single- or multibyte representation in <a>legacy character encodings</a> or for compatibility with certain layout behaviors in East Asian languages.</p>
 			 
-			 <aside class="example">
-				 <p>Here is an example of East Asian width variation:</p>
-				 <pre>&#x30CB;&#x30DB;&#x30F3;&#x30B4; // full-width katakana
-&#xFF86;&#xFF8E;&#xFF9D;&#xFF7A;&#xFF9E; // half-width katakana
-				 </pre>
+			 <aside class="example" title="Examples of East Asian width variations">
+				 <table>
+					 <thead>
+						 <tr>
+							 <th>Example</th>
+							 <th>Description</th>
+						 </tr>
+					 </thead>
+					 <tbody>
+						 <tr>
+							 <td class="exampleChar" lang="ja">&#x30CB;&#x30DB;&#x30F3;&#x30B4;</td>
+							 <td rowspan=2>full-width katakana</td>
+						 </tr>
+						 <tr>
+							 <td><span class="codepoint" translate="no">U+30CB U+30DB U+30F3 U+30B4</span></td>
+						 </tr>
+						 <tr>
+							 <td class="exampleChar" lang="ja">&#xFF86;&#xFF8E;&#xFF9D;&#xFF7A;&#xFF9E;</td>
+							 <td rowspan=2>half-width katakana (compatibility characters)</td>
+						 </tr>
+						 <tr>
+							 <td><span class="codepoint" translate="no">U+FF86 U+FF83 U+FF9D U+FF7A U+FF9E</span></td>
+						 </tr>
+						 <tr>
+							 <td class="exampleChar" lang="en">abcXYZ</td>
+							 <td rowspan=2>half-width Latin letters (these are normal ASCII letters!)</td>
+						 </tr>
+						 <tr>
+							 <td><span class="codepoint" translate="no">U+0061 U+0062 U+0063 U+0058 U+0059 U+005A</span></td>
+						 </tr>
+						 <tr>
+							 <td class="exampleChar" lang="en">&#xFF41;&#xFF42;&#xFF43;&#xFF38;&#xFF39;&#xFF3A;</td>
+							 <td rowspan=2>full-width Latin letters (compatibility characters)</td>
+						 </tr>
+						 <tr>
+							 <td><span class="codepoint" translate="no">U+FF41 U+FF42 U+FF43 U+FF38 U+FF39 U+FF3A</span></td>
+						 </tr>
+					 </tbody>
+				 </table>
+
 			 </aside>
 		 </section>
 
