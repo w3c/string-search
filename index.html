@@ -294,16 +294,26 @@
 				<p>In the example shown here, the word <em translate="no" lang="ja-Latn">nihongo</em> (Japanese for "Japanese") is shown in both hiragana and katakana. Note that this word is usually represented by <em>kanji</em> (Han ideograph) characters: <span class="kw" lang="ja" translate="no">日本語</span>.</p>
 				
 				<table>
+					<thead>
+						<tr>
+							<th style="width:30%">Description</th>
+							<th>Example</th>
+						</tr>
+					</thead>
 					<tbody>
 						<tr>
+							<td rowspan="2">Hiragana</td>
 							<td class="exampleChar" lang="ja">&#x306B;&#x307B;&#x3093;&#x3054;</td>
+					    </tr>
+					    <tr>
 							<td><span class="codepoint" translate="no">U+306B U+307B U+3093 U+3054</span></td>
-							<td>Hiragana</td>
 						</tr>
 						<tr>
+							<td rowspan="2">Katakana</td>
 							<td class="exampleChar" lang="ja">&#x30CB;&#x30DB;&#x30F3;&#x30B4;</td>
+						</tr>
+						<tr>
 							<td><span class="codepoint" translate="no">U+30CB U+30DB U+30F3 U+30B4</span></td>
-							<td>Katakana</td>
 						</tr>
 					</tbody>
 				</table>
@@ -320,35 +330,35 @@
 				 <table>
 					 <thead>
 						 <tr>
-							 <th>Example</th>
 							 <th>Description</th>
+							 <th>Example</th>
 						 </tr>
 					 </thead>
 					 <tbody>
 						 <tr>
-							 <td class="exampleChar" lang="ja">&#x30CB;&#x30DB;&#x30F3;&#x30B4;</td>
 							 <td rowspan=2>full-width katakana</td>
+							 <td class="exampleChar" lang="ja">&#x30CB;&#x30DB;&#x30F3;&#x30B4;</td>
 						 </tr>
 						 <tr>
 							 <td><span class="codepoint" translate="no">U+30CB U+30DB U+30F3 U+30B4</span></td>
 						 </tr>
 						 <tr>
+							 <td rowspan=2>half-width katakana<br><em>These are compatibility characters</em></td>
 							 <td class="exampleChar" lang="ja">&#xFF86;&#xFF8E;&#xFF9D;&#xFF7A;&#xFF9E;</td>
-							 <td rowspan=2>half-width katakana (compatibility characters)</td>
 						 </tr>
 						 <tr>
 							 <td><span class="codepoint" translate="no">U+FF86 U+FF83 U+FF9D U+FF7A U+FF9E</span></td>
 						 </tr>
 						 <tr>
+							 <td rowspan=2>half-width Latin letters<br><em>These are ASCII letters!</em></td>
 							 <td class="exampleChar" lang="en">abcXYZ</td>
-							 <td rowspan=2>half-width Latin letters (these are normal ASCII letters!)</td>
 						 </tr>
 						 <tr>
 							 <td><span class="codepoint" translate="no">U+0061 U+0062 U+0063 U+0058 U+0059 U+005A</span></td>
 						 </tr>
 						 <tr>
+							 <td rowspan=2>full-width Latin letters<br><em>These are compatibility characters.</em></td>
 							 <td class="exampleChar" lang="en">&#xFF41;&#xFF42;&#xFF43;&#xFF38;&#xFF39;&#xFF3A;</td>
-							 <td rowspan=2>full-width Latin letters (compatibility characters)</td>
 						 </tr>
 						 <tr>
 							 <td><span class="codepoint" translate="no">U+FF41 U+FF42 U+FF43 U+FF38 U+FF39 U+FF3A</span></td>
@@ -450,9 +460,11 @@
 			 
 			 <p>Some languages have different orthographic traditions that vary by region or dialect or allow different spellings of the same word. Searches and spell-checking may need to know about these variations.</p>
 			 
-			 <p class="example">US English and UK English have different spelling traditions, which manifest in different ways. For example, <strong>color</strong> versus <strong>colour</strong> or exchanging the letters <em>s</em> and <em>z</em> as in <em>internationali<span style="font-size:125%">Z</span>ation</em> vs. <em>internationali<span style="font-size:125%">S</span>ation</em>. A few words have even more divergent spellings, such as <strong>jail</strong> vs. <strong>gaol</strong>.</p>
+			 <aside class="example">
+				 <p>US English (language tag <kbd>en-US</kbd>) and UK English (language tag <kbd>en-GB</kbd>) have different spelling traditions, which manifest in different ways. For example, <strong>color</strong> versus <strong>colour</strong> or exchanging the letters <em>s</em> and <em>z</em> as in <em>internationali<span style="font-size:125%">Z</span>ation</em> vs. <em>internationali<span style="font-size:125%">S</span>ation</em>. A few words have even more divergent spellings, such as <strong>jail</strong> vs. <strong>gaol</strong>.</p>
 			 
-			 <p>The spelling variants for US vs UK English are mostly standardised, however sometimes the spelling is down to personal preferences (or sometimes lack of knowledge).  For example, the US English word 'through' can be spelled 'thru'.</p>
+			     <p>The spelling variants for US vs UK English are mostly standardised, however sometimes the spelling is down to personal preferences (or sometimes lack of knowledge).  For example, the US English word 'through' can be spelled 'thru'.</p>
+			</aside>
 			 
 			<section id="south-asian-scripts">
 			<h4>South Asian (Indic script) languages</h4>
@@ -492,16 +504,26 @@
 
              <aside class="example">
 				 <table>
+					 <thead>
+						 <tr>
+							 <th>Description</th>
+							 <th>Example</th>
+						 </tr>
+					 </thead>
 					 <tbody>
 						 <tr>
+							 <td rowspan="2">With <span class="" translate="no"><bdi lang="hi">&#x94d;</bdi></span> [<span class="uname">U+094D DEVANAGARI SIGN VIRAMA</span>] to suppress the inherent vowel</td>
 							 <td class="exampleChar">&#x0939;&#x093F;&#x0928;&#x094D;&#x0926;&#x0940;</td>
+						 </tr>
 							 <td>U+0939 U+093F U+0928 U+094D U+0926 U+0940</td>
-							 <td>With <span class="" translate="no"><bdi lang="hi">&#x94d;</bdi></span> [<span class="uname">U+094D DEVANAGARI SIGN VIRAMA</span>] to suppress the inherent vowel</td>
+						 <tr>
 						 </tr>
 						 <tr>
+							 <td rowspan="2">With <span class="" translate="no"><bdi lang="hi">&#x902;</bdi></span> [<span class="uname">U+0902 DEVANAGARI SIGN ANUSWARA</span>] representing the nasal consonent</td>
 							 <td class="exampleChar"> &#x0939;&#x093F;&#x0902;&#x0926;&#x0940;</td>
+						 </tr>
+						 <tr>
 							 <td>U+0939 U+093F U+0902 U+0926 U+0940</td>
-							 <td>With <span class="" translate="no"><bdi lang="hi">&#x902;</bdi></span> [<span class="uname">U+0902 DEVANAGARI SIGN ANUSWARA</span>] representing the nasal consonent</td>
 						 </tr>
 					 </tbody>
 				 </table>
