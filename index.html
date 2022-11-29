@@ -461,7 +461,7 @@
 			 <p>Some languages have different orthographic traditions that vary by region or dialect or allow different spellings of the same word. Searches and spell-checking may need to know about these variations.</p>
 			 
 			 <aside class="example">
-				 <p>US English (language tag <kbd>en-US</kbd>) and UK English (language tag <kbd>en-GB</kbd>) have different spelling traditions, which manifest in different ways. For example, <strong>color</strong> versus <strong>colour</strong> or exchanging the letters <em>s</em> and <em>z</em> as in <em>internationali<span style="font-size:125%">Z</span>ation</em> vs. <em>internationali<span style="font-size:125%">S</span>ation</em>. A few words have even more divergent spellings, such as <strong>jail</strong> vs. <strong>gaol</strong>.</p>
+				 <p>US English (language tag <code translate="no">en-US</code>) and UK English (language tag <code translate="no">en-GB</code>) have different spelling traditions, which manifest in different ways. For example, <strong>color</strong> versus <strong>colour</strong> or exchanging the letters <em>s</em> and <em>z</em> as in <em>internationali<span style="font-size:125%">Z</span>ation</em> vs. <em>internationali<span style="font-size:125%">S</span>ation</em>. A few words have even more divergent spellings, such as <strong>jail</strong> vs. <strong>gaol</strong>.</p>
 			 
 			     <p>The spelling variants for US vs UK English are mostly standardised, however sometimes the spelling is down to personal preferences (or sometimes lack of knowledge).  For example, the US English word 'through' can be spelled 'thru'.</p>
 			</aside>
@@ -475,23 +475,41 @@
 
              <aside class="example">
                  <p>One example is the word which transliterates to the Latin script as <em lang="bn-Latn">rani</em>, but which users may spell with different letters and vowel marks. In modern Bengali <span class="codepoint" translate="no"><bdi lang="bn">&#x09A3;</bdi> [<span class="uname">U+09A3 BENGALI LETTER NNA</span>]</span> and <span class="codepoint" translate="no"><bdi lang="bn">&#x09A8;</bdi> [<span class="uname">U+09A8 BENGALI LETTER NA</span>]</span> are pronounced /n/, and <span class="codepoint" translate="no"><bdi lang="bn">&#x09BF;</bdi> [<span class="uname">U+09BF BENGALI VOWEL SIGN I </span>]</span> and <span class="codepoint" translate="no"><bdi lang="bn">&#x09C0;</bdi> [<span class="uname">U+09C0 BENGALI VOWEL SIGN II </span>]</span> are both pronounced /i/.  Therefore different users might choose any of the following alternative <a>code point</a> sequences for the same word:</p>
+                 
                  <table>
+					 <thead>
+						 <tr>
+							 <th></th>
+							 <th><span class="uname">U+09A8 BENGALI LETTER NA</span></th>
+							 <th><span class="uname">U+09A3 BENGALI LETTER NNA</span></th>
+						 </tr>
+					 </thead>
 					 <tbody>
 						 <tr>
-							 <td><span class="exampleChar" translate="no"><bdi lang="bn">&#x000A;&#x09B0;&#x09BE;&#x09A3;&#x09BF;</bdi></span></td>
-							 <td><span class="uname">U+09B0 BENGALI LETTER RA</span> + <span class="uname">U+09BE BENGALI VOWEL SIGN AA</span> + <span class="uname">U+09A3 BENGALI LETTER NNA</span> + <span class="uname">U+09BF BENGALI VOWEL SIGN I</span></td>
+							 <th rowspan="2"><span class="uname">U+09BF BENGALI VOWEL SIGN I</span></th>
+							 <td style="text-align:center">
+								 <span class="exampleChar" translate="no"><bdi lang="bn">&#x09B0;&#x09BE;&#x09A8;&#x09BF;</bdi></span>
+						     </td>
+							 <td style="text-align:center">
+								 <span class="exampleChar" translate="no"><bdi lang="bn">&#x09B0;&#x09BE;&#x09A3;&#x09BF;</bdi></span>
+							 </td>
 						 </tr>
 						 <tr>
-							 <td><span class="exampleChar" translate="no"><bdi lang="bn">&#x09B0;&#x09BE;&#x09A8;&#x09BF;</bdi></span></td>
-							 <td><span class="uname">U+09B0 BENGALI LETTER RA</span> + <span class="uname">U+09BE BENGALI VOWEL SIGN AA</span> + <span class="uname">U+09A8 BENGALI LETTER NA</span> + <span class="uname">U+09BF BENGALI VOWEL SIGN I</span></td>
+							 <td><span class="codepoint" translate="no">U+09B0 U+09BE U+09A8 U+09BF</span></td>
+							 <td><span class="codepoint" translate="no">U+09B0 U+09BE U+09A3 U+09BF</span></td>
 						 </tr>
 						 <tr>
-							 <td><span class="exampleChar" translate="no"><bdi lang="bn">&#x000A;&#x09B0;&#x09BE;&#x09A3;&#x09C0;</bdi></span></td>
-							 <td><span class="uname">U+09B0 BENGALI LETTER RA</span> + <span class="uname">U+09BE BENGALI VOWEL SIGN AA</span> + <span class="uname">U+09A3 BENGALI LETTER NNA</span> + <span class="uname">U+09C0 BENGALI VOWEL SIGN II</span></td>
+							 <th rowspan="2"><span class="uname">U+09C0 BENGALI VOWEL SIGN II</span></th>
+							 <td style="text-align:center">
+								 <span class="exampleChar" translate="no"><bdi lang="bn">&#x09B0;&#x09BE;&#x09A8;&#x09C0;</bdi></span>
+							 </td>
+							 <td style="text-align:center">
+								 <span class="exampleChar" translate="no"><bdi lang="bn">&#x09B0;&#x09BE;&#x09A3;&#x09C0;</bdi></span>
+							 </td>
 						 </tr>
 						 <tr>
-							 <td><span class="exampleChar" translate="no"><bdi lang="bn">&#x09B0;&#x09BE;&#x09A8;&#x09C0;</bdi></span></td>
-							 <td><span class="uname">U+09B0 BENGALI LETTER RA</span> + <span class="uname">U+09BE BENGALI VOWEL SIGN AA</span> + <span class="uname">U+09A8 BENGALI LETTER NA</span> + <span class="uname">U+09C0 BENGALI VOWEL SIGN II</span></td>
+							 <td><span class="codepoint" translate="no">U+09B0 U+09BE U+09A8 U+09C0</span></td>
+							 <td><span class="codepoint" translate="no">U+09B0 U+09BE U+09A3 U+09C0</span></td>
 						 </tr>
 					 </tbody>
                  </table>
@@ -500,7 +518,7 @@
 
              <p>Other Indic scripts provide alternative mechanisms for representing particular sounds, and in most cases either representation is considered equally valid. The most common instance of this involves representation of syllable-final nasals.</p>
 
-             <p>For example, the <samp translate="no">/n/</samp> sound in the word <em>Hindi</em> in Hindi can be written using either a nasal consonant (a half glyph form when part of a conjunct), or using a diacritic. Both of the following are possible valid spellings and are pronounced identically:</p>
+             <p>For example, the <samp translate="no">/n/</samp> sound in the word for <em>snake</em> in Hindi can be written using either  <span class="" translate="no"><bdi lang="hi">&#x901;</bdi></span> [<span class="uname">U+0901 DEVANAGARI SIGN CANDRABINDU</span>] and <span class="" translate="no"><bdi lang="hi">&#x902;</bdi></span> [<span class="uname">U+0902 DEVANAGARI SIGN ANUSVARA</span>] Both of the following are possible valid spellings:</p>
 
              <aside class="example">
 				 <table>
@@ -512,18 +530,18 @@
 					 </thead>
 					 <tbody>
 						 <tr>
-							 <td rowspan="2">With <span class="" translate="no"><bdi lang="hi">&#x94d;</bdi></span> [<span class="uname">U+094D DEVANAGARI SIGN VIRAMA</span>] to suppress the inherent vowel</td>
-							 <td class="exampleChar">&#x0939;&#x093F;&#x0928;&#x094D;&#x0926;&#x0940;</td>
+							 <td rowspan="2">With <span class="" translate="no"><bdi lang="hi">&#x901;</bdi></span> [<span class="uname">DEVANAGARI SIGN CANDRABINDU</span>]</td>
+							 <td class="exampleChar" style="text-align:center">&#x0938;&#x093E;&#x0901;&#x092A;</td>
 						 </tr>
-							 <td>U+0939 U+093F U+0928 U+094D U+0926 U+0940</td>
+							 <td style="text-align:center">U+0938 U+093E U+0901 U+092A</td>
 						 <tr>
 						 </tr>
 						 <tr>
-							 <td rowspan="2">With <span class="" translate="no"><bdi lang="hi">&#x902;</bdi></span> [<span class="uname">U+0902 DEVANAGARI SIGN ANUSWARA</span>] representing the nasal consonent</td>
-							 <td class="exampleChar"> &#x0939;&#x093F;&#x0902;&#x0926;&#x0940;</td>
+							 <td rowspan="2">With <span class="" translate="no"><bdi lang="hi">&#x902;</bdi></span> [<span class="uname">U+0902 DEVANAGARI SIGN ANUSVARA</span>]</td>
+							 <td class="exampleChar" style="text-align:center">&#x0938;&#x093E;&#x0902;&#x092A;</td>
 						 </tr>
 						 <tr>
-							 <td>U+0939 U+093F U+0902 U+0926 U+0940</td>
+							 <td style="text-align:center">U+0938 U+093E U+0902 U+092A</td>
 						 </tr>
 					 </tbody>
 				 </table>
@@ -531,38 +549,31 @@
 
              <p>In an additional twist to this story, two diacritics with different code points could be used here.  In our previous example we used <span class="codepoint" translate="no"><bdi lang="hi">&#x0902;</bdi> [<span class="uname">U+0902 DEVANAGARI SIGN ANUSVARA </span>]</span> to represent the nasal sound because the accompanying vowel-sign rises above the hanging baseline.  If the vowel-sign was one that didn't rise above the hanging baseline, we would normally use <span class="codepoint" translate="no"><bdi lang="hi">&#x0901;</bdi> [<span class="uname">U+0901 DEVANAGARI SIGN CANDRABINDU </span>]</span> instead.  The function of both of these diacritics is the same, but their code points are different.</p>
              
-             <p>The alternative use of either a letter or a diacritic for syllable-final nasals is common to many other Indian languages. In addition to Devanagari (used to write languages such as Hindi (language tag <code translate="no">hi</code>) or Marathi (language tag <code translate="no">mr</code>), scripts such as Malayalam, Gujarati, Odia, and others provide similar spelling options.</p>
+             <p>The alternative use of either a letter or a diacritic for syllable-final nasals is common to several other Indian languages. In addition to Devanagari, used to write languages such as Hindi (language tag <code translate="no">hi</code>) or Marathi (language tag <code translate="no">mr</code>, scripts such as Malayalam, Gujarati, Odia, and others provide similar spelling options.</p>
 			
-        <aside class="example" title="Examples of other Indic script spelling variations using letters or diacritics">
+        <aside class="example" title="Example of another Indic script spelling variation">
+			<p>Here is an example from Malayalam (<code translate="no">ml</code>) showing alternative spellings of the same word.</p>
         <table>
 			<thead>
+				<tr>
+					<th>Description</th>
+					<th>Example</th>
+				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td colspan=3>Malayalam (<kbd>ml</kbd>)</td>
+					<td rowspan="2">with <span class="uname" translate="no">U+0D03 MALAYALAM SIGN VISARGA</span></td>	
+					<td class="exampleChar" lang="ml" style="text-align:center">&#x0D26;&#x0D41;&#x0D03;&#x0D16;&#x0D02;</td>
 				</tr>
 				<tr>
-					<td class="exampleChar" lang="ml">&#x0D26;&#x0D41;&#x0D03;&#x0D16;&#x0D02;</td>
-					<td>U+0D26 U+0D41 U+0D03 U+0D16 U+0D02</td>	
-					<td>with U+0D03 MALAYALAM SIGN VISARGA</td>				
+					<td style="text-align:center">U+0D26 U+0D41 U+0D03 U+0D16 U+0D02</td>	
 				</tr>
 				<tr>
-					<td class="exampleChar" lang="ml">&#x0D26;&#x0D41;&#x0D16;&#x0D02;</td>
-					<td>U+0D26 U+0D41 U+0D16 U+0D02</td>
-					<td>without U+0D03 MALAYALAM SIGN VISARGA</td>					
+					<td rowspan="2">without <span class="uname" translate="no">U+0D03 MALAYALAM SIGN VISARGA</span></td>
+					<td class="exampleChar" lang="ml" style="text-align:center">&#x0D26;&#x0D41;&#x0D16;&#x0D02;</td>
 				</tr>
 				<tr>
-					<td colspan=3>Gujarati (<kbd>gu</kbd>)</td>
-				</tr>
-				<tr>
-					<td class="exampleChar" lang="gu">&#x0A9A;&#x0A82;&#x0AAA;&#x0AB2;</td>
-					<td></td>
-					<td>with U+0A82 GUJARATI SIGN ANUSVARA</td>
-				</tr>
-				<tr>
-					<td class="exampleChar" lang="gu">&#x0A9A;&#x0AAE;&#x0AAA;&#x0AB2;</td>
-					<td></td>
-					<td>misspelt?????</td>
+					<td style="text-align:center">U+0D26 U+0D41 U+0D16 U+0D02</td>
 				</tr>
 			</tbody>
         </table>
