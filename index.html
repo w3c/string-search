@@ -625,10 +625,77 @@
 		<section id="visually-identical-non-canonical">
 			
 			<h4>Visually identical text that is not canonically equivalent</h4>
+			
+			<p>In some cases, visually similar or identical glyph patterns can be made from different sequences of code points. Sometimes this is intentional and variations can be removed via Unicode normalization. But there are other cases in which similar-appearing [= graphemes =] are not made the same by normalisation, and they are not semantically equivalent.</p>
+			
+			<aside class="example">
+				<p>For example, here are a number of character sequences that produce the same or similar textual appearance in the Malayalam script.  The inappropriate sequences should be avoided because they will cause the meaning of the text to change: searches, matching and other aspects of the text will fail to be understood by the application or the font. In some cases, fonts will indicate that there is a problem by forcing the appearance of a dotted circle or otherwise failing to render the text correctly, but this may not always be the case.</p>
+				<table>
+					<thead>
+						<tr>
+							<th>Use</th>
+							<th>Do <em>not</em> use</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><bdi class="exampleChar">&#x0d48;</bdi></td>
+							<td><bdi class="exampleChar">&#xd46;&#xd46;</bdi></td>
+						</tr>
+						<tr>
+							<td>[<span class="uname" translate="no">U+0D48 MALAYALAM VOWEL SIGN AI</span>​]</td>
+							<td>[<span class="uname" translate="no">U+0D46 MALAYALAM VOWEL SIGN E​ + U+0D46 VOWEL SIGN E​</span>]</td>
+						</tr>
+                        <tr>
+							<td><bdi class="exampleChar">&#xd08;</bdi></td>
+							<td><bdi class="exampleChar">&#xd07;&#xd57;</bdi></td>
+						</tr>
+						<tr>
+							<td>[<span class="uname" translate="no">U+0D08 MALAYALAM LETTER II</span>]</td>
+							<td>[<span class="uname" translate="no">U+0D07 MALAYALAM LETTER I + U+0D57 AU LENGTH MARK</span>]</td>
+						</tr>
+                        <tr>
+							<td><bdi class="exampleChar">&#xd0a;</bdi></td>
+                            <td><bdi class="exampleChar">&#xd09;&#xd57;</bdi></td>
+                         </tr>
+                        <tr>
+							<td>[<span class="uname" translate="no">U+0D0A MALAYALAM LETTER UU</span>]</td>
+							<td>[<span class="uname" translate="no">U+0D09 MALAYALAM LETTER U + U+0D57 AU LENGTH MARK​</span>]</td>
+						</tr>
+                        <tr>
+							<td><bdi class="exampleChar">&#xd13;</bdi></td>
+							<td><bdi class="exampleChar">&#xd12;&#xd3e;</bdi></td>
+						</tr>
+                        <tr>
+							<td>[<span class="uname" translate="no">U+0D13 MALAYALAM LETTER OO</span>]</td>
+							<td>[<span class="uname" translate="no">U+0D12 MALAYALAM LETTER O + U+0D3E VOWEL SIGN AA</span>]</td>
+						</tr>
+                        <tr>
+							<td><bdi class="exampleChar">&#xd10;</bdi></td>
+							<td><bdi class="exampleChar">&#xd0e;&#xd46;</bdi></td>
+						</tr>
+                        <tr>
+							<td>[<span class="uname" translate="no">U+0D10 MALAYALAM LETTER AI</span>]</td>
+							<td>[<span class="uname" translate="no">U+0D0E MALAYALAM LETTER E + U+0D46 VOWEL SIGN E</span>]</td>
+						</tr>
+                        <tr>
+							<td><bdi class="exampleChar">&#xd14;</bdi></td>
+							<td><bdi class="exampleChar">&#xd12;&#xd57;</bdi></td>
+						</tr>
+                        <tr>
+							<td>[<span class="uname" translate="no">U+0D14 MALAYALAM LETTER AU</span>]</td>
+							<td>[<span class="uname" translate="no">U+0D12 MALAYALAM LETTER O + U+0D57 MALAYALAM AU LENGTH MARK​</span>]</td>
+						</tr>
+					</tbody>
+				</table>
+			</aside>
 		
-		    <p>Some languages which use the Arabic script have <a>graphemes</a> which can be encoded in more than one way. In some cases, these variations are handled by <a href="#unicodeNormalization">Unicode Normalization</a>, but in other cases they are not considered equivalent by Unicode, even if they appear visually to be identical. Sometimes these variations are considered to be valid spelling variations. In other cases they are the result of user's mistaken perception.</p>
+		    <p>Some languages which use the Arabic script also have [= graphemes =] which can be encoded in more than one way. In some cases, these variations are handled by <a href="#unicodeNormalization">Unicode Normalization</a>, but in other cases they are not considered equivalent by Unicode, even if they appear visually to be identical. Sometimes these variations are considered to be valid spelling variations. In other cases they are the result of user's mistaken perception.</p>
 		    
-		    <p>For example, a number languages, such as the Kashmiri language (language tag <kbd>ks</kbd>), are written in the Arabic script but are unrelated to the Arabic language. These languages thus sometimes require character sequences to represent sounds not present in Arabic. A significant problem for some of these languages is that the specially-encoded character sequences can be visually similar (or identical) to other character sequences and users may experience difficulty entering or knowing how to enter the correct sequence, such as when inputting a term to search for:</p>
+		    <aside class="example">
+		    <p>A number of language are written in the Arabic script but are unrelated to the Arabic language. Some of these languages therefore require character sequences to represent sounds not present in Arabic. A significant problem for some of these languages is that these specially-encoded character sequences can be visually similar (or identical) to character sequences encoded for other uses and users may experience difficulty entering or knowing how to enter the correct sequence, such as when inputting a search term.</p>
+		    
+		    <p>One such language is Kashmiri (language tag <kbd>ks</kbd>). Here are some selected examples one might find in Kashmiri:</p>
 				
 				<table>
 					<thead>
@@ -662,9 +729,9 @@
 						</tr>
 					</tbody>
 				</table>
+				<p>(For more information, see Richard Ishida's doc <a href="https://r12a.github.io/scripts/arabic/ks.html#encoding">here</a>.)</p>
+			</aside>
 				
-			<p>Users may also create visually identical (or very similar) graphemes from sequences of characters that are intended for other languages and which only appear to have the correct shape (in certain fonts). For more information, see Richard Ishida's doc <a href="https://r12a.github.io/scripts/arabic/ks.html#encoding">here</a>.</p>
-
 		</section>
 		    
       </section>
