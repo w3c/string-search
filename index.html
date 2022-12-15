@@ -220,6 +220,8 @@
       
       <p>One way that sub-string matching usually differs from other types of <a>full-text search</a> is that, while it may use algorithms in an attempt to suppress or ignore textual variations, it usually does not produce matches that contain additional or unspecified character sequences, words, or phrases.</p>
       
+      <p>Quite often, the user's input does not use a sequence of <a>code points</a> identical to that in the text being searched. This can happen for a variety of reasons. Sometimes it is because the text varies in ways the user cannot predict. In other cases it is because the user's keyboard or input method does not provide ready access to the textual variations needed&mdash;or because the user cannot be bothered to input the text accurately. In this section, we examine various common cases known to us.</p>
+      
 	  <section id="otherEquivalences">
          <h3>Additional Types of Equivalence</h3>
          
@@ -244,10 +246,10 @@
      <section id="unicodeNormalization">
 		 <h4>Unicode Normalization and character equivalence</h4>
 
-        <p>Unicode defines canonical and compatibility relationship between characters that might impact string searching. For a detailed discussion of Unicode Normalization forms see Section 2.2 of [[CHARMOD-NORM]] as well as the definitions found in <cite>Unicode Normalization Forms</cite> [[UAX15]].</p>
+        <p>Unicode defines canonical and compatibility relationships between characters which can impact user perceptions of string searching. For a detailed discussion of Unicode Normalization forms see Section 2.2 of [[CHARMOD-NORM]] as well as the definitions found in <cite>Unicode Normalization Forms</cite> [[UAX15]].</p>
         
         <aside class="example">
-        <p>For example, consider the letter "K". The characters with a normalization including <code>U+004B LATIN CAPITAL LETTER K</code> include the following, many of which might be expected to match a letter "K" in a search request by a user because they appear to contain a logical "letter K":</p>
+        <p>For example, consider the letter "K". The characters with a normalization including <code>U+004B LATIN CAPITAL LETTER K</code> include the following, many of which might be expected to match a letter "K" in a sub-string search request by a user because they appear to contain a logical "letter K":</p>
         <ul>
           <li>&#x0136; <code>U+0136 LATIN CAPITAL LETTER K WITH CEDILLA</code>
           <li>&#x01E8; <code>U+01E8 LATIN CAPITAL LETTER K WITH CARON</code>
@@ -277,7 +279,9 @@
           <li>&#x1F11A; <code>U+1F11A PARENTHESIZED LATIN CAPITAL LETTER K</code>
           <li>&#x1F13A; <code>U+1F13A SQUARED LATIN CAPITAL LETTER K</code>
         </ul>
-        </aside>      
+        </aside>
+        
+        <p>In many complex scripts it is possible to encode letters or vowel-signs in more than one way, but the alternatives are canonically equivalent.</p>    
       </section>  
 
 	  <section id="scriptEquiv">
@@ -287,9 +291,32 @@
 		    
 		    <aside class="example">
 				<p>Japanese uses two syllabic scripts, <code>hiragana</code> and <code>katakana</code>. These scripts encode the same phonemes; thus the user might expect that typing in a search term in <em>hiragana</em> would find the exact same word spelled out in <em>katakana</em>.</p>
-				<pre>&#x306B;&#x307B;&#x3093;&#x3054; // hiragana
-&#x30CB;&#x30DB;&#x30F3;&#x30B4; // katakana
-				</pre>
+				<p>In the example shown here, the word <em translate="no" lang="ja-Latn">nihongo</em> (Japanese for "Japanese") is shown in both hiragana and katakana. Note that this word is usually represented by <em>kanji</em> (Han ideograph) characters: <span class="kw" lang="ja" translate="no">日本語</span>.</p>
+				
+				<table>
+					<thead>
+						<tr>
+							<th style="width:30%">Description</th>
+							<th>Example</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td rowspan="2">Hiragana</td>
+							<td class="exampleChar" lang="ja">&#x306B;&#x307B;&#x3093;&#x3054;</td>
+					    </tr>
+					    <tr>
+							<td><span class="codepoint" translate="no">U+306B U+307B U+3093 U+3054</span></td>
+						</tr>
+						<tr>
+							<td rowspan="2">Katakana</td>
+							<td class="exampleChar" lang="ja">&#x30CB;&#x30DB;&#x30F3;&#x30B4;</td>
+						</tr>
+						<tr>
+							<td><span class="codepoint" translate="no">U+30CB U+30DB U+30F3 U+30B4</span></td>
+						</tr>
+					</tbody>
+				</table>
 		    </aside>
 		 </section>
 		 
@@ -297,13 +324,48 @@
 		 <section id="eastAsianWidthEquiv">
 			 <h4>East Asian Width</h4>
 			 
-			 <p>Some compatibility characters were encoded into Unicode to account for single- or multibyte representation in <a>legacy character encodings</a> or for compatibility with certain layout behaviors in East Asian languages. For example, the full-width characters in the range <code>U+FF01</code> through <code>U+FF5E</code> or the half-width katakana characters.</p>
+			 <p>Some compatibility characters were encoded into Unicode to account for single- or multibyte representation in <a>legacy character encodings</a> or for compatibility with certain layout behaviors in East Asian languages.</p>
 			 
-			 <aside class="example">
-				 <p>Here is an example of East Asian width variation:</p>
-				 <pre>&#x30CB;&#x30DB;&#x30F3;&#x30B4; // full-width katakana
-&#xFF86;&#xFF8E;&#xFF9D;&#xFF7A;&#xFF9E; // half-width katakana
-				 </pre>
+			 <aside class="example" title="Examples of East Asian width variations">
+				 <table>
+					 <thead>
+						 <tr>
+							 <th>Description</th>
+							 <th>Example</th>
+						 </tr>
+					 </thead>
+					 <tbody>
+						 <tr>
+							 <td rowspan=2>full-width katakana</td>
+							 <td class="exampleChar" lang="ja">&#x30CB;&#x30DB;&#x30F3;&#x30B4;</td>
+						 </tr>
+						 <tr>
+							 <td><span class="codepoint" translate="no">U+30CB U+30DB U+30F3 U+30B4</span></td>
+						 </tr>
+						 <tr>
+							 <td rowspan=2>half-width katakana<br><em>These are compatibility characters</em></td>
+							 <td class="exampleChar" lang="ja">&#xFF86;&#xFF8E;&#xFF9D;&#xFF7A;&#xFF9E;</td>
+						 </tr>
+						 <tr>
+							 <td><span class="codepoint" translate="no">U+FF86 U+FF83 U+FF9D U+FF7A U+FF9E</span></td>
+						 </tr>
+						 <tr>
+							 <td rowspan=2>half-width Latin letters<br><em>These are ASCII letters!</em></td>
+							 <td class="exampleChar" lang="en">abcXYZ</td>
+						 </tr>
+						 <tr>
+							 <td><span class="codepoint" translate="no">U+0061 U+0062 U+0063 U+0058 U+0059 U+005A</span></td>
+						 </tr>
+						 <tr>
+							 <td rowspan=2>full-width Latin letters<br><em>These are compatibility characters.</em></td>
+							 <td class="exampleChar" lang="en">&#xFF41;&#xFF42;&#xFF43;&#xFF38;&#xFF39;&#xFF3A;</td>
+						 </tr>
+						 <tr>
+							 <td><span class="codepoint" translate="no">U+FF41 U+FF42 U+FF43 U+FF38 U+FF39 U+FF3A</span></td>
+						 </tr>
+					 </tbody>
+				 </table>
+
 			 </aside>
 		 </section>
 
@@ -393,44 +455,132 @@
 		 </aside>
 		 </section>
          
-        <section id="UserInput">
-		<h4>Variations in Content and User Input</h4>
-		
-	    <p>Quite often, the user's input does not use a sequence of <a>code points</a> identical to that in the text being searched. This can happen for a variety of reasons. Sometimes it is because the text varies in ways the user cannot predict. In other cases it is because the user's keyboard or input method does not provide ready access to the textual variations needed&mdash;or because the user cannot be bothered to input the text accurately.</p>
-	    
-	    <p>Users might omit accents when entering search terms in scripts (such as the Latin script) that use various diacritics, particularly on mobile keyboards, even though the text they are searching includes the additional marks. In these cases, users generally expect the search operation to be more "promiscuous" to make up for their failure to make the additional effort needed.</p>
-	    
-	    <aside class="example">
-	       <p>German includes several letters that use an <em>umlaut</em> accent, such as <code>ü</code> or <code>ö</code>. Users sometimes will enter accents when searching, but sometimes they replace the umlauts with the letter <code>e</code>. For example, instead of entering <code>Dürst</code> they might enter <code>Duerst</code>. Either spelling is recognizable and has the same meaning. The umlauts are probably "better" than the <code>e</code> spelling, but German speakers are not confused by the difference.</p>
-        
-           <p class="note">Note well that other languages use these same characters for a different purpose than German does. The formal name of the "umlaut" diacritic in Unicode is <em>diaeresis</em>, which means approximately "break" or "pause". Languages such as French, Spanish, and English occasionally use the diaeresis to indicate the need to pronounce a specific letter, such as the word "<span lang="es">ambigüedad</span>" in Spanish or a name like "Zoë" in English.</p>
-        </aside>
-        
-        <aside class="example">
-		   <p>Users in languages such as French sometimes omit entering accents when inputting search terms because it is more work to enter the correct character, even though this affects the meaning. For example, they might type <code>cote</code> and might expect to find the variations (which have different meanings) like <code>côte</code> or <code>côtè</code>, etc. This is "misspelling".</p>
-        </aside>
-		
-		<p>A different example might be the presence or absence of short vowels in the Arabic and Hebrew scripts. For many languages in these scripts, the inclusion of the short vowels is entirely optional, but the presence of vowels in text being searched might impede a match if the user doesn't enter or know to enter them.</p>
-			
-		<aside class="example">
-		   <p>Arabic users generally do not enter short vowels and most Arabic texts do not include these vowels&mdash;but some texts do include them. Searching is affected by this, but meaning generally is not. A generalized description of this might be "optional to encode" sequences.</p>
-		</aside>
-
-             
-            <p class=issue>(Ed.: This is the current discussion in <a href="https://github.com/w3c/string-search/issues/10#issuecomment-1189267468">#10</a>)</p>
-        
-        <p>Some languages like Bengali have minor variations in how to "spell" a word which affects the pronunciation slightly but which are considered the same. For example: <span lang=bn>রাণি</span> (rɑn̈i) vs. <span lang=bn>রাণী</span> (rɑn̈ī) vs. <span lang=bn>রানি</span> (rɑni) vs. <span lang=bn>রানী</span> (rɑnī).</p>
-		
-        <p>This effect might vary depending on context as well. For example, a person using a physical keyboard may have direct access to accented letters, while a virtual or on-screen keyboard may require extra effort to access and select the same letters.</p>
-        
-        </section>
-        
         <section id="orthoVariation">
-			 <h4>Orthographic Variation</h4>
+			 <h4>Orthographic or Dialectical Variation</h4>
 			 
 			 <p>Some languages have different orthographic traditions that vary by region or dialect or allow different spellings of the same word. Searches and spell-checking may need to know about these variations.</p>
 			 
-			 <p class="example">US English and UK English have different spelling traditions, which manifest in different ways. For example, <strong>color</strong> versus <strong>colour</strong> or exchanging the letters <em>s</em> and <em>z</em> as in <em>internationali<span style="font-size:125%">Z</span>ation</em> vs. <em>internationali<span style="font-size:125%">S</span>ation</em>. A few words have even more divergent spellings, such as <strong>jail</strong> vs. <strong>gaol</strong>.</p>
+			 <aside class="example">
+				 <p>US English (language tag <code translate="no">en-US</code>) and UK English (language tag <code translate="no">en-GB</code>) have different spelling traditions, which manifest in different ways. For example, <strong>color</strong> versus <strong>colour</strong> or exchanging the letters <em>s</em> and <em>z</em> as in <em>internationali<span style="font-size:125%">Z</span>ation</em> vs. <em>internationali<span style="font-size:125%">S</span>ation</em>. A few words have even more divergent spellings, such as <strong>jail</strong> vs. <strong>gaol</strong>.</p>
+			 
+			     <p>The spelling variants for US vs UK English are mostly standardised, however sometimes the spelling is down to personal preferences (or sometimes lack of knowledge).  For example, the US English word 'through' can be spelled 'thru'.</p>
+			</aside>
+			 
+			<section id="south-asian-scripts">
+			<h4>South Asian (Indic script) languages</h4>
+
+             <p>Indic script languages have many instances of this kind of problem.  Sometimes these are spelling errors, but in other cases multiple spellings are acceptable.</p>
+
+             <p>For example, the Bengali language (language tag <code class="kw" translate="no">bn</code>) is notorious for having a wide range of spelling variations permitted by the language: nearly 80% of Bengali words have at least two spellings. Many words have 3, 4, or more variations&mdash;with at least one word having 16 different <em>valid</em> spellings.</p>
+
+             <aside class="example">
+                 <p>One example is the word which transliterates to the Latin script as <em lang="bn-Latn">rani</em>, but which users may spell with different letters and vowel marks. In modern Bengali <span class="codepoint" translate="no"><bdi lang="bn">&#x09A3;</bdi> [<span class="uname">U+09A3 BENGALI LETTER NNA</span>]</span> and <span class="codepoint" translate="no"><bdi lang="bn">&#x09A8;</bdi> [<span class="uname">U+09A8 BENGALI LETTER NA</span>]</span> are pronounced /n/, and <span class="codepoint" translate="no"><bdi lang="bn">&#x09BF;</bdi> [<span class="uname">U+09BF BENGALI VOWEL SIGN I </span>]</span> and <span class="codepoint" translate="no"><bdi lang="bn">&#x09C0;</bdi> [<span class="uname">U+09C0 BENGALI VOWEL SIGN II </span>]</span> are both pronounced /i/.  Therefore different users might choose any of the following alternative <a>code point</a> sequences for the same word:</p>
+                 
+                 <table>
+					 <thead>
+						 <tr>
+							 <th></th>
+							 <th><span class="uname">U+09A8 BENGALI LETTER NA</span></th>
+							 <th><span class="uname">U+09A3 BENGALI LETTER NNA</span></th>
+						 </tr>
+					 </thead>
+					 <tbody>
+						 <tr>
+							 <th rowspan="2"><span class="uname">U+09BF BENGALI VOWEL SIGN I</span></th>
+							 <td style="text-align:center">
+								 <span class="exampleChar" translate="no"><bdi lang="bn">&#x09B0;&#x09BE;&#x09A8;&#x09BF;</bdi></span>
+						     </td>
+							 <td style="text-align:center">
+								 <span class="exampleChar" translate="no"><bdi lang="bn">&#x09B0;&#x09BE;&#x09A3;&#x09BF;</bdi></span>
+							 </td>
+						 </tr>
+						 <tr>
+							 <td><span class="codepoint" translate="no">U+09B0 U+09BE U+09A8 U+09BF</span></td>
+							 <td><span class="codepoint" translate="no">U+09B0 U+09BE U+09A3 U+09BF</span></td>
+						 </tr>
+						 <tr>
+							 <th rowspan="2"><span class="uname">U+09C0 BENGALI VOWEL SIGN II</span></th>
+							 <td style="text-align:center">
+								 <span class="exampleChar" translate="no"><bdi lang="bn">&#x09B0;&#x09BE;&#x09A8;&#x09C0;</bdi></span>
+							 </td>
+							 <td style="text-align:center">
+								 <span class="exampleChar" translate="no"><bdi lang="bn">&#x09B0;&#x09BE;&#x09A3;&#x09C0;</bdi></span>
+							 </td>
+						 </tr>
+						 <tr>
+							 <td><span class="codepoint" translate="no">U+09B0 U+09BE U+09A8 U+09C0</span></td>
+							 <td><span class="codepoint" translate="no">U+09B0 U+09BE U+09A3 U+09C0</span></td>
+						 </tr>
+					 </tbody>
+                 </table>
+                
+             </aside>
+
+             <p>Other Indic scripts provide alternative mechanisms for representing particular sounds, and in most cases either representation is considered equally valid. The most common instance of this involves representation of syllable-final nasals.</p>
+
+             <p>For example, the <samp translate="no">/n/</samp> sound in the word for <em>snake</em> in Hindi can be written using either  <span class="" translate="no"><bdi lang="hi">&#x901;</bdi></span> [<span class="uname">U+0901 DEVANAGARI SIGN CANDRABINDU</span>] and <span class="" translate="no"><bdi lang="hi">&#x902;</bdi></span> [<span class="uname">U+0902 DEVANAGARI SIGN ANUSVARA</span>] Both of the following are possible valid spellings:</p>
+
+             <aside class="example">
+				 <table>
+					 <thead>
+						 <tr>
+							 <th>Description</th>
+							 <th>Example</th>
+						 </tr>
+					 </thead>
+					 <tbody>
+						 <tr>
+							 <td rowspan="2">With <span class="" translate="no"><bdi lang="hi">&#x901;</bdi></span> [<span class="uname">U+0901 DEVANAGARI SIGN CANDRABINDU</span>]</td>
+							 <td class="exampleChar" style="text-align:center">&#x0938;&#x093E;&#x0901;&#x092A;</td>
+						 </tr>
+							 <td style="text-align:center">U+0938 U+093E U+0901 U+092A</td>
+						 <tr>
+						 </tr>
+						 <tr>
+							 <td rowspan="2">With <span class="" translate="no"><bdi lang="hi">&#x902;</bdi></span> [<span class="uname">U+0902 DEVANAGARI SIGN ANUSVARA</span>]</td>
+							 <td class="exampleChar" style="text-align:center">&#x0938;&#x093E;&#x0902;&#x092A;</td>
+						 </tr>
+						 <tr>
+							 <td style="text-align:center">U+0938 U+093E U+0902 U+092A</td>
+						 </tr>
+					 </tbody>
+				 </table>
+             </aside>
+
+             <p>In an additional twist to this story, two diacritics with different code points could be used here.  In our previous example we used <span class="codepoint" translate="no"><bdi lang="hi">&#x0902;</bdi> [<span class="uname">U+0902 DEVANAGARI SIGN ANUSVARA </span>]</span> to represent the nasal sound because the accompanying vowel-sign rises above the hanging baseline.  If the vowel-sign was one that didn't rise above the hanging baseline, we would normally use <span class="codepoint" translate="no"><bdi lang="hi">&#x0901;</bdi> [<span class="uname">U+0901 DEVANAGARI SIGN CANDRABINDU </span>]</span> instead.  The function of both of these diacritics is the same, but their code points are different.</p>
+             
+             <p>The alternative use of either a letter or a diacritic for syllable-final nasals is common to several other Indian languages. In addition to Devanagari, used to write languages such as Hindi (language tag <code translate="no">hi</code>) or Marathi (language tag <code translate="no">mr</code>, scripts such as Malayalam, Gujarati, Odia, and others provide similar spelling options.</p>
+			
+        <aside class="example" title="Example of another Indic script spelling variation">
+			<p>Here is an example from Malayalam (<code translate="no">ml</code>) showing alternative spellings of the same word.</p>
+        <table>
+			<thead>
+				<tr>
+					<th>Description</th>
+					<th>Example</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td rowspan="2">with <span class="uname" translate="no">U+0D03 MALAYALAM SIGN VISARGA</span></td>	
+					<td class="exampleChar" lang="ml" style="text-align:center">&#x0D26;&#x0D41;&#x0D03;&#x0D16;&#x0D02;</td>
+				</tr>
+				<tr>
+					<td style="text-align:center">U+0D26 U+0D41 U+0D03 U+0D16 U+0D02</td>	
+				</tr>
+				<tr>
+					<td rowspan="2">without <span class="uname" translate="no">U+0D03 MALAYALAM SIGN VISARGA</span></td>
+					<td class="exampleChar" lang="ml" style="text-align:center">&#x0D26;&#x0D41;&#x0D16;&#x0D02;</td>
+				</tr>
+				<tr>
+					<td style="text-align:center">U+0D26 U+0D41 U+0D16 U+0D02</td>
+				</tr>
+			</tbody>
+        </table>
+        </aside>
+
+        </section>
+
          </section>
          
          <section id="whitespaceNormalization">
@@ -439,10 +589,155 @@
 			 <p>Some languages use whitespace to separate words, sentences, or paragraphs while others do not. When performing sub-string matching, different forms of whitespace found in [[Unicode]] must be normalized so that the match succeeds.</p>
 	     </section>
 	     
+
+
+	    
+	    <section id="accents">
+			<h4>Accents and diacritic marks</h4>
+	    
+	        <p>Users will sometimes vary their input when dealing with letters that contain accents or diacritic marks when entering search terms in scripts (such as the Latin script) that use various diacritics, even though the text they are searching includes the additional marks. This is particularly true on mobile keyboards, where input of these characters can require additional effort. In these cases, users generally expect the search operation to be more "promiscuous" to make up for their failure to make the additional effort needed.</p>
+	        
+        <aside class="example">
+		   <p>Users in languages such as French sometimes omit entering accents when inputting search terms because it is more work to enter the correct character, even though this affects the meaning. For example, they might type <code>cote</code> and might expect to find the variations (which have different meanings) like <code>côte</code> or <code>côté</code>, etc. This is "misspelling".</p>
+        </aside>
+	    
+	    <aside class="example">
+	       <p>German uses several letters that have an <em>umlaut</em> accent, such as <span class="codepoint" translate="no"><bdi lang="de">&#x00F6;</bdi> [<span class="uname">U+00F6 LATIN SMALL LETTER O WITH DIERISIS</span>]</span> or <span class="codepoint" translate="no"><bdi lang="de">&#x00FC;</bdi> [<span class="uname">U+00FC LATIN SMALL LETTER U WITH DIERISIS</span>]</span>. Users sometimes will enter these accents when searching, but sometimes they replace the umlauts with the letter <code>e</code>. For example, instead of entering <code>Dürst</code> they might enter <code>Duerst</code>. Either spelling is recognizable and has the same meaning. The umlauts are probably "better" than the <code>e</code> spelling, but German speakers are not confused by the difference.</p>
+        
+           <p class="note">Other languages use these same characters for a different purpose than German does. The formal name of the "umlaut" diacritic in Unicode is <em>diaeresis</em>, which means approximately "break" or "pause". Languages such as French, Spanish, and English occasionally use the diaeresis to indicate the need to pronounce a specific letter, such as the word "<span lang="es">ambigüedad</span>" in Spanish or a name like "Zoë" in English.</p>
+        </aside>
+        
+        <p>This effect might vary depending on context as well. For example, a person using a physical keyboard may have direct access to accented letters, while a virtual or on-screen keyboard may require extra effort to access and select the same letters.</p>
+        </section>
+        
+        <section id="optional-characters">
+			<h4>Optional characters</h4>
+	
+		    <p>In some orthographies it is necessary to match strings with different numbers of characters.</p>
+
+            <p>A prime example of this involves vowel diacritics in <a>abjads</a>.  For example, some languages that use the Arabic and Hebrew scripts do not require (but optionally allow) the user to input short vowels. (For some other languages in these scripts, the inclusion of the short vowels is not optional.) The presence or absence of vowels in the text being input or searched might impede a match if the user doesn't enter or know to enter them.</p>
+		    
+		<aside class="example">
+		   <p>Arabic, Persian, and Urdu users generally do not enter short vowels&mdash;but some texts do include them. Searching is affected by this, but meaning generally is not. A generalized description of this might be "optional to encode" sequences.</p>
+		</aside>
+		</section>
+		
+		<section id="visually-identical-non-canonical">
+			
+			<h4>Visually identical text that is not canonically equivalent</h4>
+			
+			<p>In some cases, visually similar or identical glyph patterns can be made from different sequences of code points. Sometimes this is intentional and variations can be removed via Unicode normalization. But there are other cases in which similar-appearing [= graphemes =] are not made the same by normalisation, and they are not semantically equivalent.</p>
+			
+			<aside class="example">
+				<p>For example, here are a number of character sequences that produce the same or similar textual appearance in the Malayalam script.  The inappropriate sequences should be avoided because they will cause the meaning of the text to change: searches, matching and other aspects of the text will fail to be understood by the application or the font. In some cases, fonts will indicate that there is a problem by forcing the appearance of a dotted circle or otherwise failing to render the text correctly, but this may not always be the case.</p>
+				<table>
+					<thead>
+						<tr>
+							<th>Use</th>
+							<th>Do <em>not</em> use</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><bdi class="exampleChar">&#x0d48;</bdi></td>
+							<td><bdi class="exampleChar">&#xd46;&#xd46;</bdi></td>
+						</tr>
+						<tr>
+							<td>[<span class="uname" translate="no">U+0D48 MALAYALAM VOWEL SIGN AI</span>​]</td>
+							<td>[<span class="uname" translate="no">U+0D46 MALAYALAM VOWEL SIGN E​ + U+0D46 VOWEL SIGN E​</span>]</td>
+						</tr>
+                        <tr>
+							<td><bdi class="exampleChar">&#xd08;</bdi></td>
+							<td><bdi class="exampleChar">&#xd07;&#xd57;</bdi></td>
+						</tr>
+						<tr>
+							<td>[<span class="uname" translate="no">U+0D08 MALAYALAM LETTER II</span>]</td>
+							<td>[<span class="uname" translate="no">U+0D07 MALAYALAM LETTER I + U+0D57 AU LENGTH MARK</span>]</td>
+						</tr>
+                        <tr>
+							<td><bdi class="exampleChar">&#xd0a;</bdi></td>
+                            <td><bdi class="exampleChar">&#xd09;&#xd57;</bdi></td>
+                         </tr>
+                        <tr>
+							<td>[<span class="uname" translate="no">U+0D0A MALAYALAM LETTER UU</span>]</td>
+							<td>[<span class="uname" translate="no">U+0D09 MALAYALAM LETTER U + U+0D57 AU LENGTH MARK​</span>]</td>
+						</tr>
+                        <tr>
+							<td><bdi class="exampleChar">&#xd13;</bdi></td>
+							<td><bdi class="exampleChar">&#xd12;&#xd3e;</bdi></td>
+						</tr>
+                        <tr>
+							<td>[<span class="uname" translate="no">U+0D13 MALAYALAM LETTER OO</span>]</td>
+							<td>[<span class="uname" translate="no">U+0D12 MALAYALAM LETTER O + U+0D3E VOWEL SIGN AA</span>]</td>
+						</tr>
+                        <tr>
+							<td><bdi class="exampleChar">&#xd10;</bdi></td>
+							<td><bdi class="exampleChar">&#xd0e;&#xd46;</bdi></td>
+						</tr>
+                        <tr>
+							<td>[<span class="uname" translate="no">U+0D10 MALAYALAM LETTER AI</span>]</td>
+							<td>[<span class="uname" translate="no">U+0D0E MALAYALAM LETTER E + U+0D46 VOWEL SIGN E</span>]</td>
+						</tr>
+                        <tr>
+							<td><bdi class="exampleChar">&#xd14;</bdi></td>
+							<td><bdi class="exampleChar">&#xd12;&#xd57;</bdi></td>
+						</tr>
+                        <tr>
+							<td>[<span class="uname" translate="no">U+0D14 MALAYALAM LETTER AU</span>]</td>
+							<td>[<span class="uname" translate="no">U+0D12 MALAYALAM LETTER O + U+0D57 MALAYALAM AU LENGTH MARK​</span>]</td>
+						</tr>
+					</tbody>
+				</table>
+			</aside>
+		
+		    <p>Some languages which use the Arabic script also have [= graphemes =] which can be encoded in more than one way. In some cases, these variations are handled by <a href="#unicodeNormalization">Unicode Normalization</a>, but in other cases they are not considered equivalent by Unicode, even if they appear visually to be identical. Sometimes these variations are considered to be valid spelling variations. In other cases they are the result of user's mistaken perception.</p>
+		    
+		    <aside class="example">
+		    <p>A number of language are written in the Arabic script but are unrelated to the Arabic language. Some of these languages therefore require character sequences to represent sounds not present in Arabic. A significant problem for some of these languages is that these specially-encoded character sequences can be visually similar (or identical) to character sequences encoded for other uses and users may experience difficulty entering or knowing how to enter the correct sequence, such as when inputting a search term.</p>
+		    
+		    <p>One such language is Kashmiri (language tag <kbd>ks</kbd>). Here are some selected examples one might find in Kashmiri:</p>
+				
+				<table>
+					<thead>
+						<tr>
+						   <th>Description</th>
+						   <th colspan=4 style="text-align:center">Examples</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><strong>Canonically equivalent alternatives</strong><br/>(differences resolved by Unicode Normalization)</td>
+							<td class="exampleChar">&#x625;</td>
+							<td><code class="uname" translate="no">U+0625 ARABIC LETTER ALEF WITH HAMZA BELOW</code></td>
+							<td class="exampleChar">&#x627;&#x655;</td>
+							<td><code class="uname" translate="no">U+0627 ARABIC LETTER ALEF</code> + <code class="uname" translate="no">U+0655 ARABIC HAMZA BELOW</code></td>
+
+						</tr>
+						<tr>
+							<td><strong>Not canonically equivalent</strong><br/>(differences that <em>remain</em> after Unicode Normalization) Many of these are linked to user perception of whether the vowel is part of the base letter (<em lang="ar-Latn" translate="no">ijam</em>) vs. separable (<em lang="ar-Latn" translate="no">tashkil</em>)</td>
+							<td class="exampleChar">&#x6ce;</td>
+							<td><code class="uname" translate="no">U+06CE ARABIC LETTER YEH WITH SMALL V</code></td>
+							<td class="exampleChar">&#x6cc;&#x65a;</td>
+							<td><code class="uname" translate="no">U+06CC ARABIC LETTER FARSI YEH</code> + <code class="uname" translate="no">U+065A ARABIC VOWEL SIGN SMALL V ABOVE</code></td>
+						</tr>
+						<tr>
+							<td><strong>Confusables or spelling errors</strong><br/>these can be common in certain kinds of text due to gaps in keyboard support or due to a similarity in appearance</td>
+							<td class="exampleChar">&#x626;</td>
+							<td><code class="uname" translate="no">U+0626 ARABIC LETTER YEH WITH HAMZA ABOVE</code></td>
+							<td class="exampleChar">&#x6cc;&#x654;</td>
+							<td><code class="uname" translate="no">U+06CC ARABIC LETTER FARSI YEH</code> + <code class="uname" translate="no">U+0654 ARABIC HAMZA ABOVE</code></td>
+						</tr>
+					</tbody>
+				</table>
+				<p>(For more information, see Richard Ishida's doc <a href="https://r12a.github.io/scripts/arabic/ks.html#encoding">here</a>.)</p>
+			</aside>
+				
+		</section>
+		    
       </section>
-	  
-	  
-	  
+      </section><!-- end of "additional types of equivalence" -->
+	     
+
       <section id="searchingConsiderations">
         <h2>Considerations for Searching</h2>
         
@@ -497,7 +792,7 @@
       </ul>
       </section>
     </section>
-    </section>
+
     <section>
       <h2 id="Acknowledgements" class="informative">Acknowledgements</h2>
       <p>The W3C Internationalization Working Group and Interest Group, as well as others, provided many comments and suggestions. The Working Group would like to thank: all of the contributors to the Character Model series of documents over the many years of their development. </p>
