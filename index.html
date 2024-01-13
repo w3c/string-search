@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html dir="ltr" lang="en">
   <head>
     <meta charset="UTF-8">
@@ -612,35 +612,33 @@
 					<thead>
 						<tr>
 						   <th>Description</th>
-						   <th colspan=4 style="text-align:center">Examples</th>
-						</tr>
+						   <th style="text-align:center">Examples</th>
+<th style="text-align:center">&nbsp;</th>
+<th style="text-align:center">&nbsp;</th>
+</tr>
 					</thead>
 					<tbody>
 						<tr>
 							<td><strong>Canonically equivalent alternatives</strong><br/>(differences resolved by Unicode Normalization)</td>
-							<td class="exampleChar">&#x625;</td>
-							<td><code class="uname" translate="no">U+0625 ARABIC LETTER ALEF WITH HAMZA BELOW</code></td>
-							<td class="exampleChar">&#x627;&#x655;</td>
-							<td><code class="uname" translate="no">U+0627 ARABIC LETTER ALEF</code> + <code class="uname" translate="no">U+0655 ARABIC HAMZA BELOW</code></td>
-
+							<td class="exampleChar"><img src="https://r12a.github.io/c/Arabic/large/0625.png" alt="&#x065B;" style="height: 4rem; width: 4rem;"></td>
+<td><span class="codepoint" translate="no"><span class="uname">U+0625 ARABIC LETTER ALEF WITH HAMZA BELOW</span></span> Used in Kashmiri to indicate the sound <span class="ipa">ɨ</span> in word-initial position.</td>
+							<td><span class="codepoint" translate="no"><span class="uname">U+0627 ARABIC LETTER ALEF</span> + <span class="uname">U+0655 ARABIC HAMZA BELOW</span></span> Equally valid in Kashmiri, but the vowel is encoded separately here.</td>
 						</tr>
 						<tr>
-							<td><strong>Not canonically equivalent</strong><br/>(differences that <em>remain</em> after Unicode Normalization) Many of these are linked to user perception of whether the vowel is part of the base letter (<em lang="ar-Latn" translate="no">ijam</em>) vs. separable (<em lang="ar-Latn" translate="no">tashkil</em>)</td>
-							<td class="exampleChar">&#x6ce;</td>
-							<td><code class="uname" translate="no">U+06CE ARABIC LETTER YEH WITH SMALL V</code></td>
-							<td class="exampleChar">&#x6cc;&#x65a;</td>
-							<td><code class="uname" translate="no">U+06CC ARABIC LETTER FARSI YEH</code> + <code class="uname" translate="no">U+065A ARABIC VOWEL SIGN SMALL V ABOVE</code></td>
+							<td><strong>Not canonically equivalent</strong><br/>(differences that <em>remain</em> after Unicode Normalization) Many of these are linked to user perception of whether the vowel is part of the base letter (<em lang="ar-Latn" translate="no">ijam</em>) vs. separable (<em lang="ar-Latn" translate="no">tashkil</em> or <em lang="ar-Latn" translate="no">hamza</em>)</td>
+							<td class="exampleChar"><img src="https://r12a.github.io/c/Arabic/large/0681.png" alt="&#x065B;" style="height: 4rem; width: 4rem;"></td>
+<td><span class="codepoint" translate="no"><span class="uname">U+062D ARABIC LETTER HAH</span> + <span class="uname">U+0654 ARABIC HAMZA ABOVE</span></span> Preferred usage for Kashmiri to represent a consonant+vowel sequence <span class="ipa">hə</span>. The hamza represents the vowel sound.</td>
+                            <td><span class="codepoint" translate="no"><span class="uname">U+0681 ARABIC LETTER HAH WITH HAMZA ABOVE</span></span> Used for Pashto consonant <span class="ipa">d͡z</span>. Can then be combined with other diacritics to indicate vowels.</td>
 						</tr>
 						<tr>
 							<td><strong>Confusables or spelling errors</strong><br/>these can be common in certain kinds of text due to gaps in keyboard support or due to a similarity in appearance</td>
-							<td class="exampleChar">&#x626;</td>
-							<td><code class="uname" translate="no">U+0626 ARABIC LETTER YEH WITH HAMZA ABOVE</code></td>
-							<td class="exampleChar">&#x6cc;&#x654;</td>
-							<td><code class="uname" translate="no">U+06CC ARABIC LETTER FARSI YEH</code> + <code class="uname" translate="no">U+0654 ARABIC HAMZA ABOVE</code></td>
+							<td class="exampleChar"><img src="https://r12a.github.io/c/Arabic/large/065B.png" alt="&#x065B;" style="height: 4rem; width: 4rem;"></td>
+<td><code class="uname" translate="no">U+0652 ARABIC SUKUN</code> In Kashmiri (as in Arabic) this indicates that no vowel follows the base consonant, but it looks like this when  an appropriate Kashmiri (Nastaliq) font is used.</td>
+							<td><code class="uname" translate="no">U+065B ARABIC VOWEL SIGN INVERTED SMALL V ABOVE</code> Used for vowel sounds in African languages such as  the Fulfulde vowel <span class="ipa">o</span>.</td>
 						</tr>
 					</tbody>
 				</table>
-				<p>(For more information, see Richard Ishida's doc <a href="https://r12a.github.io/scripts/arabic/ks.html#encoding">here</a>.)</p>
+				<p>(For more information, see Richard Ishida's doc <a href="https://r12a.github.io/scripts/arab/homographs#ijam_tashkil">here</a>.)</p>
 			</aside>
 				
 		</section>
