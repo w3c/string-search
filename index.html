@@ -551,7 +551,40 @@
 
         </section>
 
-         </section>
+		<section id="cjk-ivs">
+			<h4>East Asian languages</h4>
+
+			<p>The Chinese, Japanese, and Korean (CJK) writing systems sometimes encounter this issue.</p>
+
+			<p>A single ideograph can have multiple variants depending on the variation selector (VS) used. For example, <span class="codepoint" translate="no"><bdi lang="zh">&#x9F8D;</bdi><code class="uname">U+9F8D CJK UNIFIED IDEO­GRAPH-​9F8D</code></span> when followed by different variation selectors, such as <span class="codepoint" translate="no"><img alt="Variation Selector-17" src="images/E0100.png"><code class="uname">U+E0100 VARIATION SELECTOR-17</code></span> or <span class="codepoint" translate="no"><img alt="Variation Selector-18" src="images/E0101.png"><code class="uname">U+E0100 VARIATION SELECTOR-18</code></span>, may represent distinct glyphs. String searching operations need to consider whether matches are performed on the ideograph alone or on the full Ideographic Variation Sequence (<abbr>IVS</abbr>).</p>
+			<p>When performing string searches, treat an IVS (e.g., <span class="codepoint" translate="no"><bdi lang="zh">&#x9F8D;&#xE0100;</bdi><code class="uname">U+9F8D CJK UNIFIED IDEO­GRAPH-​9F8D</code> + <img alt="Variation Selector-17" src="images/E0100.png"><code class="uname">U+E0100 VARIATION SELECTOR-17</code></span>) as a single unit and use the first code point as the processing baseline.</p>
+
+			<p>If possible, support both "fuzzy" and "precise" search modes to accommodate different user needs.</p>
+
+			<aside class="example" title="Example of string searching and IVS">
+				<p>Here is an example string search on text with IVS:</p>
+				<table ><thead>
+					<tr>
+					  <th>Search term</th>
+					  <th>Text</th>
+					  <th>Result (fuzzy mode)</th>
+					  <th>Result (precise mode)</th>
+					</tr></thead>
+				  <tbody>
+					<tr>
+					  <td><span lang="zh">龍天</span> (U+9F8D U+5929)</td>
+					  <td><span lang="zh">龍天</span> (U+9F8D U+5929)<br>
+						<span lang="zh">龍󠄀天</span> (U+9F8D U+E0100 U+5929)<br>
+						<span lang="zh">龍󠄁天</span> (U+9F8D U+E0101 U+5929)</td>
+					  <td>Matches all three strings</td>
+					  <td>Matches only <span lang="zh">龍天</span> (U+9F8D U+5929)</td>
+					</tr>
+				  </tbody></table>
+			</aside>
+
+        </section>
+
+	</section>
          
          <section id="whitespaceNormalization">
 			 <h4>Whitespace Normalization</h4>
