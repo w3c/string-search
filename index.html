@@ -343,12 +343,57 @@
 			 </aside>
 		 </section>
 
-		 <section id="cjk-ivs">
-			<h4>Ideographic Variation Sequences</h4>
+		 <section id="variation-selectors">
+			<h4>Sequences with variation selectors</h4>
 
-			<p>The Chinese, Japanese, and Korean (CJK) writing systems sometimes encounter this issue.</p>
+			<p>Unicode contains a few [=variation selectors=] used to specify a glyph variant for a preceding character.</p>
 
-			<p>A single [=ideograph=] can have multiple variants depending on the variation selector (VS) used. For example, <span class="codepoint" translate="no"><bdi lang="zh-Hant">&#x9F8D;</bdi><code class="uname">U+9F8D CJK UNIFIED IDEO­GRAPH-​9F8D</code></span> when followed by different variation selectors, such as <span class="codepoint" translate="no"><img alt="Variation Selector-17" src="images/E0100.png"><code class="uname">U+E0100 VARIATION SELECTOR-17</code></span> or <span class="codepoint" translate="no"><img alt="Variation Selector-18" src="images/E0101.png"><code class="uname">U+E0100 VARIATION SELECTOR-18</code></span>, may represent distinct glyphs. String searching operations need to consider whether matches are performed on the ideograph alone or on the full Ideographic Variation Sequence (<abbr>IVS</abbr>).</p>
+			<p>For example, A single [=ideograph=] can have multiple variants depending on the variation selector (VS) used. For example, <span class="codepoint" translate="no"><bdi lang="zh-Hant">&#x9F8D;</bdi><code class="uname">U+9F8D CJK UNIFIED IDEO­GRAPH-​9F8D</code></span> when followed by different variation selectors, such as <span class="codepoint" translate="no"><img alt="Variation Selector-17" src="images/E0100.png"><code class="uname">U+E0100 VARIATION SELECTOR-17</code></span> or <span class="codepoint" translate="no"><img alt="Variation Selector-18" src="images/E0101.png"><code class="uname">U+E0100 VARIATION SELECTOR-18</code></span>, may represent distinct glyphs:</p>
+
+			<table class="ivs-table">
+				<caption>Ideographic Variation Sequences for U+9F8D</caption>
+				<thead>
+				<tr>
+				<th>1</th>
+				<th>2</th>
+				<th>3</th>
+				<th>4</th>
+				<th>5</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+				<td class="ivs-char">龍󠄀</td>
+				<td class="ivs-char">龍󠄁</td>
+				<td class="ivs-char">龍󠄂</td>
+				<td class="ivs-char">龍󠄅</td>
+				<td class="ivs-char">龍󠄆</td>
+				</tr>
+				<tr>
+				<td class="vs">VS-17</td>
+				<td class="vs">VS-18</td>
+				<td class="vs">VS-19</td>
+				<td class="vs">VS-22</td>
+				<td class="vs">VS-23</td>
+				</tr>
+				<tr>
+				<td class="ivs-char">龍󠄈</td>
+				<td class="ivs-char">龍󠄉</td>
+				<td class="ivs-char">龍󠄊</td>
+				<td class="ivs-char">龍󠄋</td>
+				<td class="ivs-char">龍󠄌</td>
+				</tr>
+				<tr>
+				<td class="vs">VS-25</td>
+				<td class="vs">VS-26</td>
+				<td class="vs">VS-27</td>
+				<td class="vs">VS-28</td>
+				<td class="vs">VS-29</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<p>String searching operations need to consider whether matches are performed on the ideograph alone or on the full Ideographic Variation Sequence (<abbr>IVS</abbr>).</p>
 			<p>When performing string searches, treat an [=IVS=] (e.g., <span class="codepoint" translate="no"><bdi lang="zh-Hant">&#x9F8D;&#xE0100;</bdi><code class="uname">U+9F8D CJK UNIFIED IDEO­GRAPH-​9F8D</code> + <img alt="Variation Selector-17" src="images/E0100.png"><code class="uname">U+E0100 VARIATION SELECTOR-17</code></span>) as a single unit and use the first code point as the processing baseline.</p>
 
 			<p>If possible, support both "fuzzy" and "precise" search modes to accommodate different user needs.</p>
