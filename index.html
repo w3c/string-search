@@ -96,7 +96,11 @@
         <p>Frequently this means that a <a>full-text search</a> employs indexes and natural language processing. When you are using a search engine, you are using a form of full text search. Full text search often breaks natural language text into words or phrases (this is called <a>segmentation</a>) and may apply complex processing to get at the semantic "root" values of words (this is called <a>stemming</a>). These processes are sensitive to language, context, and many other aspects of textual variation.</p>
         
         <p class="definition"><dfn data-lt="natural language processing|NLP">Natural Language Processing</dfn> (<abbr title="natural language processing">NLP</abbr>) refers to the domain of software designed to understand, process, and manipulate human languages (that is, <a>natural language</a>). This is a very wide ranging term. It can cover relatively simple problems, such as word tokenization, or more complex behaviors, such as deriving "meaning" from text, recognizing parts of speech, performing accurate translation, and much else.</p>
-        
+
+        <p class="definition"><dfn data-lt="Ideographic Variation Sequences|IVS">Ideographic Variation Sequences</dfn> refer to a <a href="https://www.unicode.org/glossary/#variation_sequence" target="_blank">variation sequence</a> registered in the <a href="https://www.unicode.org/ivd/" target="_blank">Ideographic Variation Database</a>. The base character for an ideographic variation sequence must be an ideographic character, and it makes use of a variation selector in the range U+E0100..U+E01EF. The term ideographic variation sequence is sometimes abbreviated as "IVS". See also <a href="https://www.unicode.org/glossary/#ideographic_variation_sequence" target="_blank">Unicode definition</a> and [[UTS37]]</a>.</p>
+
+		<p>In the case of Han and other ideographs, it is impossible to build a single collection of variation sequences that can satisfy all the needs of all users simultaneously. The requirements from scholars, governments and publishers are too different to be accommodated by a single collection. Instead they can be met by having multiple independent collections. Unicode defines an Ideographic Variation Database [[UTS37]] to ensure that there is a single definition for each given variation sequence, to make interchange of text using such variation sequences reliable.</p>
+
         </section>
  
     </section>
@@ -337,6 +341,96 @@
 			 </aside>
 		 </section>
 
+		 <section id="variation-selectors">
+			<h4>Sequences with variation selectors</h4>
+
+			<p>Unicode contains a few [=variation selectors=] used to specify a glyph variant for a preceding character.</p>
+
+			<p>For example, A single [=ideograph=] can have multiple variants depending on the variation selector (VS) used. For example, <span class="codepoint" translate="no"><bdi lang="zh-Hant">&#x9F8D;</bdi><code class="uname">U+9F8D CJK UNIFIED IDEO­GRAPH-​9F8D</code></span> when followed by different variation selectors, such as <span class="codepoint" translate="no"><img alt="Variation Selector-17" src="images/E0100.png"><code class="uname">U+E0100 VARIATION SELECTOR-17</code></span> or <span class="codepoint" translate="no"><img alt="Variation Selector-18" src="images/E0101.png"><code class="uname">U+E0100 VARIATION SELECTOR-18</code></span>, may represent distinct glyphs:</p>
+
+			<table class="ivs-table">
+				<caption>Ideographic Variation Sequences for U+9F8D</caption>
+				<thead>
+				<tr>
+				<th>1</th>
+				<th>2</th>
+				<th>3</th>
+				<th>4</th>
+				<th>5</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+				<td class="ivs-char">龍󠄀</td>
+				<td class="ivs-char">龍󠄁</td>
+				<td class="ivs-char">龍󠄂</td>
+				<td class="ivs-char">龍󠄅</td>
+				<td class="ivs-char">龍󠄆</td>
+				</tr>
+				<tr>
+				<td class="vs">VS-17</td>
+				<td class="vs">VS-18</td>
+				<td class="vs">VS-19</td>
+				<td class="vs">VS-22</td>
+				<td class="vs">VS-23</td>
+				</tr>
+				<tr>
+				<td class="ivs-char">龍󠄈</td>
+				<td class="ivs-char">龍󠄉</td>
+				<td class="ivs-char">龍󠄊</td>
+				<td class="ivs-char">龍󠄋</td>
+				<td class="ivs-char">龍󠄌</td>
+				</tr>
+				<tr>
+				<td class="vs">VS-25</td>
+				<td class="vs">VS-26</td>
+				<td class="vs">VS-27</td>
+				<td class="vs">VS-28</td>
+				<td class="vs">VS-29</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<p>String searching operations need to consider whether matches are performed on the ideograph alone or on the full Ideographic Variation Sequence (<abbr>IVS</abbr>).</p>
+			<p>When performing string searches, treat an [=IVS=] (e.g., <span class="codepoint" translate="no"><bdi lang="zh-Hant">&#x9F8D;&#xE0100;</bdi><code class="uname">U+9F8D CJK UNIFIED IDEO­GRAPH-​9F8D</code> + <img alt="Variation Selector-17" src="images/E0100.png"><code class="uname">U+E0100 VARIATION SELECTOR-17</code></span>) as a single unit and use the first code point as the processing baseline.</p>
+
+			<p>If possible, support both "fuzzy" and "precise" search modes to accommodate different user needs.</p>
+
+			<aside class="example" title="Example of string searching and IVS">
+				<p>Here is an example string search on text with IVS:</p>
+				<table class="ivs-searching-table"><thead>
+					<tr>
+					  <th>Search term</th>
+					  <th>Text</th>
+					  <th>Result (fuzzy mode)</th>
+					  <th>Result (precise mode)</th>
+					</tr></thead>
+				  <tbody>
+					<tr>
+					  <td><span lang="zh-Hant">龍天</span> (U+9F8D U+5929)</td>
+					  <td><span lang="zh-Hant">龍天</span> (U+9F8D U+5929)<br>
+						<span lang="zh-Hant">龍󠄀天</span> (U+9F8D U+E0100 U+5929)<br>
+						<span lang="zh-Hant">龍󠄁天</span> (U+9F8D U+E0101 U+5929)</td>
+					  <td>Matches all three strings</td>
+					  <td>Matches only <span lang="zh-Hant">龍天</span> (U+9F8D U+5929)</td>
+					</tr>
+					<tr>
+						<td><span lang="zh-Hant">龍󠄀天</span> (U+9F8D U+E0100 U+5929)</td>
+						<td><span lang="zh-Hant">龍天</span> (U+9F8D U+5929)<br>
+						  <span lang="zh-Hant">龍󠄀天</span> (U+9F8D U+E0100 U+5929)<br>
+						  <span lang="zh-Hant">龍󠄁天</span> (U+9F8D U+E0101 U+5929)</td>
+						<td>Matches all three strings</td>
+						<td>Matches only <span lang="zh-Hant">龍󠄀天</span> (U+9F8D U+E0100 U+5929)</td>
+					  </tr>
+				  </tbody></table>
+			</aside>
+
+			<p>
+				In addition to IVS, other languages have variation selectors too.
+			</p>
+
+        </section>
+
          <section id="digitShaping">
 			 <h4>Digit Shaping</h4>
 		 
@@ -549,7 +643,7 @@
 
         </section>
 
-         </section>
+	</section>
          
          <section id="whitespaceNormalization">
 			 <h4>Whitespace Normalization</h4>
