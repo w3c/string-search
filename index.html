@@ -208,6 +208,10 @@
         
         <section id="caseVariation">
 			<h4>Case Folding</h4>
+
+			<p class="advisement">By default, string searching SHOULD be case-insensitive using Unicode's case-folding algorithms.</p>
+
+			<p class="advisement">User agents MAY offer a search sensitivity option to authors and end-users to configure search case-sensitivity.</p>
 			
 		    <p>A user might expect a term entered in lowercase to match uppercase equivalents (and perhaps vice-versa). Sub-string matching features, such as the browser "find" command, often offer a user-selectable option for matching (or not) the case of the input to that of the text.</p>
 		    
@@ -295,6 +299,8 @@
 		 
 		 <section id="eastAsianWidthEquiv">
 			 <h4>East Asian Width</h4>
+
+			<p class="advisement">String searching SHOULD match across full-width or half-width forms forms.</p>
 			 
 			 <p>Some compatibility characters were encoded into Unicode to account for single- or multibyte representation in <a>legacy character encodings</a> or for compatibility with certain layout behaviors in East Asian languages.</p>
 			 
@@ -433,6 +439,8 @@
 
          <section id="digitShaping">
 			 <h4>Digit Shaping</h4>
+
+			<p class="advisement">User agents MAY normalize numeric values to their ASCII forms (0-9) in string searching operations.</p>
 		 
 		 <p>Many scripts have their own digit characters for the numbers from 0 to 9. In some Web applications, the familiar ASCII digits are replaced for display purposes with the local digit shapes. In other cases, the text actually might contain the Unicode characters for the local digits. Users attempting to search a document might expect that typing one form of digit will find the eqivalent digits.</p>
 		 
@@ -656,6 +664,10 @@
 	    
 	    <section id="accents">
 			<h4>Accents and diacritic marks</h4>
+
+			<p class="advisement">By default, string searching SHOULD ignore diacritics.</p>
+
+			<p class="advisement">User agent MAY provide an option for diacritics-sensitive search where precision is critical.</p>
 	    
 	        <p>Users will sometimes vary their input when dealing with letters that contain accents or diacritic marks when entering search terms in scripts (such as the Latin script) that use various diacritics, even though the text they are searching includes the additional marks. This is particularly true on mobile keyboards, where input of these characters can require additional effort. In these cases, users generally expect the search operation to be more "promiscuous" to make up for their failure to make the additional effort needed.</p>
 	        
