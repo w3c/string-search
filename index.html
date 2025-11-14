@@ -894,5 +894,26 @@
       
       <p>The examples in <a href="#text-frag-lang">this example</a> were taken from a page authored by Henri Sivonen, as were a number of concepts and ideas recorded by him in <a href="https://github.com/WICG/scroll-to-text-fragment/issues/233">this issue</a>.</p>
     </section>
+
+
+	<script class="remove">
+		reqs = document.querySelectorAll('.req')
+		for (let i = 0; i < reqs.length; i++) {
+			if (reqs[i].id) {
+				a = document.createElement('a')
+				a.href = '#' + reqs[i].id
+				a.textContent = '§'
+				a.className = 'self-link'
+				reqs[i].prepend(a)
+			}
+		}
+
+		// establish the lists at section start with checklist details
+		sectiontocs = document.querySelectorAll('.summaryC')
+		for (let i = 0; i < sectiontocs.length; i++) {
+			showChecklists(sectiontocs[i].parentNode, sectiontocs[i].id)
+		}
+	</script>
+
   </body>
 </html>
