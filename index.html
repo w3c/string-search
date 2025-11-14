@@ -75,7 +75,9 @@
         <p>In this document [[RFC2119]] keywords in uppercase italics have their usual meaning. We also use these stylistic conventions:</p>
 
         <p class="definition-example"><strong>Definitions</strong> appear with a different background color and decoration like this.</p>
-        <p class="advisement"><strong>Best practices</strong> appear with a different background color and decoration like this.</p>
+        <div class="req" id="best_practices_display">
+           <p class="advisement"><strong>Best practices</strong> appear with a different background color and decoration like this.</p>
+        </div>
         <p class="issue-example" id="issue-example"><strong>Issues</strong>, gaps, and recommendations for future work appear with a different background color and decoration like this.</p>
 
       </section>
@@ -208,10 +210,18 @@
         
         <section id="caseVariation">
 			<h4>Case Folding</h4>
-			
+
+			<div class="req" id="case_insensitive_default">
+			   <p class="advisement">By default, string searching SHOULD be case-insensitive using Unicode's case-folding algorithms.</p>
+			</div>
+
+			<div class="req" id="search_sensitivity_option">
+			   <p class="advisement">User agents MAY offer a search sensitivity option to authors and end-users to configure search case-sensitivity.</p>
+			</div>
+
 		    <p>A user might expect a term entered in lowercase to match uppercase equivalents (and perhaps vice-versa). Sub-string matching features, such as the browser "find" command, often offer a user-selectable option for matching (or not) the case of the input to that of the text.</p>
 		    
-		    <p>For a survey of case folding, see the discussion <a href="https://www.w3.org/TR/charmod-norm/#definitionCaseFolding">here</a> in [[CHARMOD-NORM]].</p>
+		    <p>For a survey of case folding, see the discussion <a href="https://www.w3.org/TR/charmod-norm/#definitionCaseFolding">here</a> in [[CHARMOD-NORM]] and [[Unicode]] <a href="http://www.unicode.org/versions/latest/ch05.pdf">Chapter 5</a> in the section titled <em>Case Mappings</em>.</p>
 		
         </section>
 		 
@@ -295,7 +305,11 @@
 		 
 		 <section id="eastAsianWidthEquiv">
 			 <h4>East Asian Width</h4>
-			 
+
+			<div class="req" id="east_asian_width_matching">
+			   <p class="advisement">String searching SHOULD match between full-width and half-width character forms.</p>
+			</div>
+
 			 <p>Some compatibility characters were encoded into Unicode to account for single- or multibyte representation in <a>legacy character encodings</a> or for compatibility with certain layout behaviors in East Asian languages.</p>
 			 
 			 <aside class="example" title="Examples of East Asian width variations">
@@ -433,7 +447,11 @@
 
          <section id="digitShaping">
 			 <h4>Digit Shaping</h4>
-		 
+
+			<div class="req" id="digit_normalization">
+			   <p class="advisement">User agents MAY normalize characters representing numeric values to their ASCII forms (0-9) in string searching operations.</p>
+			</div>
+
 		 <p>Many scripts have their own digit characters for the numbers from 0 to 9. In some Web applications, the familiar ASCII digits are replaced for display purposes with the local digit shapes. In other cases, the text actually might contain the Unicode characters for the local digits. Users attempting to search a document might expect that typing one form of digit will find the eqivalent digits.</p>
 		 
 		 <aside class="example" title="Examples of digit shapes in four scripts">
@@ -656,7 +674,15 @@
 	    
 	    <section id="accents">
 			<h4>Accents and diacritic marks</h4>
-	    
+
+			<div class="req" id="diacritics_default">
+			   <p class="advisement">Diacritics in the corpus MAY be ignored when the search term does not contain any.</p>
+			</div>
+
+			<div class="req" id="diacritics_sensitive_option">
+			   <p class="advisement">Users SHOULD have an option to enable diacritic-sensitive search and/or exact matching.</p>
+			</div>
+
 	        <p>Users will sometimes vary their input when dealing with letters that contain accents or diacritic marks when entering search terms in scripts (such as the Latin script) that use various diacritics, even though the text they are searching includes the additional marks. This is particularly true on mobile keyboards, where input of these characters can require additional effort. In these cases, users generally expect the search operation to be more "promiscuous" to make up for their failure to make the additional effort needed.</p>
 	        
         <aside class="example">
@@ -811,9 +837,11 @@
         <p class="issue">This section was identified as a new area needing document as part of the overall rearchitecting of the document. The text here is incomplete and needs further development. Contributions from the community are invited.</p>
         
 		<p>Implementers often need to provide simple "find text" algorithms and specifications often try to define APIs to support these needs. Find operations on text generate different user expectations and thus have different requirements from the need for absolute identity matching needed by document formats and protocols. It is important to note that domain-specific requirements may impose additional restrictions or alter the considerations presented here.</p>
-		
-		<p class="advisement">Increasing input effort from the user SHOULD be mirrored by more selective matching.</p>
-		
+
+		<div class="req" id="input_effort_matching">
+		   <p class="advisement">Increasing input effort from the user SHOULD be mirrored by more selective matching.</p>
+		</div>
+
 		<p>When the user expends more effort on the input&mdash;by using the shift key to produce uppercase or by entering a letter with diacritics instead of just the base letter&mdash;they might expect their search results to match (only) their more-specific input.</p>
 		
 		<aside class="example">
@@ -866,5 +894,26 @@
       
       <p>The examples in <a href="#text-frag-lang">this example</a> were taken from a page authored by Henri Sivonen, as were a number of concepts and ideas recorded by him in <a href="https://github.com/WICG/scroll-to-text-fragment/issues/233">this issue</a>.</p>
     </section>
+
+
+	<script class="remove">
+		reqs = document.querySelectorAll('.req')
+		for (let i = 0; i < reqs.length; i++) {
+			if (reqs[i].id) {
+				a = document.createElement('a')
+				a.href = '#' + reqs[i].id
+				a.textContent = '§'
+				a.className = 'self-link'
+				reqs[i].prepend(a)
+			}
+		}
+
+		// establish the lists at section start with checklist details
+		sectiontocs = document.querySelectorAll('.summaryC')
+		for (let i = 0; i < sectiontocs.length; i++) {
+			showChecklists(sectiontocs[i].parentNode, sectiontocs[i].id)
+		}
+	</script>
+
   </body>
 </html>
