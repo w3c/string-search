@@ -91,6 +91,7 @@
         <p><a>Unicode</a>, also known as the <a>Universal Character Set</a>, allows Web documents to be authored in any of the world's writing systems, scripts, or languages, on any computing platforms and then to be exchanged, read, and searched by the Web's users around the world. The first few chapters of the <cite>Unicode Standard</cite> [[Unicode]] provide useful background reading. Also see the <cite>Unicode Collation Algorithm</cite> [[UTS10]], which contains a chapter on searching.</p>
          
         <p class="definition"><dfn>Corpus</dfn> The natural language text contained by a document or set of documents which the user would like to search.</p>
+        <p class="definition"><dfn>Search sensitivity</dfn> The degree to which a search operation distinguishes between text that differs only by character-level variation, such as differences in case or in the use of diacritic marks, rather than treating that text as equivalent. A search which ignores such variation is <em>insensitive</em>; a search which requires an exact match is <em>sensitive</em>.</p>
         <p class="definition"><dfn>Segmentation</dfn> The process of breaking natural language text up into distinct words and phrases. This often includes operations such as "named entity recognition" (such as recognizing that the three word sequence <strong>Dr. Jonas Salk</strong> is a person's name).</p>
         <p class="definition"><dfn data-lt="stemming|lemmatization">Stemming</dfn> A process or operation that reduces words to their "stem" or root. For example, the words <strong>runs</strong>, <strong>ran</strong>, and <strong>running</strong> all share the stem <strong>run</strong>. This is sometimes called (more formally) <em>lemmatization</em> and the stem is sometimes called the <em>lemma</em>.</p>
         
@@ -119,7 +120,7 @@
           <p>Textual search is different from the sorts of programmatic matching needed by formal languages, such as markup languages like [[HTML]]; style sheets [[CSS21]]; or data formats such as [[TURTLE]] or [[JSON-LD]]. String matching in formal languages is described by our document <cite>String Matching</cite> [[CHARMOD-NORM]].</p>
       </aside>
       
-      <p>Find operations can provide optional mechanisms for improving or tailoring the matching behavior. For example, the abilility to add (or remove) <a href="#caseVariation">case sensitivity</a>, whether the feature supports different aspects of a regular expression language such as wildcard characters, or whether to limit matches to <a href="#wordBoundary">whole words</a>.</p>
+      <p>Find operations can provide optional mechanisms for improving or tailoring the matching behavior. For example, the abilility to add (or remove) <a href="#caseVariation">case sensitivity</a>, whether the feature supports different aspects of a regular expression language such as wildcard characters, or whether to limit matches to <a href="#wordBoundary">whole words</a>. The degree to which a search pays attention to such variation is its <a>search sensitivity</a>, described in <a href="#searchSensitivity">Search sensitivity</a>.</p>
       
       <p>One way that sub-string matching usually differs from <a>full-text search</a> is that, while it might use various algorithms in an attempt to suppress or ignore textual variations, it usually does not produce matches that contain additional or unspecified character sequences, words, or phrases, such as would result from <a>stemming</a> or other <a>NLP</a> processes.</p>
       
@@ -137,6 +138,23 @@
       
       -->
       
+      <section id="searchSensitivity">
+      <h3>Search sensitivity</h3>
+      
+      <p>Search operations differ in how much attention they pay to textual variation. A case-insensitive search ignores the difference between <q>a</q> and <q>A</q>; a search that ignores diacritics matches <q>cote</q> with <q>côte</q>; a search that requires an exact match ignores none of these differences. The degree to which a search operation distinguishes such variation is its <a>search sensitivity</a>.</p>
+      
+      <p>The <a href="#otherEquivalences">types of textual variation</a> described below, and the <a href="#searchingConsiderations">considerations for searching</a>, recommend the sensitivity that a search applies by default, when no option has been selected. Such a default does not prevent an implementation or an API from offering a different level of sensitivity.</p>
+      
+      <div class="req" id="search_sensitivity_user">
+         <p class="advisement">Implementations that offer a search feature to users SHOULD enable users to obtain matching that is more sensitive than the default behavior, including case-sensitive and diacritic-sensitive matching.</p>
+      </div>
+      
+      <div class="req" id="search_sensitivity_author">
+         <p class="advisement">When a specification exposes a search feature to authors, the sensitivity of the match SHOULD be configurable by the author when the feature is invoked.</p>
+      </div>
+      
+      <p class="note">Content authors cannot configure the sensitivity of the search features that the user agent presents directly to the user, such as the browser <q>find</q> command. Authors do affect matching in other ways: by providing information such as the language of the text (see <a href="#languageVariation">Matching variation due to language</a>) or by implementing search features of their own.</p>
+	  </section>
         
 	  <section id="otherEquivalences">
       <h3>Problems with Determining Equivalence</h3>   
@@ -213,10 +231,6 @@
 
 			<div class="req" id="case_insensitive_default">
 			   <p class="advisement">By default, string searching SHOULD be case-insensitive.</p>
-			</div>
-
-			<div class="req" id="search_sensitivity_option">
-			   <p class="advisement">User agents MAY offer a search sensitivity option to authors and end-users to configure search case-sensitivity.</p>
 			</div>
 
 		    <p>A user might expect a term entered in lowercase to match uppercase equivalents (and perhaps vice-versa). Sub-string matching features, such as the browser "find" command, often offer a user-selectable option for matching (or not) the case of the input to that of the text.</p>
@@ -699,9 +713,7 @@
 			   <p class="advisement">Diacritics in the corpus MAY be ignored when the search term does not contain any.</p>
 			</div>
 
-			<div class="req" id="diacritics_sensitive_option">
-			   <p class="advisement">Users SHOULD have an option to enable diacritic-sensitive search and/or exact matching.</p>
-			</div>
+			<p>Users who need to distinguish letters with diacritic marks from their unmarked forms can ask for a more sensitive match, as described in <a href="#searchSensitivity">Search sensitivity</a>.</p>
 
 	        <p>Users will sometimes vary their input when dealing with letters that contain accents or diacritic marks when entering search terms in scripts (such as the Latin script) that use various diacritics, even though the text they are searching includes the additional marks. This is particularly true on mobile keyboards, where input of these characters can require additional effort. In these cases, users generally expect the search operation to be more "promiscuous" to make up for their failure to make the additional effort needed.</p>
 	        
