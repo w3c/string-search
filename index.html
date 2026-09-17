@@ -709,8 +709,12 @@
 	    <section id="accents">
 			<h4>Accents and diacritic marks</h4>
 
-			<div class="req" id="diacritics_default">
-			   <p class="advisement">Diacritics in the corpus MAY be ignored when the search term does not contain any.</p>
+			<div class="req" id="diacritics-default">
+			   <p class="advisement">A search term that does not contain diacritics SHOULD match text in the corpus that contains them, unless the user has configured the search otherwise.</p>
+			</div>
+
+			<div class="req" id="diacritics-sensitive">
+			   <p class="advisement">A search term that contains diacritics SHOULD match only text that contains the equivalent diacritics.</p>
 			</div>
 
 			<p>Users who need to distinguish letters with diacritic marks from their unmarked forms can ask for a more sensitive match, as described in <a href="#searchSensitivity">Search sensitivity</a>.</p>
