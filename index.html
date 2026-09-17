@@ -212,7 +212,7 @@
 			<h4>Case Folding</h4>
 
 			<div class="req" id="case_insensitive_default">
-			   <p class="advisement">By default, string searching SHOULD be case-insensitive using Unicode's case-folding algorithms.</p>
+			   <p class="advisement">By default, string searching SHOULD be case-insensitive.</p>
 			</div>
 
 			<div class="req" id="search_sensitivity_option">
@@ -222,6 +222,26 @@
 		    <p>A user might expect a term entered in lowercase to match uppercase equivalents (and perhaps vice-versa). Sub-string matching features, such as the browser "find" command, often offer a user-selectable option for matching (or not) the case of the input to that of the text.</p>
 		    
 		    <p>For a survey of case folding, see the discussion <a href="https://www.w3.org/TR/charmod-norm/#definitionCaseFolding">here</a> in [[CHARMOD-NORM]] and [[Unicode]] <a href="http://www.unicode.org/versions/latest/ch05.pdf">Chapter 5</a> in the section titled <em>Case Mappings</em>.</p>
+
+			<div class="req" id="case-folding-default">
+			   <p class="advisement">Case-insensitive string searching SHOULD use Unicode full case folding by default.</p>
+			</div>
+
+		    <p>Unicode defines a default case folding for each code point. For most characters, the default folds one character to another single character; Unicode calls these mappings <em>common</em> (status <code translate="no">C</code>). A small number of characters fold to two or more characters; Unicode calls these mappings <em>full</em> (status <code translate="no">F</code>). The common and full mappings used together produce <em>Unicode full casefolding</em>, which is the default case folding for all of Unicode. For example, the common mappings make the Kelvin sign <span class="codepoint" translate="no"><bdi>K</bdi><code class="uname" translate="no">U+212A KELVIN SIGN</code></span> match a <q>k</q>, while the full mappings make the German letter <span class="codepoint" translate="no"><bdi>ß</bdi><code class="uname" translate="no">U+00DF LATIN SMALL LETTER SHARP S</code></span> match the sequence <q>ss</q>. The mappings and their status letters are defined in <a href="https://www.unicode.org/Public/UCD/latest/ucd/CaseFolding.txt"><cite>CaseFolding.txt</cite></a> in the Unicode Character Database [[UAX44]].</p>
+
+		    <p>Case folding does not, by itself, match between the full-width and half-width forms of a character: <span class="codepoint" translate="no"><bdi>Ｋ</bdi><code class="uname" translate="no">U+FF2B FULLWIDTH LATIN CAPITAL LETTER K</code></span> case folds to the full-width <q>ｋ</q> and not to the half-width <q>k</q>. Matching these forms requires the additional processing described in <a href="#eastAsianWidthEquiv">East Asian Width</a>.</p>
+
+			<div class="req" id="case-folding-no-language-tailoring">
+			   <p class="advisement">Implementations SHOULD NOT apply language-specific tailoring of case folding by default.</p>
+			</div>
+
+			<div class="req" id="case-folding-language-tailoring">
+			   <p class="advisement">Implementations MAY apply language-specific tailoring of case folding, such as the Turkic mappings used by Turkish and Azerbaijani, when the language of the search term is known.</p>
+			</div>
+
+		    <p>Unicode's default case folding is language-independent: it case folds a capital <q>I</q> to a lowercase <q>i</q> in every language. That is not what users of Turkic languages expect, since <q>I</q> and <q>ı</q> (<span class="codepoint" translate="no"><bdi>ı</bdi><code class="uname" translate="no">U+0131 LATIN SMALL LETTER DOTLESS I</code></span>) are a caseless pair in those languages, as are <q>İ</q> and <q>i</q>. The Unicode Character Database provides separate mappings (status <code translate="no">T</code>) for these characters, and these are the only language-specific case foldings that Unicode defines. With this tailoring, a search term such as <q>ILIK</q> matches the word <span lang="tr">ılık</span>, while without it the search misses that word.</p>
+
+		    <p>Applying a language-specific tailoring is not, however, suitable as a default behavior. Two strings being matched can be in different languages and might appear in yet a third language context, and the language of a search term or of a body of text is often unknown or unreliable, as described in <a href="#languageVariation">Matching variation due to language</a> above.</p>
 		
         </section>
 		 
