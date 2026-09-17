@@ -75,7 +75,9 @@
         <p>In this document [[RFC2119]] keywords in uppercase italics have their usual meaning. We also use these stylistic conventions:</p>
 
         <p class="definition-example"><strong>Definitions</strong> appear with a different background color and decoration like this.</p>
-        <p class="advisement"><strong>Best practices</strong> appear with a different background color and decoration like this.</p>
+        <div class="req">
+          <p class="advisement"><strong>Best practices</strong> appear with a different background color and decoration like this.</p>
+        </div>
         <p class="issue-example" id="issue-example"><strong>Issues</strong>, gaps, and recommendations for future work appear with a different background color and decoration like this.</p>
 
       </section>
@@ -89,6 +91,7 @@
         <p><a>Unicode</a>, also known as the <a>Universal Character Set</a>, allows Web documents to be authored in any of the world's writing systems, scripts, or languages, on any computing platforms and then to be exchanged, read, and searched by the Web's users around the world. The first few chapters of the <cite>Unicode Standard</cite> [[Unicode]] provide useful background reading. Also see the <cite>Unicode Collation Algorithm</cite> [[UTS10]], which contains a chapter on searching.</p>
          
         <p class="definition"><dfn>Corpus</dfn> The natural language text contained by a document or set of documents which the user would like to search.</p>
+        <p class="definition"><dfn>Search sensitivity</dfn> The degree to which a search operation distinguishes between text that differs only by character-level variation, such as differences in case or in the use of diacritic marks, rather than treating that text as equivalent. A search which ignores such variation is <em>insensitive</em>; a search which requires an exact match is <em>sensitive</em>.</p>
         <p class="definition"><dfn>Segmentation</dfn> The process of breaking natural language text up into distinct words and phrases. This often includes operations such as "named entity recognition" (such as recognizing that the three word sequence <strong>Dr. Jonas Salk</strong> is a person's name).</p>
         <p class="definition"><dfn data-lt="stemming|lemmatization">Stemming</dfn> A process or operation that reduces words to their "stem" or root. For example, the words <strong>runs</strong>, <strong>ran</strong>, and <strong>running</strong> all share the stem <strong>run</strong>. This is sometimes called (more formally) <em>lemmatization</em> and the stem is sometimes called the <em>lemma</em>.</p>
         
@@ -117,7 +120,7 @@
           <p>Textual search is different from the sorts of programmatic matching needed by formal languages, such as markup languages like [[HTML]]; style sheets [[CSS21]]; or data formats such as [[TURTLE]] or [[JSON-LD]]. String matching in formal languages is described by our document <cite>String Matching</cite> [[CHARMOD-NORM]].</p>
       </aside>
       
-      <p>Find operations can provide optional mechanisms for improving or tailoring the matching behavior. For example, the abilility to add (or remove) <a href="#caseVariation">case sensitivity</a>, whether the feature supports different aspects of a regular expression language such as wildcard characters, or whether to limit matches to <a href="#wordBoundary">whole words</a>.</p>
+      <p>Find operations can provide optional mechanisms for improving or tailoring the matching behavior. For example, the abilility to add (or remove) <a href="#caseVariation">case sensitivity</a>, whether the feature supports different aspects of a regular expression language such as wildcard characters, or whether to limit matches to <a href="#wordBoundary">whole words</a>. The degree to which a search pays attention to such variation is its <a>search sensitivity</a>, described in <a href="#searchSensitivity">Search sensitivity</a>.</p>
       
       <p>One way that sub-string matching usually differs from <a>full-text search</a> is that, while it might use various algorithms in an attempt to suppress or ignore textual variations, it usually does not produce matches that contain additional or unspecified character sequences, words, or phrases, such as would result from <a>stemming</a> or other <a>NLP</a> processes.</p>
       
@@ -135,6 +138,23 @@
       
       -->
       
+      <section id="searchSensitivity">
+      <h3>Search sensitivity</h3>
+      
+      <p>Search operations differ in how much attention they pay to textual variation. A case-insensitive search ignores the difference between <q>a</q> and <q>A</q>; a search that ignores diacritics matches <q>cote</q> with <q>côte</q>; a search that requires an exact match ignores none of these differences. The degree to which a search operation distinguishes such variation is its <a>search sensitivity</a>.</p>
+      
+      <p>The <a href="#otherEquivalences">types of textual variation</a> described below, and the <a href="#searchingConsiderations">considerations for searching</a>, recommend the sensitivity that a search applies by default, when no option has been selected. Such a default does not prevent an implementation or an API from offering a different level of sensitivity.</p>
+      
+      <div class="req" id="search_sensitivity_user">
+         <p class="advisement">Implementations that offer a search feature to users SHOULD enable users to obtain matching that is more sensitive than the default behavior, including case-sensitive and diacritic-sensitive matching.</p>
+      </div>
+      
+      <div class="req" id="search_sensitivity_author">
+         <p class="advisement">When a specification exposes a search feature to authors, the sensitivity of the match SHOULD be configurable by the author when the feature is invoked.</p>
+      </div>
+      
+      <p class="note">Content authors cannot configure the sensitivity of the search features that the user agent presents directly to the user, such as the browser <q>find</q> command. Authors do affect matching in other ways: by providing information such as the language of the text (see <a href="#languageVariation">Matching variation due to language</a>) or by implementing search features of their own.</p>
+	  </section>
         
 	  <section id="otherEquivalences">
       <h3>Problems with Determining Equivalence</h3>   
@@ -208,10 +228,34 @@
         
         <section id="caseVariation">
 			<h4>Case Folding</h4>
-			
+
+			<div class="req" id="case_insensitive_default">
+			   <p class="advisement">By default, string searching SHOULD be case-insensitive.</p>
+			</div>
+
 		    <p>A user might expect a term entered in lowercase to match uppercase equivalents (and perhaps vice-versa). Sub-string matching features, such as the browser "find" command, often offer a user-selectable option for matching (or not) the case of the input to that of the text.</p>
 		    
-		    <p>For a survey of case folding, see the discussion <a href="https://www.w3.org/TR/charmod-norm/#definitionCaseFolding">here</a> in [[CHARMOD-NORM]].</p>
+		    <p>For a survey of case folding, see the discussion <a href="https://www.w3.org/TR/charmod-norm/#definitionCaseFolding">here</a> in [[CHARMOD-NORM]] and [[Unicode]] <a href="http://www.unicode.org/versions/latest/ch05.pdf">Chapter 5</a> in the section titled <em>Case Mappings</em>.</p>
+
+			<div class="req" id="case-folding-default">
+			   <p class="advisement">Case-insensitive string searching SHOULD use Unicode full case folding by default.</p>
+			</div>
+
+		    <p>Unicode defines a default case folding for each code point. For most characters, the default folds one character to another single character; Unicode calls these mappings <em>common</em> (status <code translate="no">C</code>). A small number of characters fold to two or more characters; Unicode calls these mappings <em>full</em> (status <code translate="no">F</code>). The common and full mappings used together produce <em>Unicode full casefolding</em>, which is the default case folding for all of Unicode. For example, the common mappings make the Kelvin sign <span class="codepoint" translate="no"><bdi>K</bdi><code class="uname" translate="no">U+212A KELVIN SIGN</code></span> match a <q>k</q>, while the full mappings make the German letter <span class="codepoint" translate="no"><bdi>ß</bdi><code class="uname" translate="no">U+00DF LATIN SMALL LETTER SHARP S</code></span> match the sequence <q>ss</q>. The mappings and their status letters are defined in <a href="https://www.unicode.org/Public/UCD/latest/ucd/CaseFolding.txt"><cite>CaseFolding.txt</cite></a> in the Unicode Character Database [[UAX44]].</p>
+
+		    <p>Case folding does not, by itself, match between the full-width and half-width forms of a character: <span class="codepoint" translate="no"><bdi>Ｋ</bdi><code class="uname" translate="no">U+FF2B FULLWIDTH LATIN CAPITAL LETTER K</code></span> case folds to the full-width <q>ｋ</q> and not to the half-width <q>k</q>. Matching these forms requires the additional processing described in <a href="#eastAsianWidthEquiv">East Asian Width</a>.</p>
+
+			<div class="req" id="case-folding-no-language-tailoring">
+			   <p class="advisement">Implementations SHOULD NOT apply language-specific tailoring of case folding by default.</p>
+			</div>
+
+			<div class="req" id="case-folding-language-tailoring">
+			   <p class="advisement">Implementations MAY apply language-specific tailoring of case folding, such as the Turkic mappings used by Turkish and Azerbaijani, when the language of the search term is known.</p>
+			</div>
+
+		    <p>Unicode's default case folding is language-independent: it case folds a capital <q>I</q> to a lowercase <q>i</q> in every language. That is not what users of Turkic languages expect, since <q>I</q> and <q>ı</q> (<span class="codepoint" translate="no"><bdi>ı</bdi><code class="uname" translate="no">U+0131 LATIN SMALL LETTER DOTLESS I</code></span>) are a caseless pair in those languages, as are <q>İ</q> and <q>i</q>. The Unicode Character Database provides separate mappings (status <code translate="no">T</code>) for these characters, and these are the only language-specific case foldings that Unicode defines. With this tailoring, a search term such as <q>ILIK</q> matches the word <span lang="tr">ılık</span>, while without it the search misses that word.</p>
+
+		    <p>Applying a language-specific tailoring is not, however, suitable as a default behavior. Two strings being matched can be in different languages and might appear in yet a third language context, and the language of a search term or of a body of text is often unknown or unreliable, as described in <a href="#languageVariation">Matching variation due to language</a> above.</p>
 		
         </section>
 		 
@@ -295,7 +339,11 @@
 		 
 		 <section id="eastAsianWidthEquiv">
 			 <h4>East Asian Width</h4>
-			 
+
+			<div class="req" id="east_asian_width_matching">
+			   <p class="advisement">Differences between full-width and half-width character forms SHOULD be ignored during searching unless the user specifies otherwise.</p>
+			</div>
+
 			 <p>Some compatibility characters were encoded into Unicode to account for single- or multibyte representation in <a>legacy character encodings</a> or for compatibility with certain layout behaviors in East Asian languages.</p>
 			 
 			 <aside class="example" title="Examples of East Asian width variations">
@@ -433,7 +481,11 @@
 
          <section id="digitShaping">
 			 <h4>Digit Shaping</h4>
-		 
+
+			<div class="req" id="digit_normalization">
+			   <p class="advisement">User agents MAY map characters representing numeric values to their ASCII forms (0-9) in string searching operations.</p>
+			</div>
+
 		 <p>Many scripts have their own digit characters for the numbers from 0 to 9. In some Web applications, the familiar ASCII digits are replaced for display purposes with the local digit shapes. In other cases, the text actually might contain the Unicode characters for the local digits. Users attempting to search a document might expect that typing one form of digit will find the eqivalent digits.</p>
 		 
 		 <aside class="example" title="Examples of digit shapes in four scripts">
@@ -656,7 +708,17 @@
 	    
 	    <section id="accents">
 			<h4>Accents and diacritic marks</h4>
-	    
+
+			<div class="req" id="diacritics-default">
+			   <p class="advisement">A search term that does not contain diacritics SHOULD match text in the corpus that contains them, unless the user has configured the search otherwise.</p>
+			</div>
+
+			<div class="req" id="diacritics-sensitive">
+			   <p class="advisement">A search term that contains diacritics SHOULD match only text that contains the equivalent diacritics.</p>
+			</div>
+
+			<p>Users who need to distinguish letters with diacritic marks from their unmarked forms can ask for a more sensitive match, as described in <a href="#searchSensitivity">Search sensitivity</a>.</p>
+
 	        <p>Users will sometimes vary their input when dealing with letters that contain accents or diacritic marks when entering search terms in scripts (such as the Latin script) that use various diacritics, even though the text they are searching includes the additional marks. This is particularly true on mobile keyboards, where input of these characters can require additional effort. In these cases, users generally expect the search operation to be more "promiscuous" to make up for their failure to make the additional effort needed.</p>
 	        
         <aside class="example">
@@ -811,9 +873,11 @@
         <p class="issue">This section was identified as a new area needing document as part of the overall rearchitecting of the document. The text here is incomplete and needs further development. Contributions from the community are invited.</p>
         
 		<p>Implementers often need to provide simple "find text" algorithms and specifications often try to define APIs to support these needs. Find operations on text generate different user expectations and thus have different requirements from the need for absolute identity matching needed by document formats and protocols. It is important to note that domain-specific requirements may impose additional restrictions or alter the considerations presented here.</p>
-		
-		<p class="advisement">Increasing input effort from the user SHOULD be mirrored by more selective matching.</p>
-		
+
+		<div class="req" id="input_effort_matching">
+		   <p class="advisement">Increasing input effort from the user SHOULD be mirrored by more selective matching.</p>
+		</div>
+
 		<p>When the user expends more effort on the input&mdash;by using the shift key to produce uppercase or by entering a letter with diacritics instead of just the base letter&mdash;they might expect their search results to match (only) their more-specific input.</p>
 		
 		<aside class="example">
@@ -866,5 +930,26 @@
       
       <p>The examples in <a href="#text-frag-lang">this example</a> were taken from a page authored by Henri Sivonen, as were a number of concepts and ideas recorded by him in <a href="https://github.com/WICG/scroll-to-text-fragment/issues/233">this issue</a>.</p>
     </section>
+
+
+	<script class="remove">
+		reqs = document.querySelectorAll('.req')
+		for (let i = 0; i < reqs.length; i++) {
+			if (reqs[i].id) {
+				a = document.createElement('a')
+				a.href = '#' + reqs[i].id
+				a.textContent = '§'
+				a.className = 'self-link'
+				reqs[i].prepend(a)
+			}
+		}
+
+		// establish the lists at section start with checklist details
+		sectiontocs = document.querySelectorAll('.summaryC')
+		for (let i = 0; i < sectiontocs.length; i++) {
+			showChecklists(sectiontocs[i].parentNode, sectiontocs[i].id)
+		}
+	</script>
+
   </body>
 </html>
