@@ -39,7 +39,7 @@ p.cjk-demo {
 	font-family: serif;
 }
 
-.req {
+/* .req {
     background-color: #FFC;
     font-style: italic;
 }
@@ -48,6 +48,15 @@ p.cjk-demo {
     content: "\1f44d \00A0 ";
     font-style: normal;
     color: #63F;;
+} */
+
+.req .self-link {
+	margin-left: -1em;
+	float: left;
+	text-decoration: none;
+	border: 0;
+	font-size: 80%;
+	color: #999;
 }
 
 .reqex {
