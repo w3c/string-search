@@ -125,6 +125,7 @@
       <p>One way that sub-string matching usually differs from <a>full-text search</a> is that, while it might use various algorithms in an attempt to suppress or ignore textual variations, it usually does not produce matches that contain additional or unspecified character sequences, words, or phrases, such as would result from <a>stemming</a> or other <a>NLP</a> processes.</p>
       
       <p>When attempting to standardize sub-string matching, specification authors often struggle with the complexity that is inherent in the encoding of <a>natural language</a> in computer systems, including the different mechanisms employed to encode characters in the [[Unicode]] standard.</p>
+
       
       <!-- preserving text for the nonce
                
@@ -154,6 +155,43 @@
       </div>
       
       <p class="note">Content authors cannot configure the sensitivity of the search features that the user agent presents directly to the user, such as the browser <q>find</q> command. Authors do affect matching in other ways: by providing information such as the language of the text (see <a href="#languageVariation">Matching variation due to language</a>) or by implementing search features of their own.</p>
+
+		<p id="searchingConsiderations">Implementers often need to provide simple "find text" algorithms and specifications often try to define APIs to support these needs. Find operations on text generate different user expectations and thus have different requirements from the need for absolute identity matching needed by document formats and protocols. It is important to note that domain-specific requirements may impose additional restrictions or alter the considerations presented here.</p>
+
+		<div class="req" id="input_effort_matching">
+		   <p class="advisement">Increasing input effort from the user SHOULD be mirrored by more selective matching.</p>
+		</div>
+
+		<p>When the user expends more effort on the input&mdash;by using the shift key to produce uppercase or by entering a letter with diacritics instead of just the base letter&mdash;they might expect their search results to match (only) their more-specific input.</p>
+
+		<aside class="example">
+		    <p>Consider a document containing these strings: "re-resume", "RE-RESUME", "re-r&#xe9;sum&#xe9;", and "RE-R&#xc9;SUM&#xc9;".</p>
+            <p>In the table below, the user's input (on the left) might be considered a match for the above items as follows:</p>
+            <table class="data">
+              <tbody>
+                <tr>
+                  <th scope="col">User Input</th>
+                  <th scope="col">Matched Strings</th>
+                </tr>
+                <tr>
+                  <td>e (lowercase 'e')</td>
+                  <td>"re-resume", "RE-RESUME", "re-r&#xe9;sum&#xe9;", and "RE-R&#xC9;SUM&#xc9;"</td>
+                </tr>
+                <tr>
+                  <td>E (uppercase 'E')</td>
+                  <td>"RE-RESUME" and "RE-R&#xc9;SUM&#xc9;"</td>
+                </tr>
+                <tr>
+                  <td>&#xe9; (lowercase 'e' with acute accent)</td>
+                  <td>"re-r&#xe9;sum&#xe9;" and "RE-R&#xc9;SUM&#xc9;"</td>
+                </tr>
+                <tr>
+                  <td>&#xc9; (uppercase 'E' with acute accent)</td>
+                  <td>"RE-R&#xc9;SUM&#xc9;"</td>
+                </tr>
+              </tbody>
+            </table>
+            </aside>
 	  </section>
         
 	  <section id="otherEquivalences">
@@ -866,63 +904,6 @@
       </section>
       </section><!-- end of "additional types of equivalence" -->
 	     
-
-      <section id="searchingConsiderations">
-        <h2>Considerations for Searching</h2>
-        
-        <p class="issue">This section was identified as a new area needing document as part of the overall rearchitecting of the document. The text here is incomplete and needs further development. Contributions from the community are invited.</p>
-        
-		<p>Implementers often need to provide simple "find text" algorithms and specifications often try to define APIs to support these needs. Find operations on text generate different user expectations and thus have different requirements from the need for absolute identity matching needed by document formats and protocols. It is important to note that domain-specific requirements may impose additional restrictions or alter the considerations presented here.</p>
-
-		<div class="req" id="input_effort_matching">
-		   <p class="advisement">Increasing input effort from the user SHOULD be mirrored by more selective matching.</p>
-		</div>
-
-		<p>When the user expends more effort on the input&mdash;by using the shift key to produce uppercase or by entering a letter with diacritics instead of just the base letter&mdash;they might expect their search results to match (only) their more-specific input.</p>
-		
-		<aside class="example">
-		    <p>Consider a document containing these strings: "re-resume", "RE-RESUME", "re-r&#xe9;sum&#xe9;", and "RE-R&#xc9;SUM&#xc9;".</p>
-        
-            <p>In the table below, the user's input (on the left) might be considered a match for the above items as follows:</p>
-            <table class="data">
-              <tbody>
-                <tr>
-                  <th scope="col">User Input</th>
-                  <th scope="col">Matched Strings</th>
-                </tr>
-                <tr>
-                  <td>e (lowercase 'e')</td>
-                  <td>"re-resume", "RE-RESUME", "re-r&#xe9;sum&#xe9;", and "RE-R&#xC9;SUM&#xc9;"</td>
-                </tr>
-                <tr>
-                  <td>E (uppercase 'E')</td>
-                  <td>"RE-RESUME" and "RE-R&#xc9;SUM&#xc9;"</td>
-                </tr>
-                <tr>
-                  <td>&#xe9; (lowercase 'e' with acute accent)</td>
-                  <td>"re-r&#xe9;sum&#xe9;" and "RE-R&#xc9;SUM&#xc9;"</td>
-                </tr>
-                <tr>
-                  <td>&#xc9; (uppercase 'E' with acute accent)</td>
-                  <td>"RE-R&#xc9;SUM&#xc9;"</td>
-                </tr>
-              </tbody>
-            </table>
-            </aside>
-		
-
-      
-      <section id="SearchOptions">
-      <h3>Types of Search Option</h3>
-      <p>When creating a string search API or algorithm, the following textual options might be useful to users:</p>
-      <ul>
-         <li>Case-sensitive vs. case-insensitive</li>
-         <li>Kana folding</li>
-         <li>Unicode normalization form</li>
-         <li>etc.</li>
-      </ul>
-      </section>
-    </section>
 
     <section>
       <h2 id="Acknowledgements" class="informative">Acknowledgements</h2>
