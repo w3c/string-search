@@ -148,6 +148,31 @@
 
       -->
 
+      <section id="non-body-text">
+      <h3>Annotations and non-body text</h3>
+
+      <p>Annotations can interrupt the main text flow in a document's representation without interrupting the word or phrase. Examples include <a href="https://www.w3.org/International/articles/ruby/markup">ruby annotations</a>, <a href="https://www.w3.org/TR/jlreq/#inline_cutting_note">warichu</a> (inline annotations set in smaller font size on two lines), and footnote markers. Searching needs to take account of these relationships when determining which text to match. Here, main text refers to the text being annotated, not to the contents of an HTML <code translate="no">main</code> or <code translate="no">body</code> element.</p>
+
+      <div class="req" id="annotation-main-text-matching">
+         <p class="advisement">Search operations SHOULD allow a match in the main text to span intervening annotations or annotation markers, as though they were absent, by default.</p>
+      </div>
+
+      <div class="req" id="annotation-content-matching">
+         <p class="advisement">Search operations SHOULD also allow users to search the content of annotations.</p>
+      </div>
+
+      <p>Bypassing annotations when matching the main text does not mean excluding their content from the searchable <a>corpus</a>. For ruby, users can expect to search a word or phrase expressed by the annotations, including when base text is interleaved between annotation nodes. They can also expect to match a ruby reading together with the surrounding main text. Implementations can offer options to select whether to search main text, annotations, or both.</p>
+
+      <aside class="example" title="Searching text with ruby annotations">
+         <p>Consider the Japanese text <span lang="ja"><ruby>東<rt>とう</rt>京<rt>きょう</rt></ruby>に行く</span> (go to Tokyo). Users expect searches for <q lang="ja">東京</q> and <q lang="ja">東京に行く</q> to match the base text and its continuation, despite the intervening annotations. Searches for <q lang="ja">とうきょう</q> and <q lang="ja">とうきょうに行く</q> should also be supported using the ruby reading.</p>
+         <p>These expectations do not depend on whether the markup groups the base text and annotations separately or interleaves them. Ruby fallback punctuation in <code translate="no">rp</code> elements, which is normally not displayed, should not interfere with these matches. See <a href="https://w3c.github.io/html-ruby/#search">Text search in <cite>HTML Ruby Markup Extensions</cite></a>.</p>
+      </aside>
+
+      <aside class="example" title="Searching across an inline annotation">
+         <p>If a warichu annotation appears between <q lang="ja">福沢諭吉</q> and <q lang="ja">の妻</q>, a search for <q lang="ja">福沢諭吉の妻</q> should still find the main text. Users should also be able to find words within the annotation itself. See the <a href="https://github.com/w3c/jlreq-d/issues/45#issuecomment-1826180093">discussion of searching across warichu and other annotations</a>.</p>
+      </aside>
+      </section>
+
       <section id="searchSensitivity">
       <h3>Search sensitivity</h3>
 
