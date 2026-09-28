@@ -151,6 +151,22 @@
       <section id="non-body-text">
       <h3>Annotations and non-body text</h3>
 
+      <aside class="example" title="Searching text with ruby annotations">
+         <p>Suppose we have the following paragraph in Japanese:</p>
+         <p class="cjk-demo" lang="ja">
+			<ruby>東<rt>とう</rt>京<rt>きょう</rt></ruby>に行く
+		 </p>
+         <p>The paragraph's markup is:</p>
+         <pre><code class="language-html">&lt;p lang="ja"&gt;
+  &lt;ruby&gt;
+    東&lt;rt&gt;とう&lt;/rt&gt;
+    京&lt;rt&gt;きょう&lt;/rt&gt;
+  &lt;/ruby&gt;に行く
+&lt;/p&gt;</code></pre>
+         <p>In document order, the paragraph's text is <code>東とう京きょうに行く</code>, so <q lang="ja">東京に行く</q> is not a literal substring. Removing all of the ruby annotation text leaves <code>東京に行く</code>, which contains that substring. Readers see the base text as continuous and naturally expect a search for <q lang="ja">東京に行く</q> to match.</p>
+         <p>These expectations do not depend on whether the markup groups the base text and annotations separately or interleaves them. Ruby fallback punctuation in <code translate="no">rp</code> elements, which is normally not displayed, should not interfere with these matches. See <a href="https://w3c.github.io/html-ruby/#search">Text search in <cite>HTML Ruby Markup Extensions</cite></a>.</p>
+      </aside>
+
       <p>Annotations can add text between adjacent parts of a word or phrase in a document's representation, even when readers see the base text as continuous. Examples include <a href="https://www.w3.org/International/articles/ruby/markup">ruby annotations</a>, which show pronunciation alongside Japanese characters; <a href="https://www.w3.org/TR/jlreq/#inline_cutting_note">warichu</a> (inline annotations set in smaller font size on two lines); and footnote markers. Searching needs to account for these relationships when determining which text to match. Here, base text means the text being annotated, following the terminology used for ruby.</p>
 
       <div class="req" id="annotation-base-text-matching">
@@ -162,11 +178,6 @@
       </div>
 
       <p>Skipping annotations when matching base text does not mean excluding their content from the searchable <a>corpus</a>. For ruby, users can expect to search a word or phrase expressed by the annotations, including when base text is interleaved between annotation nodes. They can also expect to match a ruby reading together with the surrounding base text. Implementations can offer options to select whether to search base text, annotations, or both.</p>
-
-      <aside class="example" title="Searching text with ruby annotations">
-         <p>Ruby annotations can show how to pronounce Japanese characters. In <span lang="ja"><ruby>東<rt>とう</rt>京<rt>きょう</rt></ruby></span>, the base text is <q lang="ja">東京</q>, with the readings <q lang="ja">とう</q> for <q lang="ja">東</q> and <q lang="ja">きょう</q> for <q lang="ja">京</q>. In document order, these appear as <code>東とう京きょう</code>, so a simple search for <q lang="ja">東京</q> would miss the base text unless it skips the readings. A search for <q lang="ja">とうきょう</q> should also be able to find the annotation. In <span lang="ja"><ruby>東<rt>とう</rt>京<rt>きょう</rt></ruby>に行く</span> (go to Tokyo), searches for <q lang="ja">東京に行く</q> and <q lang="ja">とうきょうに行く</q> should match the base text and the reading, respectively.</p>
-         <p>These expectations do not depend on whether the markup groups the base text and annotations separately or interleaves them. Ruby fallback punctuation in <code translate="no">rp</code> elements, which is normally not displayed, should not interfere with these matches. See <a href="https://w3c.github.io/html-ruby/#search">Text search in <cite>HTML Ruby Markup Extensions</cite></a>.</p>
-      </aside>
 
       <aside class="example" title="Searching across an inline annotation">
          <p>If a warichu annotation appears between <q lang="ja">福沢諭吉</q> and <q lang="ja">の妻</q>, a search for <q lang="ja">福沢諭吉の妻</q> should still find the base text. Users should also be able to find words within the annotation itself. See the <a href="https://github.com/w3c/jlreq-d/issues/45#issuecomment-1826180093">discussion of searching across warichu and other annotations</a>.</p>
