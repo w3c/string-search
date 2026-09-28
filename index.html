@@ -154,7 +154,7 @@
       <p>Annotations can interrupt the main text flow in a document's representation without interrupting the word or phrase. Examples include <a href="https://www.w3.org/International/articles/ruby/markup">ruby annotations</a>, <a href="https://www.w3.org/TR/jlreq/#inline_cutting_note">warichu</a> (inline annotations set in smaller font size on two lines), and footnote markers. Searching needs to take account of these relationships when determining which text to match. Here, main text refers to the text being annotated, not to the contents of an HTML <code translate="no">main</code> or <code translate="no">body</code> element.</p>
 
       <div class="req" id="annotation-main-text-matching">
-         <p class="advisement">Search operations SHOULD allow a match in the main text to span intervening annotations or annotation markers, as though they were absent, by default.</p>
+         <p class="advisement">Search operations SHOULD match text sequences in the corpus as if annotations were not present.</p>
       </div>
 
       <div class="req" id="annotation-content-matching">
