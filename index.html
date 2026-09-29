@@ -167,7 +167,9 @@
          <p>These expectations do not depend on whether the markup groups the base text and annotations separately or interleaves them. Ruby fallback punctuation in <code translate="no">rp</code> elements, which is normally not displayed, should not interfere with these matches. See <a href="https://w3c.github.io/html-ruby/#search">Text search in <cite>HTML Ruby Markup Extensions</cite></a>.</p>
       </aside>
 
-      <p>Annotations can add text between adjacent parts of a word or phrase in a document's representation, even when readers see the base text as continuous. Examples include <a href="https://www.w3.org/International/articles/ruby/markup">ruby annotations</a>, which show pronunciation alongside Japanese characters; <a href="https://www.w3.org/TR/jlreq/#inline_cutting_note">warichu</a> (inline annotations set in smaller font size on two lines); and footnote markers. Searching needs to account for these relationships when determining which text to match. Here, base text means the text being annotated, following the terminology used for ruby.</p>
+	  <p>When they appear in a document, annotations often are placed between the characters, words, or phrases that they refer to, interrupting what user's perceive as a continuous flow of text. Some types of in-document text annotation include <a href="https://www.w3.org/International/articles/ruby/markup">ruby</a>, Japanese <a href="https://www.w3.org/TR/jlreq/#inline_cutting_note">warichu</a> (inline annotations set in a smaller font size on two lines), or footnote markers.</p>
+
+	  <p>The placement of these annotations needs to be accounted for when searching, since users expect the base (unannotated) text to be continous and may expect the annotations to be treated as adjacent text in certain situations.</p>
 
       <div class="req" id="annotation-base-text-matching">
          <p class="advisement">Search operations SHOULD match text sequences in the corpus as if annotations were not present.</p>
