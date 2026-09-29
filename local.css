@@ -215,6 +215,23 @@ a.self:hover {
 	border-width: 0.1px;
 }
 
+@media (max-width: 36rem) {
+    .ivs-table {
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    .ivs-table th,
+    .ivs-table td.ivs-char,
+    .ivs-table td.vs {
+        padding-inline: 0.25rem;
+    }
+
+    .ivs-table td.ivs-char {
+        font-size: clamp(2rem, 12vw, 3rem);
+    }
+}
+
 .ivs-searching-table {
     display: table;
     margin: auto;
