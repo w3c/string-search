@@ -70,7 +70,7 @@
         <h3>Goals and Scope</h3>
         <p>This document describes the problems, requirements, and considerations for specification or implementations of string searching operations. A common example of string searching is the "find" command in a Web browser, but there are many other forms of searching that a specification might wish to define.</p>
 
-        <p class="note">This document builds on <cite>Character Model for the World Wide Web: Fundamentals</cite> [[CHARMOD]] and <cite>Character Model for the Word Wide Web: String Matching</cite> [[CHARMOD-NORM]]. Understanding the concepts in those documents are important to being able to understand and apply this document successfully.</p>
+        <p class="note">This document builds on <cite>Character Model for the World Wide Web: Fundamentals</cite> [[CHARMOD]] and <cite>Character Model for the World Wide Web: String Matching</cite> [[CHARMOD-NORM]]. Understanding the concepts in those documents are important to being able to understand and apply this document successfully.</p>
 
         <p>The main target audience of this specification is W3C specification developers who need to define some form of search or find algorithm: the goal is to provide a stable reference to the concepts, terms, and requirements needed.</p>
 
@@ -131,7 +131,7 @@
           <p>Textual search is different from the sorts of programmatic matching needed by formal languages, such as markup languages like [[HTML]]; style sheets [[CSS21]]; or data formats such as [[TURTLE]] or [[JSON-LD]]. String matching in formal languages is described by our document <cite>String Matching</cite> [[CHARMOD-NORM]].</p>
       </aside>
 
-      <p>Find operations can provide optional mechanisms for improving or tailoring the matching behavior. For example, the abilility to add (or remove) <a href="#caseVariation">case sensitivity</a>, whether the feature supports different aspects of a regular expression language such as wildcard characters, or whether to limit matches to <a href="#wordBoundary">whole words</a>. The degree to which a search pays attention to such variation is its <a>search sensitivity</a>, described in <a href="#searchSensitivity">Search sensitivity</a>.</p>
+      <p>Find operations can provide optional mechanisms for improving or tailoring the matching behavior. For example, the ability to add (or remove) <a href="#caseVariation">case sensitivity</a>, whether the feature supports different aspects of a regular expression language such as wildcard characters, or whether to limit matches to <a href="#wordBoundary">whole words</a>. The degree to which a search pays attention to such variation is its <a>search sensitivity</a>, described in <a href="#searchSensitivity">Search sensitivity</a>.</p>
 
       <p>One way that sub-string matching usually differs from <a>full-text search</a> is that, while it might use various algorithms in an attempt to suppress or ignore textual variations, it usually does not produce matches that contain additional or unspecified character sequences, words, or phrases, such as would result from <a>stemming</a> or other <a>NLP</a> processes.</p>
 
@@ -268,7 +268,7 @@
 			 </tbody>
          </table>
 
-         <p>Depending on your browser and runtime locale, you can get anomolous matching with these terms. In some browsers, the first three terms above consistently match <q>ilik</q> (with an ASCII dotted-i) but not the word <q>ılık</q> with <span class="codepoint" translate="no"><bdi lang="tr">&#x131;</bdi><code class="uname">U+0131 LATIN SMALL LETTER DOTLESS I</code></span>.</p>
+         <p>Depending on your browser and runtime locale, you can get anomalous matching with these terms. In some browsers, the first three terms above consistently match <q>ilik</q> (with an ASCII dotted-i) but not the word <q>ılık</q> with <span class="codepoint" translate="no"><bdi lang="tr">&#x131;</bdi><code class="uname">U+0131 LATIN SMALL LETTER DOTLESS I</code></span>.</p>
          <p>This is not what Turkish users would expect, since they expect "I"/"ı" and "İ"/"i" to be caseless pairs. A side-effect of this is that the search term "ılık" only matches its lowercase equivalent&mdash;and that the uppercase variations do not match that word, even when they match the lowercase version with dotted letter i ("ilik"). Such variation means that both English and Turkish users will notice that the search misses words.</p>
       </aside>
 
@@ -535,7 +535,7 @@
 			   <p class="advisement">User agents MAY map characters representing numeric values to their ASCII forms (0-9) in string searching operations.</p>
 			</div>
 
-		 <p>Many scripts have their own digit characters for the numbers from 0 to 9. In some Web applications, the familiar ASCII digits are replaced for display purposes with the local digit shapes. In other cases, the text actually might contain the Unicode characters for the local digits. Users attempting to search a document might expect that typing one form of digit will find the eqivalent digits.</p>
+		 <p>Many scripts have their own digit characters for the numbers from 0 to 9. In some Web applications, the familiar ASCII digits are replaced for display purposes with the local digit shapes. In other cases, the text actually might contain the Unicode characters for the local digits. Users attempting to search a document might expect that typing one form of digit will find the equivalent digits.</p>
 
 		 <aside class="example" title="Examples of digit shapes in four scripts">
 		   <p>Here are some selected examples of different digit shapes, from zero to nine, in four scripts. Many scripts have equivalent sets of digits with distinct shapes.</p>
@@ -574,7 +574,7 @@
 			    <td class="exampleChar">9</td>
 			</tr>
                        <tr>
-		   	    <td>Gujurati</td>
+		   	    <td>Gujarati</td>
 			    <td class="exampleChar">&#x0ae6;</td>
 			    <td class="exampleChar">&#x0ae7;</td>
 			    <td class="exampleChar">&#x0ae8;</td>
@@ -775,7 +775,7 @@
         </aside>
 
 	    <aside class="example">
-	       <p>German uses several letters that have an <em>umlaut</em> accent, such as <span class="codepoint" translate="no"><bdi lang="de">&#x00F6;</bdi> [<span class="uname">U+00F6 LATIN SMALL LETTER O WITH DIERISIS</span>]</span> or <span class="codepoint" translate="no"><bdi lang="de">&#x00FC;</bdi> [<span class="uname">U+00FC LATIN SMALL LETTER U WITH DIERISIS</span>]</span>. Users sometimes will enter these accents when searching, but sometimes they replace the umlauts with the letter <code>e</code>. For example, instead of entering <code>Dürst</code> they might enter <code>Duerst</code>. Either spelling is recognizable and has the same meaning. The umlauts are probably "better" than the <code>e</code> spelling, but German speakers are not confused by the difference.</p>
+	       <p>German uses several letters that have an <em>umlaut</em> accent, such as <span class="codepoint" translate="no"><bdi lang="de">&#x00F6;</bdi> [<span class="uname">U+00F6 LATIN SMALL LETTER O WITH DIAERESIS</span>]</span> or <span class="codepoint" translate="no"><bdi lang="de">&#x00FC;</bdi> [<span class="uname">U+00FC LATIN SMALL LETTER U WITH DIAERESIS</span>]</span>. Users sometimes will enter these accents when searching, but sometimes they replace the umlauts with the letter <code>e</code>. For example, instead of entering <code>Dürst</code> they might enter <code>Duerst</code>. Either spelling is recognizable and has the same meaning. The umlauts are probably "better" than the <code>e</code> spelling, but German speakers are not confused by the difference.</p>
 
            <p class="note">Other languages use these same characters for a different purpose than German does. The formal name of the "umlaut" diacritic in Unicode is <em>diaeresis</em>, which means approximately "break" or "pause". Languages such as French, Spanish, and English occasionally use the diaeresis to indicate the need to pronounce a specific letter, such as the word "<span lang="es">ambigüedad</span>" in Spanish or a name like "Zoë" in English.</p>
         </aside>
