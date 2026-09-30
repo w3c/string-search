@@ -110,7 +110,7 @@ Tolerant matching helps users who find it hard to type exact characters, such as
 
 ### Privacy
 
-TBD
+No privacy-related issues were found.
 
 ### Security
 
