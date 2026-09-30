@@ -150,6 +150,44 @@
 
       -->
 
+      <section id="non-body-text">
+      <h3>Annotations and non-body text</h3>
+
+      <aside class="example" title="Searching text with ruby annotations">
+         <p>Suppose we have the following paragraph in Japanese:</p>
+         <p class="cjk-demo" lang="ja">
+			<ruby>東<rt>とう</rt>京<rt>きょう</rt></ruby>に行く
+		 </p>
+         <p>The paragraph's markup is:</p>
+         <pre><code class="language-html">&lt;p lang="ja"&gt;
+  &lt;ruby&gt;
+    東&lt;rt&gt;とう&lt;/rt&gt;
+    京&lt;rt&gt;きょう&lt;/rt&gt;
+  &lt;/ruby&gt;に行く
+&lt;/p&gt;</code></pre>
+         <p>In document order, the paragraph's text is <code>東とう京きょうに行く</code>, so <q lang="ja">東京に行く</q> is not a literal substring. Removing all of the ruby annotation text leaves <code>東京に行く</code>, which contains that substring. Readers see the base text as continuous and naturally expect a search for <q lang="ja">東京に行く</q> to match.</p>
+         <p>These expectations do not depend on whether the markup groups the base text and annotations separately or interleaves them. Ruby fallback punctuation in <code translate="no">rp</code> elements, which is normally not displayed, should not interfere with these matches. See <a href="https://w3c.github.io/html-ruby/#search">Text search in <cite>HTML Ruby Markup Extensions</cite></a>.</p>
+      </aside>
+
+	  <p>When they appear in a document, annotations often are placed between the characters, words, or phrases that they refer to, interrupting what user's perceive as a continuous flow of text. Some types of in-document text annotation include <a href="https://www.w3.org/International/articles/ruby/markup">ruby</a>, Japanese <a href="https://www.w3.org/TR/jlreq/#inline_cutting_note">warichu</a> (inline annotations set in a smaller font size on two lines), or footnote markers.</p>
+
+	  <p>The placement of these annotations needs to be accounted for when searching, since users expect the base (unannotated) text to be continous and may expect the annotations to be treated as adjacent text in certain situations.</p>
+
+      <div class="req" id="annotation-base-text-matching">
+         <p class="advisement">Search operations SHOULD match text sequences in the corpus as if annotations were not present.</p>
+      </div>
+
+      <div class="req" id="annotation-content-matching">
+         <p class="advisement">Search operations SHOULD search the contents of annotations.</p>
+      </div>
+
+      <p>Skipping annotations when matching base text does not mean excluding their content from the searchable <a>corpus</a>. For ruby, users can expect to search a word or phrase expressed by the annotations, including when base text is interleaved between annotation nodes. They can also expect to match a ruby reading together with the surrounding base text. Implementations can offer options to select whether to search base text, annotations, or both.</p>
+
+      <aside class="example" title="Searching across an inline annotation">
+         <p>If a warichu annotation appears between <q lang="ja">福沢諭吉</q> and <q lang="ja">の妻</q>, a search for <q lang="ja">福沢諭吉の妻</q> should still find the base text. Users should also be able to find words within the annotation itself. See the <a href="https://github.com/w3c/jlreq-d/issues/45#issuecomment-1826180093">discussion of searching across warichu and other annotations</a>.</p>
+      </aside>
+      </section>
+
       <section id="searchSensitivity">
       <h3>Search sensitivity</h3>
 
