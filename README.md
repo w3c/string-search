@@ -3,7 +3,7 @@
 Parking lot for advice on internationalization related string searching in general content.
 
 ### Documents
-- [Editor's copy](https://w3c.github.io/string-search/)
+- [Editor's copy](https://www.w3.org/International/string-search/)
 - [Draft Note](https://www.w3.org/TR/string-search/)
 
 ### Feedback
