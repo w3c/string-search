@@ -48,14 +48,14 @@ German, Finnish and English all use the Latin script but expect different result
 
 If the user makes an extra effort (Shift key, typing an accent), they probably want **only** the more specific result.
 
-On a page containing `re-resume`, `RE-RESUME`, `re-résumé`, `RE-RÉSUMÉ`:
+On a page containing `cafe`, `CAFE`, `café`, `CAFÉ`:
 
 | User types | Should match |
 |---|---|
 | `e` | all four |
-| `E` | `RE-RESUME`, `RE-RÉSUMÉ` |
-| `é` | `re-résumé`, `RE-RÉSUMÉ` |
-| `É` | `RE-RÉSUMÉ` only |
+| `E` | `CAFE`, `CAFÉ` |
+| `é` | `café`, `CAFÉ` |
+| `É` | `CAFÉ` only |
 
 ### Expose search options
 
