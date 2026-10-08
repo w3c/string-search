@@ -68,35 +68,10 @@ APIs and UIs that do string search should think about offering options such as:
 
 ## Alternatives Considered
 
-### Exact code-point matching
-
-Match only identical code-point sequences.
-
-#### Pros
-
-Simple, fast, and predictable.
-
-#### Cons
-
-Fails in almost every example above: accents, width, kana, etc.
-
-#### Reason for rejection
-
-Users don't experience text as code points. It works for formal languages but not for human search.
-
-### One universal "fold everything" rule (such as NFKC + case fold + strip diacritics)
-
-#### Pros
-
-Catches many width, compatibility, and accent variants.
-
-#### Cons
-
-Too loose for some languages: Finnish users don't want `Hän` to match `Han`, and French `cote` ≠ `côté` in meaning.
-
-#### Reason for rejection
-
-Expectations depend on language. No single fold fits everyone.
+| Alternative | Pros | Cons | Reason for rejection |
+|---|---|---|---|
+| Exact code-point matching | Simple, fast, and predictable. | Misses accent, width, kana, and other variants. | Suitable for formal languages; too restrictive for natural-language search. |
+| Universal folding (e.g. NFKC + case folding + stripping diacritics) | Matches many width, compatibility, and accent variants. | Can erase meaningful distinctions, such as Finnish `Hän` / `Han` and French `cote` / `côté`. | Matching expectations vary by language; no single folding rule fits everyone. |
 
 ## Accessibility, Internationalization, Privacy, and Security Considerations
 
