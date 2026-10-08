@@ -42,7 +42,7 @@ Formal languages need exact, predictable matching. Human search needs tolerant m
 
 ### Language, not script, drives expectations
 
-German, Finnish and English all use the Latin script but expect different results. Implementations usually have to guess the language from hints like OS locale, browser UI language, active keyboard, or the page's `lang`.
+German, Finnish and English all use the Latin script but expect different results. Implementations usually have to guess the language from hints like OS locale, browser UI language, active keyboard, or the page's `lang` attributes.
 
 ### More input effort → more selective matching
 
