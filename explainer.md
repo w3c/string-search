@@ -63,7 +63,7 @@ APIs and UIs that do string search should think about offering options such as:
 
 - Case-sensitive / case-insensitive
 - Kana folding (hiragana ↔ katakana)
-- Unicode normalization form
+- Unicode normalization
 - Diacritic sensitivity, width folding, whole-word matching, etc.
 
 ## Alternatives Considered
