@@ -21,7 +21,7 @@ People often search web pages for text, for example with the browser's **Find** 
 
 What counts as a match depends on the user's language, keyboard, and expectations.
 
-*String Searching* is a W3C document, listing the problems for people who specifies or implements substring search for natural-language text needs to consider.
+*String Searching* is a W3C document, listing the problems that need to be considered by people who specify or implement substring searches for natural-language text.
 
 ## Goals
 
