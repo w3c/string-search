@@ -130,11 +130,11 @@ a.self:hover {
 
 .definition {
     position: relative;
-    background-color: #efefef;
+    background-color: light-dark(#efefef, #282828);
     padding: 0.5em;
     border: 0.5em;
-    border-left: 6pt solid green;
-    border-right: 6pt solid green;
+    border-left: 6pt solid light-dark(green, #70b870);
+    border-right: 6pt solid light-dark(green, #70b870);
     margin: 1em auto;
 }
     
@@ -143,11 +143,11 @@ a.self:hover {
      * it doesn't participate in linking, etc.
      */
     position: relative;
-    background-color: #efefef;
+    background-color: light-dark(#efefef, #282828);
     padding: 0.5em;
     border: 0.5em;
-    border-left: 6pt solid green;
-    border-right: 6pt solid green;
+    border-left: 6pt solid light-dark(green, #70b870);
+    border-right: 6pt solid light-dark(green, #70b870);
     margin: 1em auto;
 }
 
@@ -157,7 +157,7 @@ a.self:hover {
      * the counter
      */
     position: relative;
-    background: #FBE9E9;
+    background: light-dark(#FBE9E9, #3b2020);
     padding: 0.5em;
     border: 0.5em;
     border-left: 6pt solid #E05252;
@@ -182,7 +182,7 @@ a.self:hover {
 }
 
 .ivs-table thead {
-	background-color: skyBlue;
+	background-color: light-dark(skyBlue, #173f50);
 	text-align: center;
 }
 
@@ -240,7 +240,7 @@ a.self:hover {
 }
 
 .ivs-searching-table thead {
-    background-color: skyBlue;
+    background-color: light-dark(skyBlue, #173f50);
     text-align: center;
 }
 
